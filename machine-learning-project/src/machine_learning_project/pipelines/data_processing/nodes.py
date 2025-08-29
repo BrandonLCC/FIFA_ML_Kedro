@@ -73,3 +73,17 @@ def create_model_input_table(
     )
     model_input_table = model_input_table.dropna()
     return model_input_table
+
+# Procesando los dataset FIFA
+
+def preprocess_fifa_21(fifa_21: pd.DataFrame) -> pd.DataFrame: #fifa_21 es un nombre que le damos, y devuelve pd.DataFrame
+   
+    # Aqui estamos trabajando con una serie -> ["Release Clause"]. Cuando se trabaja con una sola columna se llama asi.
+    # Cuando trabajamos con todas las columnas se llama DataFrame
+    # ¿Que hace esa funcion? 
+    # En node podemos
+    
+    fifa_21["Release Clause"] = _parse_money(fifa_21["Release Clause"])
+                                                                                    
+    fifa_21["Value"] = _parse_money(fifa_21["Value"])
+    return fifa_21

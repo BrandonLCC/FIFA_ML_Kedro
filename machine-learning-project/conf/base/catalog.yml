@@ -2,3 +2,47 @@
 #
 # Documentation for this file format can be found in "The Data Catalog"
 # Link: https://docs.kedro.org/en/stable/data/data_catalog.html
+
+
+# Aqui podemos definir estructuras donde
+# nosotros podemos definir nuestros datasets
+# usando una sintaxis simple de YAML.
+# Con esto podemos llamar los datasets
+# desde cualquier parte del proyecto.
+
+DataSetFIFA21:
+  type: pandas.CSVDataset
+  filepath: data/01_raw/CLEAN_FIFA21_official_data.csv
+  load_args:
+    sep: ","
+    decimal: "."
+  save_args:
+    index: False  
+
+
+DataSetFIFA20:
+  type: pandas.CSVDataset
+  filepath: data/01_raw/CLEAN_FIFA20_official_data.csv
+  load_args:
+    sep: ","
+    decimal: "."
+  save_args:
+    index: False
+
+DataSetFIFA19:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/CLEAN_FIFA19_official_data.csv
+  load_args:
+    sep: ","
+    decimal: "."
+  save_args:
+    index: False
+
+# Definir las salidas de los nodos
+# Aqui cuando hacemos una pequeña modificación Cambiamos o nombramos la 
+# Ubicacion del archivo data > 02_intermediate.
+
+preprocess_fifa_21:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/preprocess_fifa_21.csv     
+

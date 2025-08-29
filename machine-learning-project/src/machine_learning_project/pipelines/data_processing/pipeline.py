@@ -10,11 +10,21 @@ from kedro.pipeline import Node, Pipeline  # noqa
 #   return Pipeline([])
 
 
-#Copiado del proyecto de ejemplo de Kedro (Borrar cuando no sea necesario)
+# Copiado del proyecto de ejemplo de Kedro (Borrar cuando no sea necesario)
+
+# Necesitamos que esto se ejecute de manera automática
+from .nodes import preprocess_companies, preprocess_shuttles, create_model_input_table, preprocess_fifa_21
 
 def create_pipeline(**kwargs) -> Pipeline:
     return Pipeline(
         [
+            Node(
+                func=preprocess_fifa_21,
+                inputs="DataSetFIFA21",
+                outputs="preprocess_fifa_21", # Definir las Salidas en catalog y aquí
+                name="preprocess_fifa_21_node",
+            ),
+
             Node(
                 func=preprocess_companies,
                 inputs="companies",

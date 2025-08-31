@@ -83,7 +83,40 @@ def preprocess_fifa_21(fifa_21: pd.DataFrame) -> pd.DataFrame: #fifa_21 es un no
     # ¿Que hace esa funcion? 
     # En node podemos
     
-    fifa_21["Release Clause"] = _parse_money(fifa_21["Release Clause"])
+    fifa_21["Release_Clause_Parsed"] = _parse_money(fifa_21["Release Clause"])
                                                                                     
     fifa_21["Value"] = _parse_money(fifa_21["Value"])
     return fifa_21
+
+
+"""
+_parse_money(fifa_21["Value"]) espera una columna con valores tipo €100K, €50M, etc.
+
+No necesita todo el DataFrame, solo esa columna específica.
+
+Trabajar con una Series permite aplicar funciones vectorizadas de pandas de forma directa
+que son más eficientes que iterar fila por fila en un DataFrame.
+Si le pasáramos todo el DataFrame, la función fallaría porque no sabría qué hacer con las demás columnas.
+Además, al trabajar con una Series, el código es más claro y conciso, ya que se enfoca en la transformación específica
+de esa columna.
+"""
+
+def preprocess_fifa_21(fifa_21: pd.DataFrame) -> pd.DataFrame:
+    """
+    Preprocesa el dataset FIFA21.
+    
+    - Convierte las columnas monetarias a valores numéricos.
+    - Maneja la ausencia de columnas sin romper el pipeline.
+    """
+    
+    # Parseamos la columna 'Release Clause' si existe
+    if "Release Clause" in fifa_21.columns:
+        fifa_21["Release_Clause_Parsed"] = _parse_money(fifa_21["Release Clause"])
+    
+    # Parseamos la columna 'Value' si existe
+    if "Value" in fifa_21.columns:
+        fifa_21["Value_Parsed"] = _parse_money(fifa_21["Value"])
+    
+    return fifa_21
+
+#DA ERROR AL EJECUTAR kedro run

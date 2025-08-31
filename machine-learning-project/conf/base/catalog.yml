@@ -18,6 +18,7 @@ DataSetFIFA21:
     decimal: "."
   save_args:
     index: False  
+ 
 
 
 DataSetFIFA20:
@@ -30,7 +31,7 @@ DataSetFIFA20:
     index: False
 
 DataSetFIFA19:
-  type: pandas.CSVDataSet
+  type: pandas.CSVDataset
   filepath: data/01_raw/CLEAN_FIFA19_official_data.csv
   load_args:
     sep: ","
@@ -38,11 +39,34 @@ DataSetFIFA19:
   save_args:
     index: False
 
+companies:
+  type: pandas.CSVDataset
+  filepath: data/01_raw/companies.csv
+  load_args:
+    sep: ","
+    decimal: "."
+  save_args:
+    index: False
+
+reviews:
+  type: pandas.CSVDataset
+  filepath: data/01_raw/reviews.csv
+  load_args:
+    sep: ","
+    decimal: "."
+  save_args:
+    index: False
+
+shuttles:
+  type: pandas.ExcelDataset
+  filepath: data/01_raw/shuttle.xlsx
+ 
+
 # Definir las salidas de los nodos
 # Aqui cuando hacemos una pequeña modificación Cambiamos o nombramos la 
 # Ubicacion del archivo data > 02_intermediate.
 
 preprocess_fifa_21:
-  type: pandas.CSVDataSet
+  type: pandas.CSVDataset
   filepath: data/02_intermediate/preprocess_fifa_21.csv     
 

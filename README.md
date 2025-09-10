@@ -2,7 +2,7 @@
 
 ![imagen-readme-presentacion](machine-learning-project/img/img-presentacion.jpg)
 
->**Link de FIFA23 OFFICIAL DATASET** : https://www.kaggle.com/datasets/kevwesophia/fifa23-official-datasetclean-data?select=CLEAN_FIFA22_official_data.csv
+>**Link de FIFA23 OFFICIAL DATASET (Actualizado)** : https://www.kaggle.com/datasets/bryanb/fifa-player-stats-database?rvi=1
 
 ## Etapa de instalación (confirmar instalacion)
 

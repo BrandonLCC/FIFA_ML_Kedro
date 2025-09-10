@@ -10,9 +10,9 @@
 # Con esto podemos llamar los datasets
 # desde cualquier parte del proyecto.
 
-DataSetFIFA21:
+DataSetFIFA22:
   type: pandas.CSVDataset
-  filepath: data/01_raw/CLEAN_FIFA21_official_data.csv
+  filepath: data/01_raw/FIFA22_official_data.csv
   load_args:
     sep: ","
     decimal: "."
@@ -21,18 +21,18 @@ DataSetFIFA21:
  
 
 
-DataSetFIFA20:
+DataSetFIFA21:
   type: pandas.CSVDataset
-  filepath: data/01_raw/CLEAN_FIFA20_official_data.csv
+  filepath: data/01_raw/FIFA21_official_data.csv
   load_args:
     sep: ","
     decimal: "."
   save_args:
     index: False
 
-DataSetFIFA19:
+DataSetFIFA20:
   type: pandas.CSVDataset
-  filepath: data/01_raw/CLEAN_FIFA19_official_data.csv
+  filepath: data/01_raw/FIFA20_official_data.csv
   load_args:
     sep: ","
     decimal: "."

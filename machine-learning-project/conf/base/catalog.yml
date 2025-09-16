@@ -18,7 +18,6 @@ DataSetFIFA22:
     decimal: "."
   save_args:
     index: False  
- 
 
 
 DataSetFIFA21:

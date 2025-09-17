@@ -6,7 +6,8 @@ generated using Kedro 1.0.0
 #Copiado del proyecto de ejemplo de Kedro (Borrar cuando no sea necesario)
 
 import pandas as pd
-
+import numpy as np
+import pandas as pd
 
 def _is_true(x: pd.Series) -> pd.Series:
     return x == "t"
@@ -19,104 +20,74 @@ def _parse_percentage(x: pd.Series) -> pd.Series:
 
 
 def _parse_money(x: pd.Series) -> pd.Series:
-    x = x.str.replace("$", "").str.replace(",", "")
+    x = x.str.replace("M", "").str.replace(",", "")
     x = x.astype(float)
     return x
 
-
-def preprocess_companies(companies: pd.DataFrame) -> pd.DataFrame:
-    """Preprocesses the data for companies.
-
-    Args:
-        companies: Raw data.
-    Returns:
-        Preprocessed data, with `company_rating` converted to a float and
-        `iata_approved` converted to boolean.
-    """
-    companies["iata_approved"] = _is_true(companies["iata_approved"])
-    companies["company_rating"] = _parse_percentage(companies["company_rating"])
-    return companies
-
-
-def preprocess_shuttles(shuttles: pd.DataFrame) -> pd.DataFrame:
-    """Preprocesses the data for shuttles.
-
-    Args:
-        shuttles: Raw data.
-    Returns:
-        Preprocessed data, with `price` converted to a float and `d_check_complete`,
-        `moon_clearance_complete` converted to boolean.
-    """
-    shuttles["d_check_complete"] = _is_true(shuttles["d_check_complete"])
-    shuttles["moon_clearance_complete"] = _is_true(shuttles["moon_clearance_complete"])
-    shuttles["price"] = _parse_money(shuttles["price"])
-    return shuttles
-
-
-def create_model_input_table(
-    shuttles: pd.DataFrame, companies: pd.DataFrame, reviews: pd.DataFrame
-) -> pd.DataFrame:
-    """Combines all data to create a model input table.
-
-    Args:
-        shuttles: Preprocessed data for shuttles.
-        companies: Preprocessed data for companies.
-        reviews: Raw data for reviews.
-    Returns:
-        Model input table.
-
-    """
-    rated_shuttles = shuttles.merge(reviews, left_on="id", right_on="shuttle_id")
-    rated_shuttles = rated_shuttles.drop("id", axis=1)
-    model_input_table = rated_shuttles.merge(
-        companies, left_on="company_id", right_on="id"
-    )
-    model_input_table = model_input_table.dropna()
-    return model_input_table
+#de mondena a number de FIFA
+def money_to_number(s):
+    """Convert '€110.5M','€500K','€1.2B' or numeric-like strings into float (euros)."""
+    if pd.isna(s): return np.nan
+    if isinstance(s, (int, float)): return float(s)
+    s = str(s).strip().replace('€','').replace('£','').replace(' ','')
+    if s == '': return np.nan
+    try:
+        if s.endswith('M'): return float(s[:-1]) * 1e6
+        if s.endswith('K'): return float(s[:-1]) * 1e3
+        if s.endswith('B'): return float(s[:-1]) * 1e9
+        # remove non-numeric chars
+        return float(re.sub(r'[^\d.]','', s))
+    except:
+        return np.nan
+    
 
 # Procesando los dataset FIFA
+# haremos lo mismo que en jupyter notebook pero ahora en el pipeline de kedro
+#Retorna un dataframe limpio
 
-def preprocess_fifa_21(fifa_21: pd.DataFrame) -> pd.DataFrame: #fifa_21 es un nombre que le damos, y devuelve pd.DataFrame
-   
-    # Aqui estamos trabajando con una serie -> ["Release Clause"]. Cuando se trabaja con una sola columna se llama asi.
-    # Cuando trabajamos con todas las columnas se llama DataFrame
-    # ¿Que hace esa funcion? 
-    # En node podemos
+def preprocess_fifa_22(fifa_22: pd.DataFrame) -> pd.DataFrame:
+    try:
+        """Preprocesa columnas de dinero de FIFA 22 y devuelve el DataFrame limpio."""
+        
+        fifa_22["Value_num"] = fifa_22["Value"].apply(money_to_number)
+        fifa_22["Wage_num"]  = fifa_22["Wage"].apply(money_to_number)
+        fifa_22["ReleaseClause_num"] = fifa_22["Release Clause"].apply(money_to_number)
+
+        return fifa_22
     
-    fifa_21["Release_Clause_Parsed"] = _parse_money(fifa_21["Release Clause"])
-                                                                                    
-    fifa_21["Value"] = _parse_money(fifa_21["Value"])
-    return fifa_21
+    except Exception as e:
+        print(f"Error al preprocesar FIFA 22: {e}")
+        return fifa_22
 
 
-"""
-_parse_money(fifa_21["Value"]) espera una columna con valores tipo €100K, €50M, etc.
-
-No necesita todo el DataFrame, solo esa columna específica.
-
-Trabajar con una Series permite aplicar funciones vectorizadas de pandas de forma directa
-que son más eficientes que iterar fila por fila en un DataFrame.
-Si le pasáramos todo el DataFrame, la función fallaría porque no sabría qué hacer con las demás columnas.
-Además, al trabajar con una Series, el código es más claro y conciso, ya que se enfoca en la transformación específica
-de esa columna.
-"""
 
 def preprocess_fifa_21(fifa_21: pd.DataFrame) -> pd.DataFrame:
-    """
-    Preprocesa el dataset FIFA21.
+    try:
+        """Preprocesa columnas de dinero de FIFA 22 y devuelve el DataFrame limpio."""
+        
+        fifa_21["Value_num"] = fifa_21["Value"].apply(money_to_number)
+        fifa_21["Wage_num"]  = fifa_21["Wage"].apply(money_to_number)
+        fifa_21["ReleaseClause_num"] = fifa_21["Release Clause"].apply(money_to_number)
+
+        return fifa_21
+
+    except Exception as e:
+        print(f"Error al preprocesar FIFA 22: {e}")
+        return fifa_21
     
-    - Convierte las columnas monetarias a valores numéricos.
-    - Maneja la ausencia de columnas sin romper el pipeline.
-    """
-    
-    # Parseamos la columna 'Release Clause' si existe
-    if "Release Clause" in fifa_21.columns:
-        fifa_21["Release_Clause_Parsed"] = _parse_money(fifa_21["Release Clause"])
-    
-    # Parseamos la columna 'Value' si existe
-    if "Value" in fifa_21.columns:
-        fifa_21["Value_Parsed"] = _parse_money(fifa_21["Value"])
-    
-    return fifa_21
+def preprocess_fifa_20(fifa_20: pd.DataFrame) -> pd.DataFrame:
+    try:
+        """Preprocesa columnas de dinero de FIFA 22 y devuelve el DataFrame limpio."""
+        
+        fifa_20["Value_num"] = fifa_20["Value"].apply(money_to_number)
+        fifa_20["Wage_num"]  = fifa_20["Wage"].apply(money_to_number)
+        fifa_20["ReleaseClause_num"] = fifa_20["Release Clause"].apply(money_to_number)
+
+        return fifa_20
+
+    except Exception as e:
+        print(f"Error al preprocesar FIFA 22: {e}")
+        return fifa_20
+
 
 #DA ERROR AL EJECUTAR kedro run

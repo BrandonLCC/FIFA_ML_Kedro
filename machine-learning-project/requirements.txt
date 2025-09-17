@@ -3,6 +3,7 @@ jupyterlab>=3.0
 notebook
 kedro~=1.0.0
 #Agregado por brandon
+sklearn
 kedro-viz
 kedro-datasets
 pandas

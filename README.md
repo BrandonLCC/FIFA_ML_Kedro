@@ -1,6 +1,6 @@
 # FIFA 
 
-![imagen-readme-presentacion](machine-learning-project/img/img-presentacion.jpg)
+![imagen-readme-presentacion](/img/img-presentacion.jpg)
 
 >**Link de FIFA23 OFFICIAL DATASET (Actualizado)** : https://www.kaggle.com/datasets/bryanb/fifa-player-stats-database?rvi=1
 
@@ -21,7 +21,6 @@ cd machine-learning-project
 ```
  uv sync 
 ```
-
 3. **Activa tu entorno virual**
 
 ```
@@ -63,5 +62,16 @@ Para cada libreria se debera realizar un pip install en tu entorno virtual
 
 **01_raw:** En la carpeta 01_raw se almacenaran todos los archivos del conjunto de datos como CSV, parquet, xpt Entre otros.
 
+## Ubicación del pipeline
 
+**Nombre:** data_processing
 
+**data_processing:**
+
+node.py: 
+
+pipeline.py: se conecta con node.py
+
+Ejecutar un nodo para que nos limpie todo los datos : ``` kedro run --nodes preprocess_fifa_22_node ```
+
+para ejecutar todo: ``` kedro run ```

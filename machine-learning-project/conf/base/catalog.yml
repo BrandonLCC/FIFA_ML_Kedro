@@ -38,34 +38,17 @@ DataSetFIFA20:
   save_args:
     index: False
 
-companies:
-  type: pandas.CSVDataset
-  filepath: data/01_raw/companies.csv
-  load_args:
-    sep: ","
-    decimal: "."
-  save_args:
-    index: False
-
-reviews:
-  type: pandas.CSVDataset
-  filepath: data/01_raw/reviews.csv
-  load_args:
-    sep: ","
-    decimal: "."
-  save_args:
-    index: False
-
-shuttles:
-  type: pandas.ExcelDataset
-  filepath: data/01_raw/shuttle.xlsx
- 
-
-# Definir las salidas de los nodos
-# Aqui cuando hacemos una pequeña modificación Cambiamos o nombramos la 
-# Ubicacion del archivo data > 02_intermediate.
+# Pasos siguientes:
+#Aqui estan el dataset ya preprocesado
+# de FIFA 21, se debe crear los otros dos
+preprocess_fifa_22:
+  type: pandas.ParquetDataset # Ahora definimos que la salida sea tipo parquet para que sea mas liviano 
+  filepath: data/02_intermediate/preprocess_fifa_22.parquet     
 
 preprocess_fifa_21:
-  type: pandas.CSVDataset
-  filepath: data/02_intermediate/preprocess_fifa_21.csv     
+  type: pandas.ParquetDataset # Ahora definimos que la salida sea tipo parquet para que sea mas liviano 
+  filepath: data/02_intermediate/preprocess_fifa_21.parquet     
 
+preprocess_fifa_20:
+  type: pandas.ParquetDataset # Ahora definimos que la salida sea tipo parquet para que sea mas liviano 
+  filepath: data/02_intermediate/preprocess_fifa_20.parquet     

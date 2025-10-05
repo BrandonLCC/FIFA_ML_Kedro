@@ -1,10 +1,47 @@
-# FIFA 
-
 ![imagen-readme-presentacion](/img/img-presentacion.jpg)
 
->**Link de FIFA23 OFFICIAL DATASET (Actualizado)** : https://www.kaggle.com/datasets/bryanb/fifa-player-stats-database?rvi=1
+# Proyecto FIFA 23
 
-## Etapa de instalación (confirmar instalacion)
+Introducción al proyecto
+
+Objectivos: 
+
+**Colaboradores:**
+
+**Empresa:**
+
+**FIFA 23 OFFICIAL DATASET** : https://www.kaggle.com/datasets/bryanb/fifa-player-stats-database?rvi=1
+
+## Metodología y Proceso de desarrollo 
+
+explicar brevemente las etapas 
+
+## Machine-Learning (modelos y técnicas usadas)
+
+Introduccion del proyecto con machine learning
+
+Objectivo con machine learning: 
+
+
+## Resultados y visualizaciones
+texto
+
+### Modelos de regresión 
+texto
+
+### Metricas y evaluación 
+texto
+
+### Modelos de clasificación 
+texto
+
+### Metricas y evaluación 
+texto
+
+## Deployment (ver si entra esta seccion)
+
+
+## Requisitos y cómo ejecutar el proyecto (instalación) (no comprobado)
 
 Una vez realizado el `git clone` y cargado el proyecto, deberás realizar los siguientes pasos para poder modificar y ejecutar el proyecto:
 
@@ -57,21 +94,3 @@ Para cada libreria se debera realizar un pip install en tu entorno virtual
 - **pandas:** [Version] ```pip install pandas```
 - **seaborn:** [Version]  ```pip install seaborn```
 
-
-## Ubicación de archivos
-
-**01_raw:** En la carpeta 01_raw se almacenaran todos los archivos del conjunto de datos como CSV, parquet, xpt Entre otros.
-
-## Ubicación del pipeline
-
-**Nombre:** data_processing
-
-**data_processing:**
-
-node.py: 
-
-pipeline.py: se conecta con node.py
-
-Ejecutar un nodo para que nos limpie todo los datos : ``` kedro run --nodes preprocess_fifa_22_node ```
-
-para ejecutar todo: ``` kedro run ```

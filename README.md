@@ -2,11 +2,15 @@
 
 # Proyecto FIFA 23
 
-Introducción al proyecto
+(Título principal y descripción corta)
 
-Objectivos: 
+## Objectivos 
+
+Breve contexto del problema o análisis que se quiere realizar.
 
 **Colaboradores:**
+
+## Empresa / Fuente de Datos
 
 **Empresa:**
 
@@ -22,30 +26,32 @@ Introduccion del proyecto con machine learning
 
 Objectivo con machine learning: 
 
-
-## Resultados y visualizaciones
-texto
-
 ### Modelos de regresión 
-texto
-
-### Metricas y evaluación 
-texto
+Descripción
+Resultados y métricas
 
 ### Modelos de clasificación 
-texto
+Descripción
+Resultados y métricas
 
-### Metricas y evaluación 
-texto
+### Resultados y Visualizaciones
+Gráficos, comparaciones, insights
 
-## Deployment (ver si entra esta seccion)
+## Framework y Herramientas
 
+- **Framework principal:** kedro, versión 1.0.0
+- **Lenguaje:** Python, versión 3.11.9
+- **IDE:** VS Code
+- **Control de versiones:** Git
 
-## Requisitos y cómo ejecutar el proyecto (instalación) (no comprobado)
+## Librerias 
 
-Una vez realizado el `git clone` y cargado el proyecto, deberás realizar los siguientes pasos para poder modificar y ejecutar el proyecto:
+- **pandas:** [Version] 
+- **seaborn:** [Version]  
 
->**Link para Kedro:** https://kedro.org/#get-started
+## Instalación y Ejecución del Proyecto (Deployment)
+
+>**Kedro:** https://kedro.org/#get-started
 
 1. **Entra en el proyecto**
 
@@ -80,17 +86,4 @@ pip install -r requirements.txt
 ```
  Kedro y Jupyter notebook 
 ``` 
-## Framework y Herramientas
-
-- **Framework principal:** kedro, versión 1.0.0
-- **Lenguaje:** Python, versión 3.11.9
-- **IDE:** VS Code
-- **Control de versiones:** Git
-
-## Librerias utilizadas 
-
-Para cada libreria se debera realizar un pip install en tu entorno virtual
-
-- **pandas:** [Version] ```pip install pandas```
-- **seaborn:** [Version]  ```pip install seaborn```
-
+## Conclusiones

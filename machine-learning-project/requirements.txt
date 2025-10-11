@@ -4,7 +4,7 @@ notebook
 kedro~=1.0.0
 #Agregado por brandon
 sklearn
-kedro-viz
+kedro-viz #Se hizo pip instal kedro-viz 11/10
 kedro-datasets
 pandas
 numpy

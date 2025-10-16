@@ -52,3 +52,7 @@ preprocess_fifa_21:
 preprocess_fifa_20:
   type: pandas.ParquetDataset # Ahora definimos que la salida sea tipo parquet para que sea mas liviano 
   filepath: data/02_intermediate/preprocess_fifa_20.parquet     
+
+
+  # Para report utilizar la libreria plotlib al utilizar Kedro viz
+  

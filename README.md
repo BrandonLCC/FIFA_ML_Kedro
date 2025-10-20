@@ -1,5 +1,8 @@
 ![imagen-readme-presentacion](/img/img-presentacion.jpg)
 
+<!--<img src="img/img-presentacion.jpg" alt="imagen-readme-presentacion" width="90%" head=50%>
+-->
+
 # Proyecto FIFA 23
 
 (Título principal y descripción corta)
@@ -14,7 +17,7 @@ Breve contexto del problema o análisis que se quiere realizar.
 
 **Empresa:**
 
-**FIFA 23 OFFICIAL DATASET** : https://www.kaggle.com/datasets/bryanb/fifa-player-stats-database?rvi=1
+**FIFA 23 OFFICIAL DATASET** : [Link](https://www.kaggle.com/datasets/bryanb/fifa-player-stats-database?rvi=1)	
 
 ## Metodología y Proceso de desarrollo 
 
@@ -51,7 +54,7 @@ Gráficos, comparaciones, insights
 
 ## Instalación y Ejecución del Proyecto (Deployment)
 
->**Kedro:** https://kedro.org/#get-started
+**Kedro:** [Link](https://kedro.org/#get-started)	
 
 1. **Entra en el proyecto**
 

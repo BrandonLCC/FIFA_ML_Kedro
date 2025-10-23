@@ -1,23 +1,15 @@
-"""
-This is a boilerplate pipeline 'data_processing'
-generated using Kedro 1.0.0
-"""
-
 from kedro.pipeline import Node, Pipeline  # noqa
-
 
 #def create_pipeline(**kwargs) -> Pipeline:
 #   return Pipeline([])
 
-
-# Copiado del proyecto de ejemplo de Kedro (Borrar cuando no sea necesario)
-
 # Necesitamos que esto se ejecute de manera automática
-from .nodes import preprocess_fifa_22, preprocess_fifa_21, preprocess_fifa_20
+from .nodes import preprocess_fifa_22, preprocess_fifa_21, preprocess_fifa_20, create_model_input_table
 
 def create_pipeline(**kwargs) -> Pipeline:
     return Pipeline(
         [
+            #En el pipeline, establecemos las pequeñas tareas (nodes) que esperamos que se realicen.
             #Limpieza de los datos dataset 1
             Node(
                 func=preprocess_fifa_22, #funcion de node
@@ -39,12 +31,17 @@ def create_pipeline(**kwargs) -> Pipeline:
                 outputs="preprocess_fifa_20", 
                 name="preprocess_fifa_20_node",
             ),
-            
+            Node(
+                func=create_model_input_table,
+                inputs=["preprocess_fifa_22", "preprocess_fifa_21", "preprocess_fifa_20"],
+                outputs="model_input_table", # del catalog
+                name="create_model_input_table_node",
+            )
+
+
             #Imputacion de los datos: valores missing (usar tecnicas como KNN, Valores Media mediana etc)
 
             #Generacion de Feature 
-
-            #Node x : Union de las tablas
 
          
         ]

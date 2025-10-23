@@ -19,7 +19,6 @@ DataSetFIFA22:
   save_args:
     index: False  
 
-
 DataSetFIFA21:
   type: pandas.CSVDataset
   filepath: data/01_raw/FIFA21_official_data.csv
@@ -51,7 +50,12 @@ preprocess_fifa_21:
 
 preprocess_fifa_20:
   type: pandas.ParquetDataset # Ahora definimos que la salida sea tipo parquet para que sea mas liviano 
-  filepath: data/02_intermediate/preprocess_fifa_20.parquet     
+  filepath: data/02_intermediate/preprocess_fifa_20.parquet 
+
+model_input_table:
+  type: pandas.ParquetDataset 
+  filepath: data/03_primary/model_input_table.parquet #lo definimos en primary porque ya tendremos nuestros datasets unidos
+
 
 
   # Para report utilizar la libreria plotlib al utilizar Kedro viz

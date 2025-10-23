@@ -2,13 +2,15 @@ ipython>=8.10
 jupyterlab>=3.0
 notebook
 kedro~=1.0.0
+
 #Agregado por brandon
-sklearn
-kedro-viz #Se hizo pip instal kedro-viz 11/10
+sklearn #install listo
+kedro-viz #install listo
 kedro-datasets
 pandas
-numpy
+numpy #install listo
 matplotlib
 seaborn
-scikit-learn
+scikit-learn #install listo
 jupyter
+sklearn.model_selection

@@ -14,3 +14,5 @@ seaborn
 scikit-learn #install listo
 jupyter
 sklearn.model_selection
+imbalanced-learn #Install listo.  para el balance de clases usado en random forest
+xgboost #install listo 

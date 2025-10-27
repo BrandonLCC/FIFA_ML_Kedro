@@ -188,6 +188,93 @@ def procesar_joined(df: pd.DataFrame) -> pd.DataFrame:
     
     return df
 
+
+# transformacion de datos 2: label y onehot
+# en la creacion de esta funcion, estaba toda la limpieza terminada
+# pero luego al crear los 5 modelos de regresion, me di cuenta que se me olvido 
+#tranformar las columnas categorias a valores numericos
+#por lo que esta funcion se realiza al final, no se si el orden esta bien o mal, pero para considerar que esta es una excepcion
+#Lo bueno de este error, es que podemos ver la reutilizacion de codigo en kedro en pipeline.py
+#en la que realizamos una transformacion utilizando todas las funciones y luego la funcion transformacion2_columns_node
+#para los 3 datasets
+
+#Este proceso se puede hacer con muchos nodos en nodes.py 
+#tambien se pueden crear otros pipelines para disminuir la cantidad de codigo en nodes.py
+# ejemplo: se sabe que para cada pipeline se realizan tareas similares como limpieza, transformacion, etc
+# por lo que se puede crear un pipeline para limpieza, otro para transformacion, etc
+
+
+'''
+pipelines >
+> classification_models
+> data_engineering
+> data_science
+> feature_engineering
+> feature_selection
+> regression_models
+> reporting
+
+'''
+
+def transformacion2_columns(df, target='Overall_Class'):
+    """
+    Reduce columnas One-Hot y LabelEncoder para FIFA datasets:
+    - Agrupa Best Position
+    - Agrupa Body Type
+    - Simplifica Attack/Defense Work Rate
+    - Codifica el target
+    """
+
+    from sklearn.preprocessing import LabelEncoder
+    import pandas as pd
+
+    # --- Agrupar Best Position ---
+    pos_map = {
+        'GK':'GK', 'CB':'DF', 'LB':'DF', 'RB':'DF', 'LWB':'DF', 'RWB':'DF',
+        'CM':'MF', 'CDM':'MF', 'CAM':'MF', 'LM':'MF', 'RM':'MF',
+        'LW':'FW', 'RW':'FW', 'ST':'FW', 'CF':'FW'
+    }
+
+    if 'Best Position' in df.columns:
+        df['Best_Position_Grouped'] = df['Best Position'].map(pos_map)
+        df = pd.get_dummies(df, columns=['Best_Position_Grouped'], drop_first=True)
+        df = df.drop(columns=[c for c in df.columns if c.startswith('Best Position_')])
+
+    # --- Agrupar Body Type ---
+    body_map = {
+        'Lean (170-185)': 'Lean', 'Lean (185+)': 'Lean',
+        'Normal (170-)': 'Normal', 'Normal (170-185)': 'Normal', 'Normal (185+)': 'Normal',
+        'Stocky (170-)': 'Stocky', 'Stocky (170-185)': 'Stocky', 'Stocky (185+)': 'Stocky',
+        'Unique': 'Unique'
+    }
+    body_cols = [c for c in df.columns if c.startswith('Body Type_')]
+    for col in body_cols:
+        for old, new in body_map.items():
+            if old in col:
+                df[new] = df[new] if new in df.columns else False
+                df[new] = df[new] | df[col]
+    df = df.drop(columns=body_cols)
+
+    # --- Simplificar Work Rate ---
+    # Attack
+    attack_cols = [c for c in df.columns if c.startswith('Attack Work Rate_')]
+    attack_keep = ['Attack Work Rate_Low', 'Attack Work Rate_Medium', 'Attack Work Rate_High']
+    if 'Attack Work Rate_N' in df.columns:
+        df['Attack Work Rate_High'] = df.get('Attack Work Rate_High', False) | df['Attack Work Rate_N']
+    df = df.drop(columns=[c for c in attack_cols if c not in attack_keep])
+    # Defense
+    defense_cols = [c for c in df.columns if c.startswith('Defense Work Rate_')]
+    defense_keep = ['Defense Work Rate_Low', 'Defense Work Rate_Medium', 'Defense Work Rate_High']
+    if 'Defense Work Rate_A/ N/A' in df.columns:
+        df['Defense Work Rate_High'] = df.get('Defense Work Rate_High', False) | df['Defense Work Rate_A/ N/A']
+    df = df.drop(columns=[c for c in defense_cols if c not in defense_keep])
+
+    # --- Codificar target ---
+    if target in df.columns:
+        df[f'{target}_Encoded'] = LabelEncoder().fit_transform(df[target])
+
+    return df
+
 # Procesando los dataset FIFA
 # haremos lo mismo que en jupyter notebook pero ahora en el pipeline de kedro
 #Retorna un dataframe limpio
@@ -247,7 +334,7 @@ def preprocess_fifa_22(fifa_22: pd.DataFrame) -> pd.DataFrame:
 
     money_cols = ['Value_num', 'Wage_num', 'ReleaseClause_num']
     fifa_22 = imputar_medianas(fifa_22, money_cols)
-
+    
     return fifa_22
 
    

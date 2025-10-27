@@ -52,6 +52,20 @@ preprocess_fifa_20:
   type: pandas.ParquetDataset # Ahora definimos que la salida sea tipo parquet para que sea mas liviano 
   filepath: data/02_intermediate/preprocess_fifa_20.parquet 
 
+
+
+FIFA22_processed_con_transformacion2_columns:
+  type: pandas.ParquetDataset 
+  filepath: data/02_intermediate/FIFA22_processed_con_transformacion2_columns.parquet  
+
+FIFA21_processed_con_transformacion2_columnss:
+  type: pandas.ParquetDataset
+  filepath: data/02_intermediate/FIFA21_processed_con_transformacion2_columns.parquet
+
+FIFA20_processed_con_transformacion2_columns:
+  type: pandas.ParquetDataset 
+  filepath: data/02_intermediate/FIFA20_processed_con_transformacion2_columns.parquet  
+
 model_input_table:
   type: pandas.ParquetDataset 
   filepath: data/03_primary/model_input_table.parquet #lo definimos en primary porque ya tendremos nuestros datasets unidos

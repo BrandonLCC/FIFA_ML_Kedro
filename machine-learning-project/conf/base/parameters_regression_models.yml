@@ -1,0 +1,27 @@
+model_options:
+  test_size: 0.2
+  random_state: 42
+  features:
+    - Overall
+    - Age
+    - Potential
+   
+  target: Overall
+  
+_linear_param_grid:
+  fit_intercept: [True, False]
+  positive: [True, False]
+
+_dt_param_grid:
+  max_depth: [3, 5, 10, None]
+  min_samples_split: [2, 5, 10]
+
+_rf_param_grid:
+  n_estimators: [100, 200]
+  max_depth: [None, 10, 20]
+  min_samples_split: [2, 5, 10]
+
+_svr_param_grid:
+  kernel: ["linear", "rbf"]
+  C: [0.1, 1, 10]
+  gamma: ["scale", "auto"]

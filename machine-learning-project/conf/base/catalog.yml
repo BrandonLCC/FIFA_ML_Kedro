@@ -70,7 +70,70 @@ model_input_table:
   type: pandas.ParquetDataset 
   filepath: data/03_primary/model_input_table.parquet #lo definimos en primary porque ya tendremos nuestros datasets unidos
 
-
-
   # Para report utilizar la libreria plotlib al utilizar Kedro viz
-  
+
+#Etapa modeloado 
+
+#Ahora que en el primero nodo del pipeline de modelado regression_models
+#No tiene una salida de tipo pandas porque es un diccionario
+#Entonces definimos un nuevo dataset de tipo PickleDataset
+
+
+#GridSearchCV modelo
+# versioned: true para versionar los modelos o guardarlos con versiones
+
+# GridSearchCV modelos
+grid_linear_model:
+  type: pickle.PickleDataset
+  filepath: data/06_models/grid_linear_model.pkl
+  versioned: true
+
+grid_linear_multiple_model:
+  type: pickle.PickleDataset
+  filepath: data/06_models/grid_linear_multiple_model.pkl
+  versioned: true
+
+grid_svr_model:
+  type: pickle.PickleDataset
+  filepath: data/06_models/grid_svr_model.pkl
+  versioned: true
+
+grid_decision_tree_model:
+  type: pickle.PickleDataset
+  filepath: data/06_models/grid_decision_tree_model.pkl
+  versioned: true
+
+grid_randomforest_model:
+  type: pickle.PickleDataset
+  filepath: data/06_models/grid_randomforest_model.pkl
+  versioned: true
+
+
+#Salidas de los modelos entrenados de clasificación
+
+grid_logistic_model_classification:
+  type: pickle.PickleDataset
+  filepath: data/06_models/grid_logistic_model_classification.pkl
+  versioned: true
+
+grid_knn_model_classification:
+  type: pickle.PickleDataset
+  filepath: data/06_models/grid_knn_model_classification.pkl
+  versioned: true
+
+grid_xgboost_model_classification:
+  type: pickle.PickleDataset
+  filepath: data/06_models/grid_xgboost_model_classification.pkl
+  versioned: true
+
+grid_decision_tree_model_classification:
+  type: pickle.PickleDataset
+  filepath: data/06_models/grid_decision_tree_model_classification.pkl  
+  versioned: true
+
+grid_random_forest_model_classification:  
+  type: pickle.PickleDataset
+  filepath: data/06_models/grid_random_forest_model_classification.pkl
+  versioned: true
+
+# Reportes de los modelos de clasificación

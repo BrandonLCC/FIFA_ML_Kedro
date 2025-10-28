@@ -448,7 +448,7 @@ def create_model_input_table(fifa_22: pd.DataFrame, fifa_21: pd.DataFrame, fifa_
     # Seleccionar columnas comunes
     #Se reliza la union de las tablas de manera vertical ya que tienen las mismas columnas
     #Esto tiene mas sentido para nuestro contexto porque sino habria que hacer muchas transformaciones para que tengan las mismas columnas
-
+ 
     FIFA_DF = pd.concat([fifa_22, fifa_21, fifa_20], ignore_index=True)
 
     #Eliminamos la ID porque ya no sera necesario ya que realizamos la union de los dataframes
@@ -457,3 +457,27 @@ def create_model_input_table(fifa_22: pd.DataFrame, fifa_21: pd.DataFrame, fifa_
     model_input_table = FIFA_DF
 
     return model_input_table    
+
+
+## Como mencione anteriormente, podemos hacer varias funcionres madres en la que cada
+#una puede tener su proposito para que no haga una sola funcion todo el trabajo
+
+#Ojo, verificar si esto deberia ser asi o no (Brandon)
+
+#ejemplos
+
+#def limpieza_datos(fifa_data: pd.DataFrame) -> pd.DataFrame:
+#   # Realiza todas las tareas de limpieza de datos
+#   return fifa_data_cleaned
+#def transformacion_datos(fifa_data: pd.DataFrame) -> pd.DataFrame:
+#   # Realiza todas las tareas de transformacion de datos
+#   return fifa_data_transformed
+#def imputacion_datos(fifa_data: pd.DataFrame) -> pd.DataFrame:
+#   # Realiza todas las tareas de imputacion de datos
+#   return fifa_data_imputed
+#def feature_engineering(fifa_data: pd.DataFrame) -> pd.DataFrame:
+#   # Realiza todas las tareas de feature engineering
+#   return fifa_data_featurized
+#def create_model_input_table(fifa_22: pd.DataFrame, fifa_21: pd.DataFrame, fifa_20: pd.DataFrame) -> pd.DataFrame:
+#   # Realiza la union de las tablas procesadas
+#   return model_input_table

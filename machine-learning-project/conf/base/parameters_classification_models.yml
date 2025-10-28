@@ -4,51 +4,50 @@ model_options_classification:  #da error si tiene el mismo nombre que otro archi
   stratify: true
 
 features:
-    - Overall
-    - Age
-    - Potential
+  - SprintSpeed
+  - BallControl
+  - Finishing
    
 target: Overall_Class
 
 _logistic_param_grid:
   penalty: ["l2"]
-  C: [0.01, 0.1, 1, 10, 100]
-  solver: ["lbfgs", "liblinear"]
+  C: [0.1, 1, 10]
+  solver: ["lbfgs"]
   max_iter: [500]
-  class_weight: [null, "balanced"]
+  class_weight: [null]
 
 _knn_param_grid:
-  n_neighbors: [3, 5, 7, 9]
-  weights: ["uniform", "distance"]
-  metric: ["euclidean", "manhattan"]
-  algorithm: ["auto", "ball_tree", "kd_tree"]
-  p: [1, 2]
+  n_neighbors: [3, 5]
+  weights: ["uniform"]
+  metric: ["euclidean"]
+  algorithm: ["auto"]
+  p: [2]
 
 _xgboost_param_grid:
-  n_estimators: [100, 200, 300]
-  max_depth: [3, 5, 7]
-  learning_rate: [0.01, 0.1, 0.2]
-  subsample: [0.8, 1.0]
-  colsample_bytree: [0.8, 1.0]
-  gamma: [0, 0.1, 0.2]
-  reg_lambda: [1, 1.5, 2]
-  reg_alpha: [0, 0.5, 1]
+  n_estimators: [100, 200]
+  max_depth: [3, 5]
+  learning_rate: [0.1]
+  subsample: [1.0]
+  colsample_bytree: [1.0]
+  gamma: [0]
+  reg_lambda: [1]
+  reg_alpha: [0]
 
 _decision_tree_param_grid:
-  criterion: ["gini", "entropy"]
-  max_depth: [3, 5, 10, null]
-  min_samples_split: [2, 5, 10]
-  min_samples_leaf: [1, 2, 4]
-  splitter: ["best", "random"]
-  class_weight: [null, "balanced"]
+  criterion: ["gini"]
+  max_depth: [3, 5]
+  min_samples_split: [2, 5]
+  min_samples_leaf: [1, 2]
+  splitter: ["best"]
+  class_weight: [null]
 
 _random_forest_param_grid:
-  n_estimators: [100, 200, 300]
-  criterion: ["gini", "entropy"]
-  max_depth: [5, 10, 15, null]
-  min_samples_split: [2, 5, 10]
-  min_samples_leaf: [1, 2, 4]
-  bootstrap: [true, false]
-  class_weight: [null, "balanced"]
+  n_estimators: [100, 200]
+  criterion: ["gini"]
+  max_depth: [5, 10]
+  min_samples_split: [2, 5]
+  min_samples_leaf: [1, 2]
+  bootstrap: [true]
+  class_weight: [null]
   random_state: [42]
-

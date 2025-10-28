@@ -3,3 +3,15 @@
 #
 # Documentation for this file format can be found in "Parameters"
 # Link: https://docs.kedro.org/en/1.0.0/configuration/parameters.html
+_modelo_logistic_classification: "Logistic Regression"
+
+_modelo_knn_classification: "KNN Classification"
+_modelo_xgboost_classification: "XGBoost Classification"
+_modelo_decision_tree_classification: "Decision Tree Classification"
+_modelo_random_forest_classification: "Random Forest Classification"
+
+report_path_logistic: data/08_reporting/logistic
+report_path_knn: data/08_reporting/knn
+report_path_xgboost: data/08_reporting/xgboost
+report_path_decision_tree: data/08_reporting/decision_tree
+report_path_random_forest: data/08_reporting/random_forest

@@ -18,7 +18,7 @@ DataSetFIFA22:
     decimal: "."
   save_args:
     index: False  
-
+ 
 DataSetFIFA21:
   type: pandas.CSVDataset
   filepath: data/01_raw/FIFA21_official_data.csv
@@ -132,8 +132,109 @@ grid_decision_tree_model_classification:
   versioned: true
 
 grid_random_forest_model_classification:  
-  type: pickle.PickleDataset
+  type: pickle.PickleDataset 
   filepath: data/06_models/grid_random_forest_model_classification.pkl
   versioned: true
 
-# Reportes de los modelos de clasificación
+# Datos de test guardados desde el pipeline de modelado para REPORTT de regresion
+X_train_regression:
+  type: pandas.CSVDataset
+  filepath: data/03_primary/X_train_regression.csv
+  save_args:
+    index: False
+
+X_test_regression:
+  type: pandas.CSVDataset
+  filepath: data/03_primary/X_test_regression.csv
+  save_args:
+    index: False
+
+y_test_regression:
+  type: pandas.CSVDataset
+  filepath: data/03_primary/y_test_regression.csv
+  save_args:
+    index: False
+
+# los de classi
+
+# -- Features de entrenamiento y prueba --
+X_train_class:
+  type: pandas.CSVDataset
+  filepath: data/03_primary/X_train_class.csv
+  save_args:
+    index: False
+
+X_test_class:
+  type: pandas.CSVDataset
+  filepath: data/03_primary/X_test_class.csv
+  save_args:
+    index: False
+
+# -- Target de entrenamiento y prueba --
+
+y_train_class:
+  type: pandas.CSVDataset
+  filepath: data/03_primary/y_train_class.csv
+  save_args:
+    index: False
+
+y_test_class:
+  type: pandas.CSVDataset
+  filepath: data/03_primary/y_test_class.csv
+  save_args:
+    index: False
+
+
+#report regresion
+regression_report_linear_simple:
+  type: pandas.CSVDataset
+  filepath: data/08_reporting/regression_report_linear_simple.csv
+  versioned: true
+
+regression_report_linear_multiple:
+  type: pandas.CSVDataset
+  filepath: data/08_reporting/regression_report_linear_multiple.csv
+  versioned: true
+
+regression_report_svr:
+  type: pandas.CSVDataset
+  filepath: data/08_reporting/regression_report_svr.csv
+  versioned: true
+
+regression_report_decision_tree:
+  type: pandas.CSVDataset
+  filepath: data/08_reporting/regression_report_decision_tree.csv
+  versioned: true
+
+regression_report_randomforest:
+  type: pandas.CSVDataset
+  filepath: data/08_reporting/regression_report_randomforest.csv
+  versioned: true
+
+# Reportes clasificación
+regression_report_logistic_model_classification:
+  type: pandas.CSVDataset
+  filepath: data/08_reporting/regression_report_logistic_model_classification.csv
+  versioned: true
+
+regression_report_knn_model_classification:
+  type: pandas.CSVDataset
+  filepath: data/08_reporting/regression_report_knn_model_classification.csv
+  versioned: true
+
+regression_report_xgboost_model_classification:
+  type: pandas.CSVDataset
+  filepath: data/08_reporting/regression_report_xgboost_model_classification.csv
+  #versioned: true
+  load_args:
+    version: None  
+
+regression_report_decision_tree_model_classification:
+  type: pandas.CSVDataset
+  filepath: data/08_reporting/regression_report_decision_tree_model_classification.csv
+  versioned: true
+
+regression_report_random_forest_model_classification:
+  type: pandas.CSVDataset
+  filepath: data/08_reporting/regression_report_random_forest_model_classification.csv
+  versioned: true

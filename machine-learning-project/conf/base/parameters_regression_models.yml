@@ -7,7 +7,7 @@ model_options:
     - Potential
    
   target: Value_num
-  
+   
 _linear_param_grid:
   fit_intercept: [True, False]
   positive: [True, False]

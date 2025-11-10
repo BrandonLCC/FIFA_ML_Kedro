@@ -3,7 +3,7 @@ from .nodes import (
     division_datos_test_train,
     entrenar_modelo_logistic_cv,
     entrenar_knn_cv,
-    entrenar_xgboost_cv,
+    entrenar_svc_cv,
     entrenar_decision_tree_cv,
     entrenar_random_forest_cv,
     evaluacion_modelo
@@ -33,10 +33,10 @@ def create_pipeline(**kwargs) -> Pipeline:
             name="grid_knn_model_clasificacion_node"
         ),
         Node(
-            func=entrenar_xgboost_cv,
-            inputs=["X_train_class", "y_train_class", "params:_xgboost_param_grid"],
-            outputs="grid_xgboost_model_classification",
-            name="grid_xgboost_model_clasificacion_node"
+            func=entrenar_svc_cv,
+            inputs=["X_train_class", "y_train_class", "params:_svc_param_grid"],
+            outputs="grind_svc_cv_model_classification",
+            name="grind_svc_cv_model_clasificacion_node"
         ),
         Node(
             func=entrenar_decision_tree_cv,
@@ -66,9 +66,9 @@ def create_pipeline(**kwargs) -> Pipeline:
         ),
         Node(
             func=evaluacion_modelo,
-            inputs=["grid_xgboost_model_classification", "X_test_class", "y_test_class"],
+            inputs=["grind_svc_cv_model_classification", "X_test_class", "y_test_class"],
             outputs=None,
-            name="evaluacion_xgboost_node"
+            name="evaluacion_svc_node"
         ),
         Node(
             func=evaluacion_modelo,

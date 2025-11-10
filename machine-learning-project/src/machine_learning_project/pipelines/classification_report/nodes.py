@@ -12,19 +12,14 @@ from sklearn.metrics import (
     auc,
     precision_recall_curve
 )
+
 from sklearn.preprocessing import label_binarize
 from sklearn.multiclass import OneVsRestClassifier
 
 import os
 
 def evaluacion_completa_modelo_clasificacion(model, X_test, y_test, model_name: str, save_path: str):
-    import matplotlib.pyplot as plt
-    import seaborn as sns
-    import numpy as np
-    import pandas as pd
-    from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
-
-    # Crear directorio si no existe
+ 
     os.makedirs(save_path, exist_ok=True)
 
     y_pred = model.predict(X_test)

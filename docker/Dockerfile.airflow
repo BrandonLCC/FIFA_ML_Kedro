@@ -1,0 +1,168 @@
+# Dockerfile para Apache Airflow con Kedro
+FROM apache/airflow:2.8.0-python3.11
+
+# Metadatos
+LABEL maintainer="spaceflights-team"
+LABEL description="Apache Airflow with Kedro Integration for Spaceflights"
+
+# Cambiar a usuario root para instalar dependencias
+USER root
+
+# Instalar dependencias del sistema
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    curl \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Cambiar de vuelta al usuario airflow
+USER airflow
+
+# Establecer directorio de trabajo
+WORKDIR /app
+
+# Copiar archivos de dependencias
+COPY machine-learning-project/requirements.txt machine-learning-project/pyproject.toml ./
+
+# Instalar dependencias de Python (incluyendo Kedro y Airflow)
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
+
+# Copiar código fuente del proyecto
+COPY machine-learning-project/src/ ./src/
+COPY machine-learning-project/conf/ ./conf/
+COPY machine-learning-project/notebooks/ ./notebooks/
+COPY machine-learning-project/tests/ ./tests/
+
+# Crear directorio data (los datos se montarán en runtime)
+RUN mkdir -p ./data
+
+# Crear directorios necesarios para Airflow
+RUN mkdir -p /opt/airflow/dags /opt/airflow/logs /opt/airflow/plugins
+
+# Configurar variables de entorno de Airflow
+ENV AIRFLOW_HOME=/opt/airflow
+ENV AIRFLOW__CORE__DAGS_FOLDER=/opt/airflow/dags
+ENV AIRFLOW__CORE__PLUGINS_FOLDER=/opt/airflow/plugins
+ENV AIRFLOW__CORE__EXECUTOR=LocalExecutor
+ENV AIRFLOW__CORE__LOAD_EXAMPLES=False
+ENV AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION=True
+
+# Configurar variables de entorno de Kedro
+ENV KEDRO_HOME=/app
+ENV KEDRO_CONFIG_FILE=conf/base/parameters.yml
+ENV PYTHONPATH=/app/src
+
+# Exponer puerto de Airflow
+EXPOSE 8080
+
+# Comando por defecto
+CMD ["airflow", "webserver", "--port", "8080"]
+
+#archivos necesarios con airflow
+#carpeta dags
+#./start.sh Orquestación completa de Airflow:
+
+
+#docker-compose.yml?
+#En el DataCatalogy almacenarse de forma persistente (estable, constante).
+
+#https://github.com/Giocrisrai/kedro_tutorial_test/blob/main/docs/airflow.md
+
+#-- primer inteto de integracion de airflow -- (salio bien, pero por temas , se decide eliminar)
+
+#2. pip install 
+
+#pip install apache-airflow	Airflow completo	Correr y administrar DAGs	 (ya incluye todo)
+#pip install kedro-airflow	Plugin Kedro → Airflow	Exportar pipelines de Kedro como DAGs ( tener Airflow instalado aparte)
+
+#se realiza el pip 1 y 2
+
+# 3. ejecutar "airflow db init"
+
+#eso crea 
+
+#airflow users create \
+#  --username admin \
+#  --firstname Brandon \
+#  --lastname Casas \
+#  --role Admin \
+#  --email youremail@example.com \
+#  --password tu_contraseña
+
+
+# 4. comando ejecutado airflow db migrate (no funciono)
+
+#5. se crea una carpeta "mkdir airflow"
+
+#6. se crea una carpeta compose
+
+# se ejecuta este comando porque no tenia la base de datos hecha: 
+#(para ejecutar el dockerfile)
+#docker run -it -p 8888:8888 -v "C:\Users\brand\Downloads\Proyecto_ML_Kedro:/app" apache/airflow
+
+#ultimos 3 comandos utilizados
+#Esto inicializa la base de datos Postgres que Airflow usa internamente.
+#ejecutalo en el contenedor, no en local
+#no olvidar que debe ser el contenedor de airflow y no usar el mismo codigo del contenedor para airflow
+#docker exec -it machine-learning-project-webserver-1 airflow db init (contenedor)
+
+#reiniciando contenedores
+#docker-compose -f docker-compose.airflow.yml restart
+
+#crear el usuario (ya lo hice)
+#docker exec -it machine-learning-project-webserver-1 airflow users create --username admin --firstname Admin --lastname User --role Admin --email admin@example.com --password admin
+
+
+#(abrir el limk 8080)
+#docker logs -f machine-learning-project-webserver-1
+
+
+# --- PASOS OFICIALES SEGUIDOS ---
+
+#1️ Creo las carpetas base para la integración con Airflow
+# (Airflow necesita su propio espacio para DAGs, logs y configuración)
+
+#mkdir airflow       # Carpeta principal para la configuración y DAGs
+#mkdir compose       # Carpeta para los archivos docker-compose
+
+#2️Dentro de la carpeta airflow creo el archivo de configuración
+# (Ejemplo: conf/airflow/catalog.yml)
+# Este archivo puede incluir configuraciones específicas o rutas
+# de los datasets cuando integremos con Kedro.
+
+#3️Se crea el archivo start.sh
+# (Sirve como script para inicializar y ejecutar Airflow desde Docker)
+# Ejemplo de comando dentro:
+# docker-compose -f compose/docker-compose.airflow.yml up -d
+
+#4️ Se ejecuta el siguiente comando para descargar las imágenes
+# y levantar los contenedores de Airflow (webserver, scheduler y Postgres)
+# REFERENCIA: https://airflow.apache.org/docs/apache-airflow/stable/howto/docker-compose/index.html#starting-airflow
+
+#docker-compose -f compose/docker-compose.airflow.yml up -d
+
+#5️ (OPCIONAL) Inicializar la base de datos manualmente si no se creó
+# Este comando entra al contenedor del webserver y ejecuta la inicialización de la DB.
+
+#docker-compose -f compose/docker-compose.airflow.yml exec webserver airflow db init
+
+#6️ Comandos ejecutados para reiniciar los contenedores y limpiar el entorno
+
+# Detiene y elimina los contenedores + volúmenes
+#docker-compose -f compose/docker-compose.airflow.yml down -v
+
+# Vuelve a levantar los servicios en segundo plano
+#docker-compose -f compose/docker-compose.airflow.yml up -d
+
+#7️ Revisar los logs del servidor web para verificar que está activo
+# (Se puede detener con Ctrl + C)
+
+#docker-compose -f compose/docker-compose.airflow.yml logs -f webserver
+
+#8️ Acceder a la interfaz de Airflow desde el navegador
+# URL: http://localhost:8080
+# Usuario: admin
+# Contraseña: admin
+
+#Etapa 2 (luego de integrar airflow se realiza la integracion de dags y automatizacion) (no se si es asi o debe ser otro nombre)

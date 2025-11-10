@@ -10,7 +10,7 @@ conf/local/**
 conf/**/*credentials*
 
 # ignore everything in the following folders
-data/**
+#data/**
 
 # except their sub-folders
 !data/**/
@@ -160,3 +160,31 @@ venv.bak/
 
 # mlflow local runs
 mlruns/*
+/data
+
+# Kedro specific
+# Kedro specific
+logs/
+data/01_raw/
+data/02_intermediate/
+data/03_primary/
+data/04_feature/
+data/05_model_input/
+data/06_models/
+data/07_model_output/
+data/08_reporting/
+sessions/
+backups/
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/

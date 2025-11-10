@@ -83,6 +83,9 @@ model_input_table:
 # versioned: true para versionar los modelos o guardarlos con versiones
 
 # GridSearchCV modelos
+
+# Salidas de los modelos de regresion 
+
 grid_linear_model:
   type: pickle.PickleDataset
   filepath: data/06_models/grid_linear_model.pkl
@@ -121,9 +124,9 @@ grid_knn_model_classification:
   filepath: data/06_models/grid_knn_model_classification.pkl
   versioned: true
 
-grid_xgboost_model_classification:
+grind_svc_cv_model_classification:
   type: pickle.PickleDataset
-  filepath: data/06_models/grid_xgboost_model_classification.pkl
+  filepath: data/06_models/grind_svc_cv_model_classification.pkl
   versioned: true
 
 grid_decision_tree_model_classification:
@@ -136,7 +139,8 @@ grid_random_forest_model_classification:
   filepath: data/06_models/grid_random_forest_model_classification.pkl
   versioned: true
 
-# Datos de test guardados desde el pipeline de modelado para REPORTT de regresion
+#TRAIN TEST REGRESION
+
 X_train_regression:
   type: pandas.CSVDataset
   filepath: data/03_primary/X_train_regression.csv
@@ -155,9 +159,10 @@ y_test_regression:
   save_args:
     index: False
 
-# los de classi
+# TRAIN TEST CLASIFICACION
 
 # -- Features de entrenamiento y prueba --
+
 X_train_class:
   type: pandas.CSVDataset
   filepath: data/03_primary/X_train_class.csv
@@ -184,8 +189,8 @@ y_test_class:
   save_args:
     index: False
 
+#Reportes de regresion
 
-#report regresion
 regression_report_linear_simple:
   type: pandas.CSVDataset
   filepath: data/08_reporting/regression_report_linear_simple.csv
@@ -212,29 +217,28 @@ regression_report_randomforest:
   versioned: true
 
 # Reportes clasificación
-regression_report_logistic_model_classification:
+
+report_logistic_model_classification:
   type: pandas.CSVDataset
-  filepath: data/08_reporting/regression_report_logistic_model_classification.csv
+  filepath: data/08_reporting/report_logistic_model_classification.csv
   versioned: true
 
-regression_report_knn_model_classification:
+report_knn_model_classification:
   type: pandas.CSVDataset
   filepath: data/08_reporting/regression_report_knn_model_classification.csv
   versioned: true
 
-regression_report_xgboost_model_classification:
+report_grind_svc_cv_model_classification:
   type: pandas.CSVDataset
-  filepath: data/08_reporting/regression_report_xgboost_model_classification.csv
-  #versioned: true
-  load_args:
-    version: None  
-
-regression_report_decision_tree_model_classification:
-  type: pandas.CSVDataset
-  filepath: data/08_reporting/regression_report_decision_tree_model_classification.csv
+  filepath: data/08_reporting/report_grind_svc_cv_model_classification.csv
   versioned: true
 
-regression_report_random_forest_model_classification:
+report_decision_tree_model_classification:
   type: pandas.CSVDataset
-  filepath: data/08_reporting/regression_report_random_forest_model_classification.csv
+  filepath: data/08_reporting/report_decision_tree_model_classification.csv
+  versioned: true
+
+report_random_forest_model_classification:
+  type: pandas.CSVDataset
+  filepath: data/08_reporting/report_random_forest_model_classification.csv
   versioned: true

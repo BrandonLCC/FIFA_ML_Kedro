@@ -12,9 +12,9 @@ target: Overall_Class
 
 _logistic_param_grid:
   penalty: ["l2"]
-  C: [0.1, 1, 10]
+  C: [1, 10]
   solver: ["lbfgs"]
-  max_iter: [500]
+  max_iter: [200]
   class_weight: [null]
 
 _knn_param_grid:
@@ -24,15 +24,10 @@ _knn_param_grid:
   algorithm: ["auto"]
   p: [2]
 
-_xgboost_param_grid:
-  n_estimators: [100, 200]
-  max_depth: [3, 5]
-  learning_rate: [0.1]
-  subsample: [1.0]
-  colsample_bytree: [1.0]
-  gamma: [0]
-  reg_lambda: [1]
-  reg_alpha: [0]
+_svc_param_grid:
+  C: [1]
+  kernel: ['rbf']
+  gamma: ['scale']
 
 _decision_tree_param_grid:
   criterion: ["gini"]

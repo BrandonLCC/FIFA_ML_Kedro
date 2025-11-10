@@ -1,0 +1,87 @@
+# Dockerfile para JupyterLab - Entorno completo de desarrollo
+FROM python:3.11-slim
+
+# Metadatos
+LABEL maintainer="FIFA"
+LABEL description="JupyterLab Development Environment for Kedro"
+
+# Variables de entorno
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV KEDRO_HOME=/app
+ENV KEDRO_CONFIG_FILE=conf/base/parameters.yml
+ENV JUPYTER_ENABLE_LAB=yes
+ENV JUPYTER_ALLOW_INSECURE_WRITES=true
+
+# Crear usuario no-root
+RUN groupadd -r kedro && useradd -r -g kedro kedro
+
+# Instalar dependencias del sistema
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    curl \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Establecer directorio de trabajo
+WORKDIR /app
+
+# Copiar archivos de dependencias
+COPY machine-learning-project/requirements.txt machine-learning-project/pyproject.toml ./
+
+# Instalar dependencias de Python (incluyendo Kedro)
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
+
+# Copiar código fuente
+COPY machine-learning-project/src/ ./src/
+COPY machine-learning-project/conf/ ./conf/
+COPY machine-learning-project/data/ ./data/
+COPY machine-learning-project/notebooks/ ./notebooks/
+COPY machine-learning-project/tests/ ./tests/
+
+# Crear directorios necesarios
+RUN mkdir -p logs sessions && \
+    chown -R kedro:kedro /app
+
+# Instalar extensiones adicionales de Jupyter
+USER root
+
+RUN pip install --no-cache-dir \
+    jupyterlab-git \
+    jupyterlab-lsp \
+    python-lsp-server[all] \
+    jupyterlab-widgets \
+    ipywidgets \
+    plotly \
+    seaborn
+
+# Configurar JupyterLab
+RUN mkdir -p /home/kedro/.jupyter /home/kedro/.local/share/jupyter/runtime && \
+    chown -R kedro:kedro /home/kedro/.local /home/kedro/.jupyter && \
+    jupyter lab --generate-config && \
+    echo "c.ServerApp.ip = '0.0.0.0'" >> /home/kedro/.jupyter/jupyter_lab_config.py && \
+    echo "c.ServerApp.port = 8888" >> /home/kedro/.jupyter/jupyter_lab_config.py && \
+    echo "c.ServerApp.open_browser = False" >> /home/kedro/.jupyter/jupyter_lab_config.py && \
+    echo "c.ServerApp.allow_root = True" >> /home/kedro/.jupyter/jupyter_lab_config.py && \
+    echo "c.ServerApp.token = ''" >> /home/kedro/.jupyter/jupyter_lab_config.py && \
+    echo "c.ServerApp.password = ''" >> /home/kedro/.jupyter/jupyter_lab_config.py && \
+    chown -R kedro:kedro /home/kedro/.jupyter
+
+# Volver a usuario kedro
+USER kedro
+
+# Exponer puerto de JupyterLab
+EXPOSE 8888
+
+# Comando por defecto
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root"]
+
+#Crear Dockerimage
+
+#docker build -t fifa-ml-kedro-jupyter -f docker/Dockerfile.jupyter .
+
+#Ejecutar dockerfile notebooks: 
+# (ver si se puede simplificar)
+#docker run -it -p 8888:8888 -v "C:\Users\brand\Downloads\Proyecto_ML_Kedro:/app" fifa-ml-kedro-jupyter
+

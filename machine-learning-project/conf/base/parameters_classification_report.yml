@@ -12,6 +12,6 @@ _modelo_random_forest_classification: "Random Forest Classification"
 
 report_path_logistic: data/08_reporting/logistic
 report_path_knn: data/08_reporting/knn
-report_path_xgboost: data/08_reporting/xgboost
+report_path_svc: data/08_reporting/src
 report_path_decision_tree: data/08_reporting/decision_tree
 report_path_random_forest: data/08_reporting/random_forest

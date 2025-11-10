@@ -13,10 +13,14 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
-from xgboost import XGBClassifier #, plot_importance
+#from xgboost import XGBClassifier # , plot_importance # type: ignore
+#import xgboost as xgb  # type: ignore
+from sklearn.svm import SVC
+from sklearn.model_selection import GridSearchCV
+from sklearn.preprocessing import LabelEncoder
 
 # -- Balanceo --
-from imblearn.over_sampling import SMOTE
+#from imblearn.over_sampling import SMOTE
 
 # -- Métricas --
 from sklearn.metrics import (
@@ -24,10 +28,17 @@ from sklearn.metrics import (
     precision_score, recall_score, f1_score
 )
 
+from sklearn.metrics import roc_curve, auc, precision_recall_curve
+
+
 def division_datos_test_train(data: pd.DataFrame, parameters: dict) -> tuple:
 
     X = data[parameters["features"]]
     y = data[parameters["target"]]
+    #En caso de error, si y necesita ser 1D usar .values.ravel
+    if isinstance(y, pd.DataFrame):
+        y = y.values.ravel()
+
     
     X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=parameters["test_size"], random_state=parameters["random_state"])
@@ -46,9 +57,12 @@ def entrenar_knn_cv(X_train, y_train, param_grid):
     grid.fit(X_train, y_train)
     return grid.best_estimator_
 
+def entrenar_svc_cv(X_train, y_train, param_grid):
+    # Asegura que y sea un vector 1D
+    if isinstance(y_train, pd.DataFrame):
+        y_train = y_train.values.ravel()
 
-def entrenar_xgboost_cv(X_train, y_train, param_grid):
-    grid = GridSearchCV(XGBClassifier(use_label_encoder=False, eval_metric='logloss'), param_grid=param_grid, cv=5)
+    grid = GridSearchCV(SVC(), param_grid=param_grid, cv=5)
     grid.fit(X_train, y_train)
     return grid.best_estimator_
 
@@ -89,35 +103,24 @@ def evaluacion_modelo(model, X_test, y_test):
 def evaluacion_modelo(model, X_test, y_test):
     y_pred = model.predict(X_test)
     
-    #  de clasificación
+    # Ajuste de average para multiclass
+    average_type = "weighted"  # 'micro', 'macro' o 'weighted'
+
     print("Accuracy:", accuracy_score(y_test, y_pred))
-    print("Precision:", precision_score(y_test, y_pred))
-    print("Recall (Sensitivity):", recall_score(y_test, y_pred))
-    print("F1 Score:", f1_score(y_test, y_pred))
+    print("Precision:", precision_score(y_test, y_pred, average=average_type, zero_division=0))
+    print("Recall (Sensitivity):", recall_score(y_test, y_pred, average=average_type, zero_division=0))
+    print("F1 Score:", f1_score(y_test, y_pred, average=average_type, zero_division=0))
     
-    # Specificity
-    cm = confusion_matrix(y_test, y_pred)
-    tn, fp, fn, tp = cm.ravel()
-    specificity = tn / (tn + fp)
-    print("Specificity:", specificity)
-    
-    # Curva ROC
-    y_prob = model.predict_proba(X_test)[:, 1]
-    fpr, tpr, _ = roc_curve(y_test, y_prob)
-    roc_auc = auc(fpr, tpr)
-    print("ROC AUC:", roc_auc)
-    
-    # Curva Precision-Recall
-    precision, recall, _ = precision_recall_curve(y_test, y_prob)
-    pr_auc = auc(recall, precision)
-    print("Precision-Recall AUC:", pr_auc)
+    # Specificity solo tiene sentido en binario, así que podemos omitirlo o calcularlo por clase
+    # Por ahora lo comentamos
+    # cm = confusion_matrix(y_test, y_pred)
+    # tn, fp, fn, tp = cm.ravel()
+    # specificity = tn / (tn + fp)
+    # print("Specificity:", specificity)
     
     return {
         'accuracy': accuracy_score(y_test, y_pred),
-        'precision': precision_score(y_test, y_pred),
-        'recall': recall_score(y_test, y_pred),
-        'specificity': specificity,
-        'f1': f1_score(y_test, y_pred),
-        'roc_auc': roc_auc,
-        'pr_auc': pr_auc
+        'precision': precision_score(y_test, y_pred, average=average_type, zero_division=0),
+        'recall': recall_score(y_test, y_pred, average=average_type, zero_division=0),
+        'f1': f1_score(y_test, y_pred, average=average_type, zero_division=0),
     }

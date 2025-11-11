@@ -188,3 +188,8 @@ coverage.xml
 *.py,cover
 .hypothesis/
 .pytest_cache/
+
+#para las buenas practicas, ignoramos la key de fernetkey de airflow (la key se puede definir en la .nvem)
+.env
+*.key
+airflow.cfg

@@ -166,3 +166,16 @@ CMD ["airflow", "webserver", "--port", "8080"]
 # Contraseña: admin
 
 #Etapa 2 (luego de integrar airflow se realiza la integracion de dags y automatizacion) (no se si es asi o debe ser otro nombre)
+
+#ejecutar airflow con dockercompose, ya que contiene varios servicios por ejecutar
+
+# -- Para ejecutar aiflow con dockercompose --
+
+# docker-compose -f docker-compose.airflow.yml up airflow-init ejecuta cuando esten dentro de la carpeta raiz
+
+# docker-compose -f compose/docker-compose.airflow.yml down ejecuta cuando estes fuera de la carpeta raiz
+
+# entrar a airflow: http://localhost:8080/home
+
+# antes de ejecutar el airflow, debes abrir la aplicacion docker (ver si es necesario)
+

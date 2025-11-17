@@ -27,18 +27,18 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 
 # Copiar archivos de dependencias
-COPY machine-learning-project/requirements.txt machine-learning-project/pyproject.toml ./
+COPY /requirements.txt /pyproject.toml ./
 
 # Instalar dependencias de Python (incluyendo Kedro)
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
 # Copiar código fuente
-COPY machine-learning-project/src/ ./src/
-COPY machine-learning-project/conf/ ./conf/
-COPY machine-learning-project/data/ ./data/
-COPY machine-learning-project/notebooks/ ./notebooks/
-COPY machine-learning-project/tests/ ./tests/
+COPY /src/ ./src/
+COPY /conf/ ./conf/
+COPY /data/ ./data/
+COPY /notebooks/ ./notebooks/
+COPY /tests/ ./tests/
 
 # Crear directorios necesarios
 RUN mkdir -p logs sessions && \

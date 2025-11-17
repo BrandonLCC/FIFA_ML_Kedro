@@ -1,8 +1,7 @@
 version: "3.8"
 
-x-airflow-common:
-  &airflow-common
-  image: apache/airflow:2.9.2
+x-airflow-common: &airflow-common
+  image: airflow-kedro:latest
   environment:
     AIRFLOW__CORE__EXECUTOR: CeleryExecutor
     AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
@@ -12,7 +11,7 @@ x-airflow-common:
     AIRFLOW__API__AUTH_BACKENDS: airflow.api.auth.backend.basic_auth
     AIRFLOW_UID: 50000
   volumes:
-    - ../airflow/dags:/opt/airflow/dags 
+    - ../airflow/dags:/opt/airflow/dags
     - ../airflow/logs:/opt/airflow/logs
     - ../airflow/plugins:/opt/airflow/plugins
   user: "${AIRFLOW_UID:-50000}"
@@ -52,32 +51,36 @@ services:
       bash -c "airflow db migrate &&
       airflow users create --username admin --password admin --firstname Admin --lastname User --role Admin --email admin@example.com &&
       echo 'Airflow Init Completed'"
-    depends_on:
-      postgres:
-        condition: service_healthy
 
   webserver:
     <<: *airflow-common
     command: webserver
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.airflow
     ports:
       - "8080:8080"
-    healthcheck:
-      test: ["CMD", "curl", "--fail", "http://localhost:8080/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
 
   scheduler:
     <<: *airflow-common
     command: scheduler
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.airflow
 
   worker:
     <<: *airflow-common
     command: celery worker
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.airflow
 
   flower:
     <<: *airflow-common
     command: celery flower
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.airflow
     ports:
       - "5555:5555"
 

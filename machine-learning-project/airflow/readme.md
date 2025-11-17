@@ -75,8 +75,6 @@ dags/
 
 ## Ejecución 
 
-
-
 ## Referencia 
 
 Repositorio: [Link](https://github.com/Giocrisrai/kedro_tutorial_test/blob/main/dags/README.md)
@@ -169,3 +167,55 @@ volumes:
   - ./dags:/opt/airflow/dags
   - ./logs:/opt/airflow/logs
   - ./plugins:/opt/airflow/plugins
+
+---
+
+## Errores solucionados 
+
+**No se detecta los DAGs**
+
+- Cambio en las rutas de volumes en docker-compose.airflow.yml: - ../airflow/dags:/opt/airflow/dags 
+
+Esto depende de tu proyecto, en mi caso, no se estaba leyendo la carpeta que tenia los dags ya que tenia otra ruta configurada. 
+Luego de eso, de pudo detectar los DAGs.
+
+**No detecta los otros archivos .py**
+
+- Solucion: 
+
+Descripcion: 
+
+---
+
+
+Dockerfile de Airflow — Explicación Rápida
+
+Este proyecto utiliza Airflow + Kedro, por lo que es necesario usar un Dockerfile personalizado para Airflow.
+La razón principal es que Airflow no se ejecuta en tu computador, sino dentro de contenedores Docker, y estos contenedores no tienen Kedro instalado por defecto.
+
+🔍 ¿Por qué usar un Dockerfile para Airflow?
+
+Si no se usa un Dockerfile personalizado, dentro del contenedor aparecerán errores como:
+
+ModuleNotFoundError: No module named 'kedro'
+
+
+Esto ocurre porque el contenedor de Airflow no tiene:
+
+Kedro instalado
+
+El operador personalizado kedro_operator
+
+Acceso interno al proyecto Kedro
+
+🧩 ¿Qué soluciona el Dockerfile?
+
+El dockerfile-airflow permite:
+
+✔️ Instalar Kedro dentro del contenedor Airflow
+
+✔️ Instalar el operador kedro_operator
+
+✔️ Copiar o montar las rutas necesarias de Airflow (dags, plugins, etc.)
+
+✔️ Permitir que los DAGs interactúen con el proyecto Kedro

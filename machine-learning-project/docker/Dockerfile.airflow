@@ -1,63 +1,29 @@
-# Dockerfile para Apache Airflow con Kedro
 FROM apache/airflow:2.8.0-python3.11
 
-# Metadatos
-LABEL maintainer="spaceflights-team"
-LABEL description="Apache Airflow with Kedro Integration for Spaceflights"
-
-# Cambiar a usuario root para instalar dependencias
 USER root
+RUN apt-get update && apt-get install -y build-essential git && rm -rf /var/lib/apt/lists/*
 
-# Instalar dependencias del sistema
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    curl \
-    git \
-    && rm -rf /var/lib/apt/lists/*
-
-# Cambiar de vuelta al usuario airflow
 USER airflow
-
-# Establecer directorio de trabajo
 WORKDIR /app
 
-# Copiar archivos de dependencias
-COPY machine-learning-project/requirements.txt machine-learning-project/pyproject.toml ./
+# COPIAR REQUIREMENTS DEL PROYECTO KEDRO
+COPY ../requirements.txt ./requirements.txt
 
-# Instalar dependencias de Python (incluyendo Kedro y Airflow)
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
+RUN pip install --upgrade pip && \
+    pip install -r requirements.txt && \
+    pip install kedro kedro-docker kedro-airflow
 
-# Copiar código fuente del proyecto
-COPY machine-learning-project/src/ ./src/
-COPY machine-learning-project/conf/ ./conf/
-COPY machine-learning-project/notebooks/ ./notebooks/
-COPY machine-learning-project/tests/ ./tests/
+# INSTALAR EL PROYECTO KEDRO COMO PAQUETE
+COPY ../pyproject.toml ./pyproject.toml
+COPY ../src ./src
 
-# Crear directorio data (los datos se montarán en runtime)
-RUN mkdir -p ./data
+RUN pip install -e .
 
-# Crear directorios necesarios para Airflow
-RUN mkdir -p /opt/airflow/dags /opt/airflow/logs /opt/airflow/plugins
-
-# Configurar variables de entorno de Airflow
 ENV AIRFLOW_HOME=/opt/airflow
-ENV AIRFLOW__CORE__DAGS_FOLDER=/opt/airflow/dags
-ENV AIRFLOW__CORE__PLUGINS_FOLDER=/opt/airflow/plugins
-ENV AIRFLOW__CORE__EXECUTOR=LocalExecutor
-ENV AIRFLOW__CORE__LOAD_EXAMPLES=False
-ENV AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION=True
-
-# Configurar variables de entorno de Kedro
-ENV KEDRO_HOME=/app
-ENV KEDRO_CONFIG_FILE=conf/base/parameters.yml
 ENV PYTHONPATH=/app/src
 
-# Exponer puerto de Airflow
-EXPOSE 8080
+CMD ["bash"]
 
-# Comando por defecto
-CMD ["airflow", "webserver", "--port", "8080"]
 
 #archivos necesarios con airflow
 #carpeta dags
@@ -179,3 +145,17 @@ CMD ["airflow", "webserver", "--port", "8080"]
 
 # antes de ejecutar el airflow, debes abrir la aplicacion docker (ver si es necesario)
 
+
+
+
+# nadaaa 
+
+# docker compose -f compose/docker-compose.airflow.yml build
+
+#docker-compose -f compose/docker-compose.airflow.yml logs -f webserver
+
+
+
+##-importante---
+
+    #ojo con los codigos que terminen en  machine-learning-project porque movimos los dockerfiles a netro de la carpeta machine learning

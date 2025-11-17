@@ -90,3 +90,42 @@ pip install -r requirements.txt
  Kedro y Jupyter notebook 
 ``` 
 ## Conclusiones
+
+
+## Aprendizajes
+
+Errores cometido 
+
+diplicado de carpeta raiz
+
+Primero, abre tu explorador de archivos y confirma que tienes esta estructura:
+
+text
+machine-learning-project/          (carpeta raíz del repositorio)
+└── machine-learning-project/      (carpeta hija duplicada)
+    ├── airflow/
+    ├── conf/
+    ├── src/
+    └── etc...
+
+
+corregido a
+
+machine-learning-project/          (solo esta carpeta)
+├── airflow/
+├── compose/
+├── conf/
+├── data/
+├── docker/
+├── docs/
+├── notebooks/
+├── src/
+├── tests/
+├── .dockerignore
+├── .gitignore
+├── README.md
+├── pyproject.toml
+├── requirements.txt
+├── start.sh
+└── uv.lock
+

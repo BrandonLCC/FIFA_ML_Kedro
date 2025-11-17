@@ -1,3 +1,4 @@
+# (no utilizado actualmente)
 #Propositos: ejecutar airflow automaticamente
 #Otros propositos: ...
 

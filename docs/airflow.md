@@ -100,64 +100,65 @@ cd compose
 
 Ejecuta esto si agregas nuevos DAGs, cambios en dependencias o archivos importantes:
 
-docker-compose -f docker-compose.airflow.yml build
-docker-compose -f compose/docker-compose.airflow.yml up -d
+docker-compose -f docker-compose.airflow.yml build # ejecuta de esta forma si el archivo compose no esta dentro de una carpeta o directorio
+docker-compose -f compose/docker-compose.airflow.yml up -d # ejecuta de esta forma si estan dentro de una carpeta o directorio
 
-3. Levantar Airflow
+# ejecucion de airflow 
 
-Este comando inicia Postgres, Scheduler y Webserver dentro de contenedores:
+1. Ubícate en la raíz del proyecto
 
-docker-compose -f docker-compose.airflow.yml up -d #dentro 
-docker-compose -f compose/docker-compose.airflow.yml up -d # fuera de raiz
+cd C:\Users\brand\Downloads\Proyecto_ML_Kedro
 
-4. Verificar que Airflow está corriendo
+2. Inicializar Airflow (solo la PRIMERA VEZ)
+docker compose -f compose/docker-compose.airflow.yml up airflow-init
 
-Abrir en el navegador:
+Esto crea:
+
+base de datos Airflow
+
+usuario admin
+
+estructura interna
+
+Si ya lo hiciste antes: puedes saltarlo.
+
+3. Levantar Airflow (webserver + scheduler + postgres)
+docker compose -f compose/docker-compose.airflow.yml up -d
+
+
+Esto inicia los servicios en segundo plano.
+
+4. Abrir Airflow en el navegador
 
 http://localhost:8080
 
+Credenciales por defecto:
 
-Usuario y contraseña por defecto (si no se cambió):
+user: admin
 
-user: airflow
-pass: airflow
+pass: admin
+
+(Salvo que hayas definido otras en tu archivo .env.)
 
 5. Ver logs si algo falla
-
-Scheduler:
-
-docker logs airflow-scheduler -f
-
-
 Webserver:
-
 docker logs airflow-webserver -f
 
-6. Actualizar DAGs sin reiniciar todo
+Scheduler:
+docker logs airflow-scheduler -f
 
-Si solo modificaste un DAG o un archivo dentro de dags/, puedes reiniciar solo los servicios clave:
+6. Reiniciar solo los DAGs (sin tumbar todo)
 
-docker-compose -f docker-compose.airflow.yml restart airflow-scheduler
-docker-compose -f docker-compose.airflow.yml restart airflow-webserver
+Si editaste archivos en dags/:
 
-7. Apagar Airflow cuando termines
-docker-compose -f docker-compose.airflow.yml down
+docker compose -f compose/docker-compose.airflow.yml restart airflow-scheduler
+docker compose -f compose/docker-compose.airflow.yml restart airflow-webserver
 
 
-# ultimo visto (ver si es necesario anotarlo)
+Esto es lo más usado durante el desarrollo.
 
-Inicializar Airflow solo la primera vez
-docker-compose -f compose/docker-compose.airflow.yml up airflow-init
-
-3. Levantar webserver + scheduler
-docker-compose -f compose/docker-compose.airflow.yml up -d
-
-4. Ver logs (si algo falla)
-docker-compose -f compose/docker-compose.airflow.yml logs -f webserver
-
-5. Detener todo
-docker-compose -f compose/docker-compose.airflow.yml down
-
+7. Apagar Airflow
+docker compose -f compose/docker-compose.airflow.yml down
 
 ## No veo los dags?
 

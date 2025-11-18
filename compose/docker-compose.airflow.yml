@@ -45,8 +45,16 @@ services:
       timeout: 3s
       retries: 5
 
+  # Construcción única de la imagen
+  airflow-base:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.airflow
+    image: airflow-kedro:latest
+
   airflow-init:
     <<: *airflow-common
+    image: airflow-kedro:latest
     entrypoint: >
       bash -c "airflow db migrate &&
       airflow users create --username admin --password admin --firstname Admin --lastname User --role Admin --email admin@example.com &&
@@ -54,33 +62,25 @@ services:
 
   webserver:
     <<: *airflow-common
+    image: airflow-kedro:latest
     command: webserver
-    build:
-      context: ..
-      dockerfile: docker/Dockerfile.airflow
     ports:
       - "8080:8080"
 
   scheduler:
     <<: *airflow-common
+    image: airflow-kedro:latest
     command: scheduler
-    build:
-      context: ..
-      dockerfile: docker/Dockerfile.airflow
 
   worker:
     <<: *airflow-common
+    image: airflow-kedro:latest
     command: celery worker
-    build:
-      context: ..
-      dockerfile: docker/Dockerfile.airflow
 
   flower:
     <<: *airflow-common
+    image: airflow-kedro:latest
     command: celery flower
-    build:
-      context: ..
-      dockerfile: docker/Dockerfile.airflow
     ports:
       - "5555:5555"
 

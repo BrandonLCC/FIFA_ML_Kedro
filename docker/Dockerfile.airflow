@@ -1,26 +1,38 @@
 FROM apache/airflow:2.8.0-python3.11
 
+# Cambiar a root para instalar paquetes del sistema
 USER root
 RUN apt-get update && apt-get install -y build-essential git && rm -rf /var/lib/apt/lists/*
 
+# Volver al usuario airflow para instalar Python libs
 USER airflow
 WORKDIR /app
 
-# COPIAR REQUIREMENTS DEL PROYECTO KEDRO
-COPY ../requirements.txt ./requirements.txt
+# Copiar solo requirements del proyecto
+COPY requirements.txt .
 
+# Instalar dependencias
 RUN pip install --upgrade pip && \
     pip install -r requirements.txt && \
-    pip install kedro kedro-docker kedro-airflow
+    pip install kedro kedro-airflow kedro-docker
 
-# INSTALAR EL PROYECTO KEDRO COMO PAQUETE
-COPY ../pyproject.toml ./pyproject.toml
-COPY ../src ./src
+# Copiar archivos del proyecto Kedro
+COPY pyproject.toml .
+COPY src ./src
 
+# Volver a root para dar permisos correctos
+USER root
+RUN chown -R airflow /app
+
+# Volver al usuario airflow antes de instalar el proyecto
+USER airflow
+
+# Instalar el proyecto Kedro como paquete editable
 RUN pip install -e .
 
-ENV AIRFLOW_HOME=/opt/airflow
+# Variables de entorno
 ENV PYTHONPATH=/app/src
+ENV AIRFLOW_HOME=/opt/airflow
 
 CMD ["bash"]
 

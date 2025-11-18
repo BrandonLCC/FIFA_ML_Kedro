@@ -2,6 +2,7 @@ from datetime import timedelta
 from pathlib import Path
 
 # Nombre del paquete Kedro (tu proyecto)
+KEDRO_PACKAGE_NAME = "PROYECTO_ML_KEDRO"   
 KEDRO_PACKAGE_NAME = "machine-learning-project"   
 
 # Ruta del proyecto dentro del contenedor Airflow ok?

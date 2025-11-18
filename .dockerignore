@@ -103,3 +103,8 @@ data/**/.ipynb_checkpoints/
 # Archivos de configuración local
 conf/local/
 conf/**/local.yml
+
+conf/airflow/logs
+logs/
+*/logs/
+**/logs/

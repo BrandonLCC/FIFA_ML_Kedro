@@ -24,20 +24,20 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 
 # Copiar archivos de dependencias
-COPY machine-learning-project/requirements.txt machine-learning-project/pyproject.toml ./
+COPY /requirements.txt /pyproject.toml ./
 
 # orgininal: COPY requirements.txt pyproject.toml ./
-#machine-learning-project\requirements.txt
+#\requirements.txt
 
 # Instalar dependencias de Python
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
 # Copiar código fuente
-COPY machine-learning-project/src ./src/
-COPY machine-learning-project/conf ./conf/
-COPY machine-learning-project/notebooks ./notebooks/
-COPY machine-learning-project/tests ./tests/
+COPY /src ./src/
+COPY /conf ./conf/
+COPY /notebooks ./notebooks/
+COPY /tests ./tests/
 
 # Crear directorio data (los datos se montarán en runtime)
 RUN mkdir -p ./data
@@ -54,71 +54,5 @@ EXPOSE 4141
 
 # Comando por defecto
 CMD ["kedro", "run"]
-
-#Tutorial 1 (imagen): https://docs.docker.com/get-started/introduction/build-and-push-first-image/
-#Errores de nobato
-# Al crear la imagen, creamos la carpeta llamada docker
-# luego creamos manualemtne el archivo Dcokerfile.kedro, tambien se puede llamar solo docker
-# Luego ejecutamos el Dockerfile.kerdo con docker build -t fifa-ml-kedro -f docker/Dockerfile.kedro .  (cuando el docker file esta en el mismo directorio)
-# docker build -t fifa-ml-kedro -f Dockerfile.kedro . (cuando esta en la carpeta raiz del proyecto)  
-
-#Verefica que la imagen se haya creado correctamente
-#docker images
-
-#Se modifica el archivo requirements.txt para que tenga todas las librerias o importaciones necesarias y sus versiones.
-
-# -----------------------------------------------------------------------------------------------------------------------
-
-#Tutorial 2 (contenedores): https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-a-container/
-
-# crear contenedor docker run -it fifa-ml-kedro /bin/bash
-
-#para acceder a la carpeta de data ya que da error al no reconocer los datasets:
-#docker run -it -v "${PWD}:/app" fifa-ml-kedro /bin/bash
-
-#entra desde ls a los archivos hasta el machine-learning-project
-
-#desde ahi puedes ejecutar un pipeline en especificio en vez de ejecutar todos 
-
-#kedro run --pipeline classification_models
-
-#ejecutando el pipeline dataprocessing  (esto para verificar que se ejecuta el pipeline corretamente)
-
-# #docker run node data_processing -it -v "${PWD}:/app" fifa-ml-kedro /bin/bash
-
-# (Opción 2) Copiar data al contenedor en el Dockerfile
-# COPY data/ /app/data/
-
-# en mi caso escogi la opcion 1 
-
-# Acceder al proyecto dentro del contenedor
-#cd machine-learning-project
-
-# Ejecutar pipeline
-#kedro run
-
-# Si da error de datasets, verificar ruta
-#ls data/01_raw/
-
-# Si dice "Kedro project not found", entrar primero a la carpeta del proyecto
-#cd machine-learning-project
-
-#Configuracion hecha manualmente
-
-#Objetivos
-
-#1. Use named volumes for data persistence (permite que los datos sobrevivan al borrar o recrear contenedores)
-#2. Use bind mounts for code sync (para que tu código local y el contenedor estén sincronizados.)
-
-
-##ultimo comunicado
-
-##al entrar al contenedor con el comando de arriba 
-##automaticamente puedes generar o ejecutar un pipeline sin complicaciones
-# kedro run --pipeline=classification_models (probado)
-# kedro run --pipeline=classification_report (probado)
-
-# kedro run --pipeline=regression_report (probado)
-
 
 

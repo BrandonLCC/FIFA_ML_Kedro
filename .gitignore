@@ -160,12 +160,11 @@ venv.bak/
 
 # mlflow local runs
 mlruns/*
-/data
+#/data
 
 # Kedro specific
 # Kedro specific
 logs/
-data/01_raw/
 data/02_intermediate/
 data/03_primary/
 data/04_feature/

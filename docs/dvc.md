@@ -129,31 +129,135 @@ dvc push
 DVC versiona archivos de datos completos, pero solo subes los que tú decidas.
 
 Cada vez que cambias el dataset:
-
 dvc add data/dataset.csv
 git commit -am "Nuevo dataset"
 dvc push
-
 
 DVC guarda una nueva versión del dataset, igual que Git guarda una nueva versión del código.
 
 
 siguientes pasos
 
-Instalar DVC
+- Instalar DVC
 
-Inicializar DVC en tu proyecto
+- Inicializar DVC en tu proyecto
 
-Configurar Dagshub como storage remoto para DVC
+- Configurar Dagshub como storage remoto para DVC
 
-Rastrear tus datasets con DVC
+- Rastrear tus datasets con DVC
 
-Subir los datos al remoto con dvc push
+- Subir los datos al remoto con dvc push
+
+
+## siguiente paso 
 
 1. paso 1 pip instal dvc
 
 pip install "dvc[s3]"
 
-2. inicializar el poryecto (desde aqui se genera el archivo .dvc simial al .gitinit)
+
+### siguiente paso 
+
+2. inicializar el poryecto (desde aqui se genera el archivo .dvc similar al .gitinit)
 
 dvc init
+
+Luego:
+
+git add .
+git commit -m "Configuración inicial de DVC"
+git push
+
+
+# siguiente paso 
+
+
+ASO 3 — Configurar Dagshub como almacenamiento remoto
+
+Dagshub te da URLs S3 para DVC.
+
+Tu remoto quedará así (reemplazando br.casas/ML-Kedro-FIFA-DVC):
+
+dvc remote add -d dagshub s3://ML-Kedro-FIFA-DVC
+
+
+Ahora tenemos que decirle la URL real del bucket:
+
+dvc remote modify dagshub endpointurl https://dagshub.com/api/v1/repo-buckets/br.casas/ML-Kedro-FIFA-DVC
+
+
+Y autenticación:
+pag: https://dagshub.com/user/settings/tokens
+dvc remote modify dagshub --local access_key_id <TU_TOKEN>
+dvc remote modify dagshub --local secret_access_key <TU_TOKEN>
+
+# dvc remote modify dagshub --local access_key_id 2d8fd105d2d7382e72c260433bf54148edf0eb34
+# dvc remote modify dagshub --local secret_access_key 2d8fd105d2d7382e72c260433bf54148edf0eb34
+
+# siguiente paso 
+
+PASO 4 — Versionar tus datasets
+
+Por ejemplo, si tienes data/01_raw/dataset.csv:
+
+dvc add data/01_raw/dataset.csv
+
+
+O si quieres versionar carpetas completas:
+
+dvc add data/01_raw
+
+
+DVC creará:
+
+un archivo .dvc
+
+registrará los hashes del contenido
+
+ignorará el archivo real para Git
+
+Luego:
+
+git add .
+git commit -m "Añadido dataset versionado con DVC"
+git push
+
+## siguiente paso — Subir datos al remoto Dagshub
+
+Finalmente:
+
+dvc push
+
+# Qué carpetas deberías versionar con DVC?
+🔥 Regla de oro en ciencia de datos con DVC:
+
+Versiona solo los datos que NO se pueden regenerar.
+📂 01_raw → SÍ o SÍ se versiona
+
+
+
+en la terminal del proyecto ejecutar 
+
+ dvc add data/01_raw/
+
+ en mi caso tambien versionaremos el archivo 06_models
+
+ dvc add data/01_raw
+
+
+Versionar modelos:
+
+
+
+dvc add data/06_models
+
+Luego:
+
+git add data/.gitignore data/01_raw.dvc data/06_models.dvc
+
+git commit -m "Versionando datos crudos (01_raw) y modelos (06_models)"
+
+🚀 4. Sube los cambios al repositorio en DagsHub
+git push
+dvc push
+

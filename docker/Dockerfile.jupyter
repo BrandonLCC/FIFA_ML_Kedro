@@ -1,54 +1,49 @@
 # Dockerfile para JupyterLab - Entorno completo de desarrollo
 FROM python:3.11-slim
 
-# Metadatos
 LABEL maintainer="FIFA"
 LABEL description="JupyterLab Development Environment for Kedro"
 
-# Variables de entorno
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV KEDRO_HOME=/app
 ENV KEDRO_CONFIG_FILE=conf/base/parameters.yml
 ENV JUPYTER_ENABLE_LAB=yes
-ENV JUPYTER_ALLOW_INSECURE_WRITES=true
+ENV JUPYTER_ALLOW_INSECURE_WRITES=false
 
 # Crear usuario no-root
 RUN groupadd -r kedro && useradd -r -g kedro kedro
 
-# Instalar dependencias del sistema
+# Dependencias del sistema
 RUN apt-get update && apt-get install -y \
     build-essential \
     curl \
     git \
     && rm -rf /var/lib/apt/lists/*
 
-# Establecer directorio de trabajo
 WORKDIR /app
 
 # Copiar archivos de dependencias
-COPY /requirements.txt /pyproject.toml ./
+COPY requirements.txt pyproject.toml ./
 
-# Instalar dependencias de Python (incluyendo Kedro)
+# Instalar dependencias Python
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
-# Copiar código fuente
-COPY /src/ ./src/
-COPY /conf/ ./conf/
-COPY /data/ ./data/
-COPY /notebooks/ ./notebooks/
-COPY /tests/ ./tests/
+# Copiar código del proyecto
+COPY src/ ./src/
+COPY conf/ ./conf/
+COPY data/ ./data/
+COPY notebooks/ ./notebooks/
+# COPY tests/ ./tests/   # <-- Activa esto solo si existe tests/
 
-# Crear directorios necesarios
 RUN mkdir -p logs sessions && \
     chown -R kedro:kedro /app
 
-# Instalar extensiones adicionales de Jupyter
+# Instalar extensiones de Jupyter
 USER root
 
 RUN pip install --no-cache-dir \
-    jupyterlab-git \
     jupyterlab-lsp \
     python-lsp-server[all] \
     jupyterlab-widgets \
@@ -56,7 +51,7 @@ RUN pip install --no-cache-dir \
     plotly \
     seaborn
 
-# Configurar JupyterLab
+# Configurar Jupyter
 RUN mkdir -p /home/kedro/.jupyter /home/kedro/.local/share/jupyter/runtime && \
     chown -R kedro:kedro /home/kedro/.local /home/kedro/.jupyter && \
     jupyter lab --generate-config && \
@@ -68,12 +63,14 @@ RUN mkdir -p /home/kedro/.jupyter /home/kedro/.local/share/jupyter/runtime && \
     echo "c.ServerApp.password = ''" >> /home/kedro/.jupyter/jupyter_lab_config.py && \
     chown -R kedro:kedro /home/kedro/.jupyter
 
-# Volver a usuario kedro
+RUN mkdir -p /home/kedro/.cache && chown -R kedro:kedro /home/kedro/.cache
+
+# Volver al usuario kedro
 USER kedro
 
-# Exponer puerto de JupyterLab
+# Soluciona warnings de matplotlib
+ENV MPLCONFIGDIR=/tmp/matplotlib
+
 EXPOSE 8888
 
-# Comando por defecto
 CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root"]
-

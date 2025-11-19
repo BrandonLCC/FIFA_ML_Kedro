@@ -112,31 +112,31 @@ CMD ["bash"]
 #3️Se crea el archivo start.sh
 # (Sirve como script para inicializar y ejecutar Airflow desde Docker)
 # Ejemplo de comando dentro:
-# docker-compose -f compose/docker-compose.airflow.yml up -d
+# docker-compose -f docker/docker-compose.airflow.yml up -d
 
 #4️ Se ejecuta el siguiente comando para descargar las imágenes
 # y levantar los contenedores de Airflow (webserver, scheduler y Postgres)
 # REFERENCIA: https://airflow.apache.org/docs/apache-airflow/stable/howto/docker-compose/index.html#starting-airflow
 
-#docker-compose -f compose/docker-compose.airflow.yml up -d
+#docker-compose -f docker/docker-compose.airflow.yml up -d
 
 #5️ (OPCIONAL) Inicializar la base de datos manualmente si no se creó
 # Este comando entra al contenedor del webserver y ejecuta la inicialización de la DB.
 
-#docker-compose -f compose/docker-compose.airflow.yml exec webserver airflow db init
+#docker-compose -f docker/docker-compose.airflow.yml exec webserver airflow db init
 
 #6️ Comandos ejecutados para reiniciar los contenedores y limpiar el entorno
 
 # Detiene y elimina los contenedores + volúmenes
-#docker-compose -f compose/docker-compose.airflow.yml down -v
+#docker-compose -f docker/docker-compose.airflow.yml down -v
 
 # Vuelve a levantar los servicios en segundo plano
-#docker-compose -f compose/docker-compose.airflow.yml up -d
+#docker-compose -f docker/docker-compose.airflow.yml up -d
 
 #7️ Revisar los logs del servidor web para verificar que está activo
 # (Se puede detener con Ctrl + C)
 
-#docker-compose -f compose/docker-compose.airflow.yml logs -f webserver
+#docker-compose -f docker/docker-compose.airflow.yml logs -f webserver
 
 #8️ Acceder a la interfaz de Airflow desde el navegador
 # URL: http://localhost:8080
@@ -151,7 +151,7 @@ CMD ["bash"]
 
 # docker-compose -f docker-compose.airflow.yml up airflow-init ejecuta cuando esten dentro de la carpeta raiz
 
-# docker-compose -f compose/docker-compose.airflow.yml down ejecuta cuando estes fuera de la carpeta raiz
+# docker-compose -f docker/docker-compose.airflow.yml down ejecuta cuando estes fuera de la carpeta raiz
 
 # entrar a airflow: http://localhost:8080/home
 
@@ -162,10 +162,9 @@ CMD ["bash"]
 
 # nadaaa 
 
-# docker compose -f compose/docker-compose.airflow.yml build
+# docker compose -f docker/docker-compose.airflow.yml build
 
-#docker-compose -f compose/docker-compose.airflow.yml logs -f webserver
-
+#docker-compose -f docker/docker-compose.airflow.yml logs -f webserver
 
 
 ##-importante---

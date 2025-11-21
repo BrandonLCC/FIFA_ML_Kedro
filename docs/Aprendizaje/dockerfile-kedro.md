@@ -85,6 +85,7 @@ docker run -it -v "${PWD}:/app" fifa-ml-kedro /bin/bash
 6. Ejecución de Pipelines Kedro
 Pipeline de clasificación
 ```bash
+
 kedro run --pipeline classification_models
 ```
 
@@ -120,3 +121,43 @@ kedro run --pipeline regression_report
 - Asegurar que los pipelines funcionan antes de automatizar con Airflow.
 
 - Eliminar y reconstruir imágenes/contendores es parte natural del flujo Docker.
+
+
+flujo de ejecucion de pipelines
+
+kedro run --pipeline data_processing
+
+kedro run --pipeline regression_models
+kedro run --pipeline classification_models
+
+kedro run --pipeline regression_report
+kedro run --pipeline classification_report
+
+
+¿como hacer kedro run dentro del contenedor?
+
+(resumen: estos pasos es como realizar el tutoral de arriba, solo que para entender que se hace cada vez que queremos hacer kedro run )
+
+✔️ OPCIÓN 1: Ejecutar kedro run manualmente dentro del contenedor
+
+(La más flexible)
+
+1. Levanta el contenedor
+
+Si tu Dockerfile ya crea la imagen:
+
+docker build -t fifa-ml-kedro -f docker/Dockerfile.kedro .
+
+
+Entonces creas un contenedor:
+
+docker run -it fifa-ml-kedro /bin/bash
+
+Dentro del contenedor puedes ejecutar:
+
+kedro run
+
+si da error usa el contendor con este codigo para acceder a las carpetas ya que kedro necesita algunas carpetas que no estan o no puede accerder por x razon
+
+docker run -it -v "${PWD}:/app" fifa-ml-kedro /bin/bash
+

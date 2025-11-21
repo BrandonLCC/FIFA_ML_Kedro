@@ -123,7 +123,7 @@ estructura interna
 Si ya lo hiciste antes: puedes saltarlo.
 
 3. Levantar Airflow (webserver + scheduler + postgres)
-docker compose -f compose/docker-compose.airflow.yml up -d
+docker compose -f docker/docker-compose.airflow.yml up -d
 
 
 Esto inicia los servicios en segundo plano.
@@ -220,3 +220,29 @@ El dockerfile-airflow permite:
 ✔️ Copiar o montar las rutas necesarias de Airflow (dags, plugins, etc.)
 
 ✔️ Permitir que los DAGs interactúen con el proyecto Kedro
+
+# no eliminar importante
+
+¿Çomo cree mis dags de airflow?
+
+como estrategia, primero en vez de genrarlos manualmente, realizar estos pasos para que se generen automaticamente y luego pegarlo en el archivo original de airflow.
+
+
+1. Instala el plugin
+
+  pip install kedro-airflow
+
+
+2. Genera los DAGs (en la terminal)
+
+  kedro airflow create
+
+
+3. Copia los archivos generados
+  Desde:
+
+  airflow_dags/
+  
+  Hacia la carpeta real de tu Airflow:
+
+  compose/airflow/dags/

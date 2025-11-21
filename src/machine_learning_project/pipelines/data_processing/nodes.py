@@ -38,15 +38,23 @@ def crear_skills(df: pd.DataFrame) -> pd.DataFrame:
     
     return df
 
-def overall_class(x):
-    if pd.isna(x):
-        return "Desconocido"
-    elif x >= 85:
-        return "Alto"
-    elif x >= 70:
-        return "Medio"
-    else:
-        return "Bajo"
+# para la variable objetivo de los modelos de clasificacinon, variable binaria alto/mediobajo
+def binarize_overall(df: pd.DataFrame, column: str = "Overall", percentile: float = 0.75, new_column: str = "Overall_Class_Bin") -> pd.DataFrame:
+    """
+    Convierte una columna numérica en clases binarias según un percentil.
+    'Alto' se codifica como 1 y 'BajoMedio' como 0.
+    """
+    threshold = df[column].quantile(percentile)
+
+    # Categórico: Alto / BajoMedio
+    df["Overall_Class"] = df[column].apply(
+        lambda x: "Alto" if x >= threshold else "BajoMedio"
+    )
+
+    # Numérico: 1 / 0
+    df[new_column] = df["Overall_Class"].map({"Alto": 1, "BajoMedio": 0})
+
+    return df
 
 
 def joined_separado(df: pd.DataFrame) -> pd.DataFrame:
@@ -302,7 +310,7 @@ def preprocess_fifa_22(fifa_22: pd.DataFrame) -> pd.DataFrame:
 
     fifa_22 = crear_skills(fifa_22)
 
-    fifa_22['Overall_Class'] = fifa_22['Overall'].apply(overall_class)
+    fifa_22 = binarize_overall(fifa_22, column="Overall", percentile=0.75, new_column="Overall_Class_Bin")
     fifa_22 = joined_separado(fifa_22)
 
     # -- Cambio de formato -- 
@@ -354,7 +362,7 @@ def preprocess_fifa_21(fifa_21: pd.DataFrame) -> pd.DataFrame:
 
     # -- feature engineering --
     fifa_21 = crear_skills(fifa_21)
-    fifa_21['Overall_Class'] = fifa_21['Overall'].apply(overall_class)
+    fifa_21 = binarize_overall(fifa_21, column="Overall", percentile=0.75, new_column="Overall_Class_Bin")
     fifa_21 = joined_separado(fifa_21)
 
     # -- Cambio de formato --
@@ -403,7 +411,7 @@ def preprocess_fifa_20(fifa_20: pd.DataFrame) -> pd.DataFrame:
 
     # -- feature engineering --
     fifa_20 = crear_skills(fifa_20)
-    fifa_20['Overall_Class'] = fifa_20['Overall'].apply(overall_class)
+    fifa_20 = binarize_overall(fifa_20, column="Overall", percentile=0.75, new_column="Overall_Class_Bin")
     fifa_20 = joined_separado(fifa_20)
 
     # -- Cambio de formato --

@@ -1,47 +1,30 @@
-# Dockerfile para JupyterLab - Entorno completo de desarrollo
 FROM python:3.11-slim
 
-LABEL maintainer="FIFA"
-LABEL description="JupyterLab Development Environment for Kedro"
+LABEL maintainer="brandon"
+LABEL description="Full Kedro + JupyterLab LSP Environment"
 
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV KEDRO_HOME=/app
-ENV KEDRO_CONFIG_FILE=conf/base/parameters.yml
 ENV JUPYTER_ENABLE_LAB=yes
-ENV JUPYTER_ALLOW_INSECURE_WRITES=false
+ENV MPLCONFIGDIR=/tmp/mpl
 
-# Crear usuario no-root
-RUN groupadd -r kedro && useradd -r -g kedro kedro
-
-# Dependencias del sistema
 RUN apt-get update && apt-get install -y \
-    build-essential \
-    curl \
-    git \
-    && rm -rf /var/lib/apt/lists/*
+    build-essential git curl nodejs npm && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN groupadd -r kedro && useradd -r -g kedro kedro
 
 WORKDIR /app
 
-# Copiar archivos de dependencias
 COPY requirements.txt pyproject.toml ./
-
-# Instalar dependencias Python
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
-# Copiar código del proyecto
-COPY src/ ./src/
-COPY conf/ ./conf/
-COPY data/ ./data/
-COPY notebooks/ ./notebooks/
-# COPY tests/ ./tests/   # <-- Activa esto solo si existe tests/
+COPY . /app
 
-RUN mkdir -p logs sessions && \
-    chown -R kedro:kedro /app
-
-# Instalar extensiones de Jupyter
-USER root
+RUN mkdir -p /home/kedro/.jupyter /tmp/mpl && \
+    chown -R kedro:kedro /app /home/kedro /tmp/mpl
 
 RUN pip install --no-cache-dir \
     jupyterlab-lsp \
@@ -51,26 +34,7 @@ RUN pip install --no-cache-dir \
     plotly \
     seaborn
 
-# Configurar Jupyter
-RUN mkdir -p /home/kedro/.jupyter /home/kedro/.local/share/jupyter/runtime && \
-    chown -R kedro:kedro /home/kedro/.local /home/kedro/.jupyter && \
-    jupyter lab --generate-config && \
-    echo "c.ServerApp.ip = '0.0.0.0'" >> /home/kedro/.jupyter/jupyter_lab_config.py && \
-    echo "c.ServerApp.port = 8888" >> /home/kedro/.jupyter/jupyter_lab_config.py && \
-    echo "c.ServerApp.open_browser = False" >> /home/kedro/.jupyter/jupyter_lab_config.py && \
-    echo "c.ServerApp.allow_root = True" >> /home/kedro/.jupyter/jupyter_lab_config.py && \
-    echo "c.ServerApp.token = ''" >> /home/kedro/.jupyter/jupyter_lab_config.py && \
-    echo "c.ServerApp.password = ''" >> /home/kedro/.jupyter/jupyter_lab_config.py && \
-    chown -R kedro:kedro /home/kedro/.jupyter
-
-RUN mkdir -p /home/kedro/.cache && chown -R kedro:kedro /home/kedro/.cache
-
-# Volver al usuario kedro
 USER kedro
 
-# Soluciona warnings de matplotlib
-ENV MPLCONFIGDIR=/tmp/matplotlib
-
 EXPOSE 8888
-
-CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root"]
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser"]

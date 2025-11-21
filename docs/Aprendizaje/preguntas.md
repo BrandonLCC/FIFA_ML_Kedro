@@ -10,3 +10,6 @@ Estas ya no sirven → puedes borrarlas
 
 ¿Porque una imagen y un compose?
 
+
+imagen (levanta un solo servicio)
+compose: sirve para levantar varios contenedores o servicios (kedro, jupiter, pipelines etc)

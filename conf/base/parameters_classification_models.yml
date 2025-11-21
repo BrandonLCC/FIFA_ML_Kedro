@@ -4,18 +4,21 @@ model_options_classification:  #da error si tiene el mismo nombre que otro archi
   stratify: true
 
 features:
-  - SprintSpeed
+  - Age
   - BallControl
   - Finishing
-   
-target: Overall_Class
+  - Dribbling
+  - International Reputation
+
+target: Overall_Class_Bin
 
 _logistic_param_grid:
   penalty: ["l2"]
-  C: [1, 10]
-  solver: ["lbfgs"]
-  max_iter: [200]
+  C: [0.001, 0.01, 0.1, 1, 10, 100]
+  solver: ["liblinear", "lbfgs"]
+  max_iter: [1000, 2000]
   class_weight: [null]
+
 
 _knn_param_grid:
   n_neighbors: [3, 5]

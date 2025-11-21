@@ -7,7 +7,20 @@ jupyter==1.1.1
 kedro==1.0.0
 kedro[jupyter]==1.0.0
 kedro-datasets[pandas-csvdataset, pandas-exceldataset, pandas-parquetdataset, plotly-plotlydataset, plotly-jsondataset, matplotlib-matplotlibwriter]>=3.0
+
+# --- Kedro Viz ---
 kedro-viz==12.1.0
+
+# Considerar que si da error en alguna de estas libreria en dockerfile de kedro dara error en email
+# considerar que dara error en airflow con fastpi,pydantic y email-valdator
+# por lo que, cuidado al modificar email-valdiator. posibles afectados: dockerfile de  kedro y airflow y al ejecutar airflow
+
+fastapi>=0.100.0 # propenso a errores
+pydantic>=2.0.0 # propenso a errores
+
+# Cambio necesario para compatibilidad con Airflow
+email-validator<2,>=1.0.5 # propenso a errores
+
 kedro-datasets==8.1.0
 
 pandas==2.2.3
@@ -19,6 +32,5 @@ imbalanced-learn==0.12.3
 
 # --- Airflow y conexión con Kedro ---
 apache-airflow==2.8.0
-kedro-airflow # ==0.4.0 0 0.10.0
+kedro-airflow
 psycopg2-binary==2.9.9
-

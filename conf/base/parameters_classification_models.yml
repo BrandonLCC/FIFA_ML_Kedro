@@ -1,5 +1,5 @@
-model_options_classification:  #da error si tiene el mismo nombre que otro archivo de parámetros
-  test_size: 0.2
+model_options_classification:
+  test_size: 0.3
   random_state: 42
   stratify: true
 
@@ -12,40 +12,44 @@ features:
 
 target: Overall_Class_Bin
 
-_logistic_param_grid:
-  penalty: ["l2"]
-  C: [0.001, 0.01, 0.1, 1, 10, 100]
-  solver: ["liblinear", "lbfgs"]
-  max_iter: [1000, 2000]
-  class_weight: [null]
+# mensaje importante
 
+# los parametros que contiene doble guion __ deben tener ese formato para los modelos de node.py que usan pipeline y escalado
+# los que no los tienen, son los normales o no lo requieren
+
+_logistic_param_grid:
+  logistic__penalty: ["l2"]
+  logistic__C: [0.1, 1, 10]
+  logistic__solver: ["lbfgs"]
+  logistic__max_iter: [500]
+  logistic__class_weight: [null, "balanced"]
 
 _knn_param_grid:
-  n_neighbors: [3, 5]
-  weights: ["uniform"]
-  metric: ["euclidean"]
-  algorithm: ["auto"]
-  p: [2]
+  knn__n_neighbors: [3, 5, 7]
+  knn__weights: ["uniform", "distance"]
+  knn__metric: ["euclidean"]
+  knn__algorithm: ["auto"]
+  knn__p: [2]
 
 _svc_param_grid:
-  C: [1]
-  kernel: ['rbf']
-  gamma: ['scale']
+  svc__C: [0.1, 1, 10]
+  svc__kernel: ["rbf"]
+  svc__gamma: ["scale", 0.1]
 
 _decision_tree_param_grid:
   criterion: ["gini"]
-  max_depth: [3, 5]
+  max_depth: [null, 5]
   min_samples_split: [2, 5]
   min_samples_leaf: [1, 2]
   splitter: ["best"]
-  class_weight: [null]
+  class_weight: [null, "balanced"]
 
 _random_forest_param_grid:
   n_estimators: [100, 200]
   criterion: ["gini"]
-  max_depth: [5, 10]
+  max_depth: [null, 10]
   min_samples_split: [2, 5]
   min_samples_leaf: [1, 2]
   bootstrap: [true]
-  class_weight: [null]
+  class_weight: [null, "balanced"]
   random_state: [42]

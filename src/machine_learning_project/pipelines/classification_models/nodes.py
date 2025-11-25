@@ -22,6 +22,9 @@ from sklearn.preprocessing import LabelEncoder
 # -- Balanceo --
 #from imblearn.over_sampling import SMOTE
 
+# -- pipeline --
+from sklearn.pipeline import Pipeline
+
 # -- Métricas --
 from sklearn.metrics import (
     classification_report, confusion_matrix, accuracy_score,
@@ -30,6 +33,7 @@ from sklearn.metrics import (
 
 from sklearn.metrics import roc_curve, auc, precision_recall_curve
 
+# --- Funcion normal para la division de datos para los modelos que no requieren de escalado ---
 
 def division_datos_test_train(data: pd.DataFrame, parameters: dict) -> tuple:
 
@@ -45,15 +49,34 @@ def division_datos_test_train(data: pd.DataFrame, parameters: dict) -> tuple:
 
     return X_train, X_test, y_train, y_test
 
+
+# Modelos como: SVM, KNN, LogisticRegression se le aplicara escalado
+
 #GridSearchCV de notebook adaptados a funciones
 
 def entrenar_modelo_logistic_cv(X_train, y_train, param_grid):
-    grid = GridSearchCV(LogisticRegression(), param_grid=param_grid, cv=5)
+    # Asegura que y sea un vector 1D
+    if isinstance(y_train, pd.DataFrame):
+        y_train = y_train.values.ravel()
+
+    pipeline = Pipeline([
+        ('scaler', StandardScaler()),       # Escala los datos
+        ('logistic', LogisticRegression())  # Clasificador
+    ])
+
+    grid = GridSearchCV(pipeline, param_grid=param_grid, cv=5)
     grid.fit(X_train, y_train)
     return grid.best_estimator_
 
+# Resultado anterior sin escalar: Malos resultados
+# Resultados escalado: 
 def entrenar_knn_cv(X_train, y_train, param_grid):
-    grid = GridSearchCV(KNeighborsClassifier(), param_grid=param_grid, cv=5)
+    pipeline = Pipeline([
+        ('scaler', StandardScaler()),  # Escala los datos
+        ('knn', KNeighborsClassifier())
+    ])
+
+    grid = GridSearchCV(pipeline, param_grid=param_grid, cv=5)
     grid.fit(X_train, y_train)
     return grid.best_estimator_
 
@@ -62,7 +85,12 @@ def entrenar_svc_cv(X_train, y_train, param_grid):
     if isinstance(y_train, pd.DataFrame):
         y_train = y_train.values.ravel()
 
-    grid = GridSearchCV(SVC(), param_grid=param_grid, cv=5)
+    pipeline = Pipeline([
+        ('scaler', StandardScaler()),  # Escala los datos
+        ('svc', SVC())                 # Clasificador SVM
+    ])
+
+    grid = GridSearchCV(pipeline, param_grid=param_grid, cv=5)
     grid.fit(X_train, y_train)
     return grid.best_estimator_
 
@@ -70,7 +98,6 @@ def entrenar_decision_tree_cv(X_train, y_train, param_grid):
     grid = GridSearchCV(DecisionTreeClassifier(), param_grid=param_grid, cv=5)
     grid.fit(X_train, y_train)
     return grid.best_estimator_
-
 
 def entrenar_random_forest_cv(X_train, y_train, param_grid):
     grid = GridSearchCV(RandomForestClassifier(), param_grid=param_grid, cv=5)

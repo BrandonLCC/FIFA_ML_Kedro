@@ -161,3 +161,38 @@ si da error usa el contendor con este codigo para acceder a las carpetas ya que 
 
 docker run -it -v "${PWD}:/app" fifa-ml-kedro /bin/bash
 
+
+
+# Kedro viz
+
+## problemas solucionados :
+### ¿No se ven las metricas en algunos modelos?
+- Esto es un error de configuracion las salidad mal definidas entre el pipeline.py y la configuracion con catalog.yml
+
+Error: 
+
+        Node(
+            func=evaluacion_modelo_individual,
+            inputs=["grid_linear_model", "X_test_regression", "y_test_regression","params:_modelo_linear_regression"],
+            outputs="regression_report_linear", <- el nombre no era el mismo que en catalog
+            name="evaluacion_linear_model_regression_node" 
+        ),
+
+        regression_report_linear_simple:
+         type: pandas.CSVDataset
+         filepath: data/08_reporting/regression_report_linear_simple.csv
+         versioned: true
+
+solucion: cambiar el nombre para que coincidan.
+
+### ¿Las metricas de algunos modelos son muy bajos?
+
+- Metricas baja en modelo de clasificacion 
+
+Solucion: Creamos otra funcion similar a division_datos_test_train  llamada division_datos_escalado para los modelo sensibles que requieran de escalado, se le aplicara a los modelos como: SVM, KNN, LogisticRegression
+
+- Solucion 2: luego de esto, modificaremos los parametros de grind para mejorar los resultados.
+
+### integracion de graficos en kedro viz
+
+https://www.youtube.com/watch?v=08MvSbw75us

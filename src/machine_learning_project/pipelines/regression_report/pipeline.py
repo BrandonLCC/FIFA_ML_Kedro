@@ -7,7 +7,7 @@ def create_pipeline(**kwargs) -> Pipeline:
         Node(
             func=evaluacion_modelo_individual,
             inputs=["grid_linear_model", "X_test_regression", "y_test_regression","params:_modelo_linear_regression"],
-            outputs="regression_report_linear",
+            outputs="regression_report_linear_simple", #Las salidas que se visualizan las metricas en kedro viz
             name="evaluacion_linear_model_regression_node"
         ), 
         Node(
@@ -25,7 +25,7 @@ def create_pipeline(**kwargs) -> Pipeline:
         Node(
             func=evaluacion_modelo_individual,
             inputs=["grid_decision_tree_model", "X_test_regression", "y_test_regression","params:_modelo_decision_tree_regression"],
-            outputs="regression_report_decision_tree_dict",  # <-- CAMBIO AQUÍ
+            outputs="regression_report_decision_tree",  
             name="evaluacion_decision_tree_regression_node"
         ),
     

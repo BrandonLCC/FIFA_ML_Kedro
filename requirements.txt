@@ -46,3 +46,8 @@ shap>=0.42.0
 
 #-- fin de requirements.txt --
 #Importaciónes necesarias listas.
+
+
+# -- no supervizado -- 
+
+umap-learn

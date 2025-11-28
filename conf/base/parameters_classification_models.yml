@@ -1,16 +1,19 @@
 model_options_classification:
-  test_size: 0.3
+  test_size: 0.2
   random_state: 42
-  stratify: true
-
+  stratify: true 
 features:
   - Age
   - BallControl
   - Finishing
   - Dribbling
   - International Reputation
+  - Acceleration
+  - SprintSpeed
+  - ShotPower
+  - Offensive_Skills
 
-target: Overall_Class_Bin
+target: Best_Position_Grouped_FW
 
 # mensaje importante
 
@@ -19,37 +22,39 @@ target: Overall_Class_Bin
 
 _logistic_param_grid:
   logistic__penalty: ["l2"]
-  logistic__C: [1, 10]           
+  logistic__C: [0.1, 1, 10]
   logistic__solver: ["lbfgs"]
   logistic__max_iter: [500]
-  logistic__class_weight: [null] 
+  logistic__class_weight: [null]
 
 _knn_param_grid:
-  knn__n_neighbors: [3, 5]      
-  knn__weights: ["uniform"]     
-  knn__metric: ["euclidean"]
+  knn__n_neighbors: [3, 5, 7]
+  knn__weights: ["uniform", "distance"]
+  knn__metric: ["euclidean", "manhattan"]
   knn__algorithm: ["auto"]
-  knn__p: [2]
+  knn__p: [1, 2]
+
 
 _svc_param_grid:
-  svc__C: [1, 10]                
-  svc__kernel: ["rbf"]
-  svc__gamma: ["scale"]         
-
+  svc__C: [0.1, 1, 10]
+  svc__kernel: ["rbf", "poly"]
+  svc__gamma: ["scale", "auto"]
+  svc__degree: [2, 3]   # para kernel=poly
+        
 _decision_tree_param_grid:
-  criterion: ["gini"]
-  max_depth: [null]             
-  min_samples_split: [2]         
-  min_samples_leaf: [1]          
-  splitter: ["best"]
-  class_weight: [null]         
+  criterion: [gini, entropy]
+  max_depth: [null, 10, 20, 30, 40]
+  min_samples_split: [2, 5, 10]
+  min_samples_leaf: [1, 2, 4]
+  splitter: [best, random]
+  class_weight: [null, balanced]
 
 _random_forest_param_grid:
-  n_estimators: [100]           
+  n_estimators: [100, 200]
   criterion: ["gini"]
-  max_depth: [null]             
-  min_samples_split: [2]        
-  min_samples_leaf: [1]          
+  max_depth: [null, 20, 40]
+  min_samples_split: [2, 5]
+  min_samples_leaf: [1, 2]
   bootstrap: [true]
-  class_weight: [null]           
+  class_weight: [null]
   random_state: [42]

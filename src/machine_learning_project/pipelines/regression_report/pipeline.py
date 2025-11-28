@@ -3,7 +3,7 @@ from .nodes import evaluacion_modelo_individual
 
 def create_pipeline(**kwargs) -> Pipeline:
     return Pipeline([
-              #Utiliando la funcion evaluacion 
+        # Utiliando la funcion evaluacion 
         # Node(
         #     func=evaluacion_modelo_individual,
         #     inputs=["grid_linear_model", "X_test_regression", "y_test_regression","params:_modelo_linear_regression"],

@@ -43,7 +43,6 @@ def division_datos_test_train(data: pd.DataFrame, parameters: dict) -> tuple:
     if isinstance(y, pd.DataFrame):
         y = y.values.ravel()
 
-    
     X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=parameters["test_size"], random_state=parameters["random_state"])
 

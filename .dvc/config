@@ -1,0 +1,6 @@
+[core]
+    remote = origin
+['remote "origin"']
+    url = https://dagshub.com/br.casas/ML-Kedro-FIFA-DVC.dvc
+    auth = basic
+    user = br.casas

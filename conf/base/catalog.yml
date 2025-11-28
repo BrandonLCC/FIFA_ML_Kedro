@@ -284,26 +284,8 @@ clean_dataset:
 # X_train_class, X_test_class, y_train_class, y_test_class 
 
 # ============================
-# TRAIN / TEST - CLASIFICACION Y REGRESION (UNSUPERVISED)
-
+# TRAIN / TEST - CLASIFICACION (UNSUPERVISED)
 # ============================
-
-X_train_regression:
-  type: pandas.CSVDataset
-  filepath: data/05_model_input/X_train_regression_unsup.csv
-
-X_test_regression:
-  type: pandas.CSVDataset
-  filepath: data/05_model_input/X_test_regression_unsup.csv
-
-y_train_regression:
-  type: pandas.CSVDataset
-  filepath: data/05_model_input/y_train_regression_unsup.csv
-
-y_test_regression:
-  type: pandas.CSVDataset
-  filepath: data/05_model_input/y_test_regression_unsup.csv
-
 
 X_train_class:
   type: pandas.CSVDataset

@@ -299,14 +299,20 @@ def clean_for_unsupervised(df):
 
 
 def preprocess_fifa_22(fifa_22: pd.DataFrame) -> pd.DataFrame:
-    """Preprocesa columnas de dinero de FIFA 22 y devuelve el DataFrame limpio."""
 
-    # -- Eliminacion de columnas innecesarias --  
-
+    # 1. Eliminar columnas
     fifa_22 = eliminar_columnas(fifa_22, ['Photo', 'Flag', 'Club Logo', 'Real Face', 'Loaned From'])
-    
-    # -- Eliminacion de datos atipicos --
-    
+
+    # 2. Feature Engineering inicial
+    fifa_22 = crear_skills(fifa_22)
+
+    # 3. Binarizar Overall (antes de outliers)
+    fifa_22 = binarize_overall(fifa_22, column="Overall", percentile=0.75, new_column="Overall_Class_Bin")
+
+    # 4. Separar Joined
+    fifa_22 = joined_separado(fifa_22)
+
+    # 5. Eliminar outliers
     fifa_22 = eliminar_filas(fifa_22, 'Age', lambda x: x >= 39)
     fifa_22 = eliminar_filas(fifa_22, 'Overall', lambda x: x < 32)
     fifa_22 = eliminar_filas(fifa_22, 'Crossing', lambda x: x <= 7.0)
@@ -316,35 +322,24 @@ def preprocess_fifa_22(fifa_22: pd.DataFrame) -> pd.DataFrame:
     fifa_22 = eliminar_filas(fifa_22, 'Penalties', lambda x: x <= 8.0)
     fifa_22 = eliminar_filas(fifa_22, 'Composure', lambda x: x >= 91.0)
 
-    # -- feature engineering --
-
-    fifa_22 = crear_skills(fifa_22)
-
-    fifa_22 = binarize_overall(fifa_22, column="Overall", percentile=0.75, new_column="Overall_Class_Bin")
-    fifa_22 = joined_separado(fifa_22)
-
-    # -- Cambio de formato -- 
-    
+    # 6. Formateos
     fifa_22 = formato_position(fifa_22)
     fifa_22['Height_cm'] = formato_height(fifa_22['Height'])
     fifa_22['Weight_kg'] = formato_weight(fifa_22['Weight'])
-    # Eliminar columnas originales para evitar la redundancia 
-    fifa_22 = fifa_22.drop(columns=['Height', 'Weight'], errors='ignore')
+    fifa_22 = fifa_22.drop(columns=['Height', 'Weight'])
 
     fifa_22 = convertir_monetary_columns(fifa_22)
 
-    #fifa_22["Value_num"] = fifa_22["Value"].apply(money_to_number)
-    #fifa_22["Wage_num"]  = fifa_22["Wage"].apply(money_to_number)
-    #fifa_22["ReleaseClause_num"] = fifa_22["Release Clause"].apply(money_to_number)
-
-    # -- imputacion de datos --
+    # 7. Imputaciones
     fifa_22 = imputar_con_cero(fifa_22, 'Marking')
 
-    num_cols = ['Marking', 'Volleys', 'Curve', 'Agility', 'Balance', 'Jumping', 
-            'Interceptions', 'Positioning', 'Vision', 'Composure', 'SlidingTackle', 
-            'DefensiveAwareness', 'ReleaseClause_num']
+    num_cols = [
+        'Marking', 'Volleys', 'Curve', 'Agility', 'Balance', 'Jumping', 
+        'Interceptions', 'Positioning', 'Vision', 'Composure', 'SlidingTackle', 
+        'DefensiveAwareness', 'ReleaseClause_num'
+    ]
     fifa_22 = imputar_medianas(fifa_22, num_cols)
-    
+
     cat_cols = ['Club', 'Body Type', 'Position', 'Jersey Number', 'Contract Valid Until']
     fifa_22 = imputar_categoricas(fifa_22, cat_cols)
 
@@ -352,46 +347,52 @@ def preprocess_fifa_22(fifa_22: pd.DataFrame) -> pd.DataFrame:
 
     money_cols = ['Value_num', 'Wage_num', 'ReleaseClause_num']
     fifa_22 = imputar_medianas(fifa_22, money_cols)
-    
+
+    # 8. Limpieza final
     fifa_22 = clean_for_unsupervised(fifa_22)
 
     return fifa_22
 
+
    
 
 def preprocess_fifa_21(fifa_21: pd.DataFrame) -> pd.DataFrame:
-    # -- Eliminacion de columnas innecesarias --  
-    
+
+    # 1. Eliminar columnas
     fifa_21 = eliminar_columnas(fifa_21, ['Photo', 'Flag', 'Club Logo', 'Real Face', 'Loaned From'])
-    
-    # -- Eliminacion de datos atipicos --
+
+    # 2. Feature engineering inicial
+    fifa_21 = crear_skills(fifa_21)
+
+    # 3. Binarizar Overall ANTES de filtrados
+    fifa_21 = binarize_overall(fifa_21, column="Overall", percentile=0.75, new_column="Overall_Class_Bin")
+
+    # 4. Separar Joined
+    fifa_21 = joined_separado(fifa_21)
+
+    # 5. Outliers (sin romper target)
     fifa_21 = eliminar_filas(fifa_21, 'Age', lambda x: x >= 39)
-    fifa_21 = eliminar_filas(fifa_21, 'Overall', lambda x: x <= 46)
     fifa_21 = eliminar_filas(fifa_21, 'Special', lambda x: x >= 2303)
     fifa_21 = eliminar_filas(fifa_21, 'Reactions', lambda x: x <= 24.0)
     fifa_21 = eliminar_filas(fifa_21, 'Penalties', lambda x: x >= 94.0)
     fifa_21 = eliminar_filas(fifa_21, 'Penalties', lambda x: x <= 8.0)
 
-    # -- feature engineering --
-    fifa_21 = crear_skills(fifa_21)
-    fifa_21 = binarize_overall(fifa_21, column="Overall", percentile=0.75, new_column="Overall_Class_Bin")
-    fifa_21 = joined_separado(fifa_21)
-
-    # -- Cambio de formato --
-
+    # 6. Formatos
     fifa_21 = formato_position(fifa_21)
     fifa_21['Height_cm'] = formato_height(fifa_21['Height'])
     fifa_21['Weight_kg'] = formato_weight(fifa_21['Weight'])
-    fifa_21 = fifa_21.drop(columns=['Height', 'Weight'], errors='ignore')
+    fifa_21 = fifa_21.drop(columns=['Height', 'Weight'])
 
     fifa_21 = convertir_monetary_columns(fifa_21)
 
-    # -- imputacion de datos --
+    # 7. Imputaciones
     fifa_21 = imputar_con_cero(fifa_21, 'Marking')
 
-    num_cols = ['Marking', 'Volleys', 'Curve', 'Agility', 'Balance', 'Jumping', 
-            'Interceptions', 'Positioning', 'Vision', 'Composure', 'SlidingTackle', 
-            'DefensiveAwareness', 'ReleaseClause_num']
+    num_cols = [
+        'Marking', 'Volleys', 'Curve', 'Agility', 'Balance', 'Jumping', 
+        'Interceptions', 'Positioning', 'Vision', 'Composure', 'SlidingTackle', 
+        'DefensiveAwareness', 'ReleaseClause_num'
+    ]
     fifa_21 = imputar_medianas(fifa_21, num_cols)
 
     cat_cols = ['Club', 'Body Type', 'Position', 'Jersey Number', 'Contract Valid Until']
@@ -407,14 +408,22 @@ def preprocess_fifa_21(fifa_21: pd.DataFrame) -> pd.DataFrame:
     return fifa_21
 
 
-
 def preprocess_fifa_20(fifa_20: pd.DataFrame) -> pd.DataFrame:
-    # -- Eliminacion de columnas innecesarias --
+
+    # 1. Eliminar columnas
     fifa_20 = eliminar_columnas(fifa_20, ['Photo', 'Flag', 'Club Logo', 'Real Face', 'Loaned From'])
 
-    # -- Eliminacion de datos atipicos --
+    # 2. Feature engineering
+    fifa_20 = crear_skills(fifa_20)
+
+    # 3. Target binario (primero)
+    fifa_20 = binarize_overall(fifa_20, column="Overall", percentile=0.75, new_column="Overall_Class_Bin")
+
+    # 4. Joined separado
+    fifa_20 = joined_separado(fifa_20)
+
+    # 5. Outliers controlados
     fifa_20 = eliminar_filas(fifa_20, 'Age', lambda x: x >= 38)
-    fifa_20 = eliminar_filas(fifa_20, 'Overall', lambda x: x <= 44)
     fifa_20 = eliminar_filas(fifa_20, 'Special', lambda x: x >= 2299)
     fifa_20 = eliminar_filas(fifa_20, 'ShortPassing', lambda x: x >= 92)
     fifa_20 = eliminar_filas(fifa_20, 'Potential', lambda x: x <= 46)
@@ -423,24 +432,22 @@ def preprocess_fifa_20(fifa_20: pd.DataFrame) -> pd.DataFrame:
     fifa_20 = eliminar_filas(fifa_20, 'ShotPower', lambda x: x <= 19)
     fifa_20 = eliminar_filas(fifa_20, 'Penalties', lambda x: x <= 8)
 
-    # -- feature engineering --
-    fifa_20 = crear_skills(fifa_20)
-    fifa_20 = binarize_overall(fifa_20, column="Overall", percentile=0.75, new_column="Overall_Class_Bin")
-    fifa_20 = joined_separado(fifa_20)
-
-    # -- Cambio de formato --
+    # 6. Formatos
     fifa_20 = formato_position(fifa_20)
     fifa_20['Height_cm'] = formato_height(fifa_20['Height'])
     fifa_20['Weight_kg'] = formato_weight(fifa_20['Weight'])
-    fifa_20 = fifa_20.drop(columns=['Height', 'Weight'], errors='ignore')
+    fifa_20 = fifa_20.drop(columns=['Height', 'Weight'])
 
     fifa_20 = convertir_monetary_columns(fifa_20)
 
-    # -- imputacion de datos --
+    # 7. Imputaciones
     fifa_20 = imputar_con_cero(fifa_20, 'Marking')
-    num_cols = ['Marking', 'Volleys', 'Curve', 'Agility', 'Balance', 'Jumping', 
-            'Interceptions', 'Positioning', 'Vision', 'Composure', 'SlidingTackle', 
-            'DefensiveAwareness', 'ReleaseClause_num']
+
+    num_cols = [
+        'Marking', 'Volleys', 'Curve', 'Agility', 'Balance', 'Jumping', 
+        'Interceptions', 'Positioning', 'Vision', 'Composure', 'SlidingTackle', 
+        'DefensiveAwareness', 'ReleaseClause_num'
+    ]
     fifa_20 = imputar_medianas(fifa_20, num_cols)
 
     cat_cols = ['Club', 'Body Type', 'Position', 'Jersey Number', 'Contract Valid Until']
@@ -454,6 +461,7 @@ def preprocess_fifa_20(fifa_20: pd.DataFrame) -> pd.DataFrame:
     fifa_20 = clean_for_unsupervised(fifa_20)
 
     return fifa_20
+
 
 #Union de tablas 
 

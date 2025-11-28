@@ -197,3 +197,7 @@ airflow.cfg
 #Ignorar notebooks virtuales
 
 .virtual_documents/
+.Trash-999
+ 
+# agregar si es neceasrio
+start.sh

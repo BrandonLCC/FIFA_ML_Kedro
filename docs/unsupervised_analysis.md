@@ -112,7 +112,6 @@ notebooks/
 │   └── resumen_unsupervised.ipynb  # <- para defensa
 ├── 06_final_analysis.ipynb
 ```
-
 ### Contenido esperado
 
 # 01_clustering_kmeans.ipynb

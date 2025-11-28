@@ -246,3 +246,5 @@ como estrategia, primero en vez de genrarlos manualmente, realizar estos pasos p
   Hacia la carpeta real de tu Airflow:
 
   compose/airflow/dags/
+
+data_engineering → supervised → unsupervised → reporting

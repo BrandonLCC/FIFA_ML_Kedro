@@ -1,16 +1,26 @@
-"""
-
-"""
 from kedro.pipeline import Pipeline, node, pipeline
-from .nodes import aplicar_pca
+from .nodes import aplicar_pca, aplicar_tsne_umap
 
-def create_pipeline(**kwargs):
+def create_pipeline(**kwargs) -> Pipeline:
     return pipeline([
         node(
             func=aplicar_pca,
-            inputs=["primary_dataset", "params:pca"], # Ajusta si tu dataset se llama distinto y confugura en tu archivo parameters
-            outputs="pca_output", # primero el procesamiento, en mi caso, luego los outputs van a 04_feature, luego van los modelos
-            name="aplicar_pca_node"
+            inputs=dict(
+                datos="model_input_data",
+                n_componentes="params:dimensionality_reduction.pca_n_components"
+            ),
+            outputs="pca_output",
+            name="pca_node"
+        ),
+        node(
+            func=aplicar_tsne_umap,
+            inputs=dict(
+                datos="pca_output",
+                metodo="params:dimensionality_reduction.tsne_umap_method",
+                n_componentes="params:dimensionality_reduction.tsne_umap_n_components",
+                random_state="params:dimensionality_reduction.tsne_umap_random_state"
+            ),
+            outputs="tsne_umap_output",
+            name="tsne_umap_node"
         )
     ])
-

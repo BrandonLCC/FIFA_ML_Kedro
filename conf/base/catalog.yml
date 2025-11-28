@@ -66,9 +66,11 @@ FIFA20_processed_con_transformacion2_columns:
   type: pandas.ParquetDataset 
   filepath: data/02_intermediate/FIFA20_processed_con_transformacion2_columns.parquet  
 
+# OJO, al pasar la evaluacion 3 con las tecnicas de modelo no supervizados, crearemos un nuevo dataset limpio, asi que ahi veremos si se elimina o se mantiene
+# ¿Es necesario tenerlo ahora? [] <-- si es un no, entonces no se elimina para tomarlo en cuenta en futuros proyecto.
 model_input_table:
   type: pandas.ParquetDataset 
-  filepath: data/03_primary/model_input_table.parquet #lo definimos en primary porque ya tendremos nuestros datasets unidos
+  filepath: data/05_model_input/model_input_table.parquet #lo definimos en primary porque ya tendremos nuestros datasets unidos
 
   # Para report utilizar la libreria plotlib al utilizar Kedro viz
 
@@ -268,3 +270,18 @@ clean_dataset:
   type: pandas.ParquetDataSet
   filepath: data/04_feature/clean_dataset.parquet
   description: "Dataset procesado tras limpieza general: valores nulos gestionados, tipos corregidos y datos normalizados."
+
+# -- ojo --
+
+#Nodo final combine_unsupervised_outputs que genera clean_dataset.
+
+#Este clean_dataset reemplaza al model_input_table previo, porque ya incorpora las mejoras del no supervisado: clusters, anomalías filtradas, reducción de variables, etc.
+
+# Luego de hacer el pipeline padre,configurar el pipeline registry, los submodulos pipelines y sus parameters
+# ahora hay que hacer que las tecnicas de aprendizaje no supervizado afecten nuestro dataset.
+
+#1. El clean_dataset generado por unsupervised_learning será la base para crear los datasets de:
+
+# X_train_regression, X_test_regression, y_train_regression
+
+# X_train_class, X_test_class, y_train_class, y_test_class 

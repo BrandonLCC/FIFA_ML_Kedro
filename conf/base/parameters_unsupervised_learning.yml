@@ -3,3 +3,12 @@
 #
 # Documentation for this file format can be found in "Parameters"
 # Link: https://docs.kedro.org/en/1.0.0/configuration/parameters.html
+
+pca:
+  n_componentes: 2         # número de componentes para PCA
+
+clustering:
+  n_clusters: 4            # número de clusters
+
+anomaly:
+  contamination: 0.02      # % de anomalías a eliminar

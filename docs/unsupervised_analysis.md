@@ -13,38 +13,11 @@ src/proyecto_ml/pipelines/unsupervised_learning/
     ├── clustering/
     │   ├── nodes.py
     │   ├── pipeline.py
-    │   └── __init__.py
+    │   └── __init__.pyc
     ├── dimensionality_reduction/
     ├── anomaly_detection/
     └── association_rules/
 ```
-3. combinas todo en el __init__.py del pipeline principal
-
-proposito: 
-
-| Función                      | Explicación                                            |
-| ---------------------------- | ------------------------------------------------------ |
-| Convierte carpeta en paquete | Python puede importarla                                |
-| Ayuda a Kedro                | Kedro encuentra pipelines automáticamente              |
-| Exporta el pipeline          | Defines `create_pipeline()` para combinar subpipelines |
-| Organiza el módulo           | Es el punto de entrada del pipeline                    |
-
-
-
-```BASH
-Crear un __init__
-
-from kedro.pipeline import pipeline
-from .clustering.pipeline import create_pipeline as clustering_pipeline
-from .dimensionality_reduction.pipeline import create_pipeline as dr_pipeline
-
-def create_pipeline(**kwargs):
-    return pipeline([
-        clustering_pipeline(),
-        dr_pipeline(),
-    ])
-```
-
 
 ## ESTRUTURAS 
 

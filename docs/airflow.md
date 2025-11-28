@@ -247,4 +247,8 @@ como estrategia, primero en vez de genrarlos manualmente, realizar estos pasos p
 
   compose/airflow/dags/
 
+
+
+
+
 data_engineering → supervised → unsupervised → reporting

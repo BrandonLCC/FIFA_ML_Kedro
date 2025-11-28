@@ -1,3 +1,8 @@
+# ERROR DE LECTURA CON KEDRO RUN CON EL DOCKER.KEDRO
+import numba
+numba.config.CACHE_DIR = "/tmp/numba_cache"  
+
+
 import pandas as pd
 from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE

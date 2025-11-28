@@ -5,8 +5,8 @@ def create_pipeline(**kwargs):
     return pipeline([
         node(
             func=detectar_anomalias,
-             inputs=["primary_dataset", "params:anomaly"],  # Ajusta si corresponde
-            outputs="datos_limpios_sin_anomalias", # primero el procesamiento, en mi caso, luego los outputs van a 04_feature, luego van los modelos
+             inputs=["model_input_table", "params:anomaly"],  # Ajusta si corresponde
+            outputs="clean_dataset", # primero el procesamiento, en mi caso, luego los outputs van a 04_feature, luego van los modelos
             name="detectar_anomalias_node"
         )
     ])

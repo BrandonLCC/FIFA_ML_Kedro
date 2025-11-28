@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 '''
 """Project pipelines original."""
 
@@ -53,7 +55,6 @@ def register_pipelines() -> dict[str, Pipeline]:
 
 """Project pipelines final con todos los submódulos y flujo completo."""
 
-from __future__ import annotations
 from kedro.pipeline import Pipeline
 
 # Pipelines principales
@@ -76,32 +77,31 @@ from machine_learning_project.pipelines.regression_report import pipeline as reg
 from machine_learning_project.pipelines.classification_report import pipeline as class_report_pipeline
 from machine_learning_project.pipelines.final_report_comparativo import pipeline as final_report_pipeline
 
-
 def register_pipelines() -> dict[str, Pipeline]:
     pipelines = {
-        # Preprocesamiento y features
         "data_processing": de_pipeline.create_pipeline(),
         "dimensionality_reduction": dimred_pipeline.create_pipeline(),
         "clustering": clust_pipeline.create_pipeline(),
         "anomaly_detection": anom_pipeline.create_pipeline(),
         "unsupervised_to_supervised": uts_pipeline.create_pipeline(),
-
-        # Modelos supervisados
         "regression_models": reg_pipeline.create_pipeline(),
         "classification_models": class_pipeline.create_pipeline(),
-
-        # Reportes
         "regression_report": reg_report_pipeline.create_pipeline(),
         "classification_report": class_report_pipeline.create_pipeline(),
         "final_report_comparativo": final_report_pipeline.create_pipeline(),
     }
 
+    # Pipeline maestro no supervisado
+    pipelines["unsupervised_learning"] = (
+        pipelines["dimensionality_reduction"]
+        + pipelines["clustering"]
+        + pipelines["anomaly_detection"]
+    )
+
     # Pipeline master end-to-end
     pipelines["__default__"] = (
         pipelines["data_processing"]
-        + pipelines["dimensionality_reduction"]
-        + pipelines["clustering"]
-        + pipelines["anomaly_detection"]
+        + pipelines["unsupervised_learning"]
         + pipelines["unsupervised_to_supervised"]
         + pipelines["regression_models"]
         + pipelines["classification_models"]

@@ -21,8 +21,6 @@ clustering:
     n_clusters: 4
     linkage: "ward"
           # número de clusters
-
-
-
+          
 anomaly:
   contamination: 0.02      # % de anomalías a eliminar

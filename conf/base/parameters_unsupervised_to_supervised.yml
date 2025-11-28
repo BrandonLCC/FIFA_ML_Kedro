@@ -3,3 +3,15 @@
 #
 # Documentation for this file format can be found in "Parameters"
 # Link: https://docs.kedro.org/en/1.0.0/configuration/parameters.html
+
+model_options_classification:
+  features:
+    - Overall
+    - Potential
+    - Value_num
+    - Wage_num
+    - Composure
+    - Agility
+    - Vision
+    - Positioning
+  target: Overall_Class_Bin

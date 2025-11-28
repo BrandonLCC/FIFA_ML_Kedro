@@ -6,7 +6,7 @@ def create_pipeline(**kwargs) -> Pipeline:
         node(
             func=aplicar_pca,
             inputs=dict(
-                datos="model_input_data",
+                datos="model_input_table",
                 n_componentes="params:dimensionality_reduction.pca_n_components"
             ),
             outputs="pca_output",

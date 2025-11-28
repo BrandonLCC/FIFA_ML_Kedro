@@ -19,37 +19,37 @@ target: Overall_Class_Bin
 
 _logistic_param_grid:
   logistic__penalty: ["l2"]
-  logistic__C: [0.1, 1, 10]
+  logistic__C: [1, 10]           
   logistic__solver: ["lbfgs"]
   logistic__max_iter: [500]
-  logistic__class_weight: [null, "balanced"]
+  logistic__class_weight: [null] 
 
 _knn_param_grid:
-  knn__n_neighbors: [3, 5, 7]
-  knn__weights: ["uniform", "distance"]
+  knn__n_neighbors: [3, 5]      
+  knn__weights: ["uniform"]     
   knn__metric: ["euclidean"]
   knn__algorithm: ["auto"]
   knn__p: [2]
 
 _svc_param_grid:
-  svc__C: [0.1, 1, 10]
+  svc__C: [1, 10]                
   svc__kernel: ["rbf"]
-  svc__gamma: ["scale", 0.1]
+  svc__gamma: ["scale"]         
 
 _decision_tree_param_grid:
   criterion: ["gini"]
-  max_depth: [null, 5]
-  min_samples_split: [2, 5]
-  min_samples_leaf: [1, 2]
+  max_depth: [null]             
+  min_samples_split: [2]         
+  min_samples_leaf: [1]          
   splitter: ["best"]
-  class_weight: [null, "balanced"]
+  class_weight: [null]         
 
 _random_forest_param_grid:
-  n_estimators: [100, 200]
+  n_estimators: [100]           
   criterion: ["gini"]
-  max_depth: [null, 10]
-  min_samples_split: [2, 5]
-  min_samples_leaf: [1, 2]
+  max_depth: [null]             
+  min_samples_split: [2]        
+  min_samples_leaf: [1]          
   bootstrap: [true]
-  class_weight: [null, "balanced"]
+  class_weight: [null]           
   random_state: [42]

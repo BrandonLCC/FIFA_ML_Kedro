@@ -145,53 +145,53 @@ grid_random_forest_model_classification:
 
 #TRAIN TEST REGRESION
 
-X_train_regression:
-  type: pandas.CSVDataset
-  filepath: data/05_model_input/X_train_regression.csv
-  save_args:
-    index: False
+#X_train_regression:
+#  type: pandas.CSVDataset
+#  filepath: data/05_model_input/X_train_regression.csv
+#  save_args:
+#    index: False
 
-X_test_regression:
-  type: pandas.CSVDataset
-  filepath: data/05_model_input/X_test_regression.csv
-  save_args:
-    index: False
+#X_test_regression:
+#  type: pandas.CSVDataset
+#  filepath: data/05_model_input/X_test_regression.csv
+#  save_args:
+#    index: False
 
-y_test_regression:
-  type: pandas.CSVDataset
-  filepath: data/05_model_input/y_test_regression.csv
-  save_args:
-    index: False
+#y_test_regression:
+#  type: pandas.CSVDataset
+#  filepath: data/05_model_input/y_test_regression.csv
+#  save_args:
+#    index: False
 
 # TRAIN TEST CLASIFICACION
 
 # -- Features de entrenamiento y prueba --
 
-X_train_class:
-  type: pandas.CSVDataset
-  filepath: data/05_model_input/X_train_class.csv
-  save_args:
-    index: False
+#X_train_class:
+#  type: pandas.CSVDataset
+#  filepath: data/05_model_input/X_train_class.csv
+#  save_args:
+#    index: False
 
-X_test_class:
-  type: pandas.CSVDataset
-  filepath: data/05_model_input/X_test_class.csv
-  save_args:
-    index: False
+#X_test_class:
+#  type: pandas.CSVDataset
+#  filepath: data/05_model_input/X_test_class.csv
+#  save_args:
+#    index: False
 
 # -- Target de entrenamiento y prueba --
 
-y_train_class:
-  type: pandas.CSVDataset
-  filepath: data/05_model_input/y_train_class.csv
-  save_args:
-    index: False
+#y_train_class:
+#  type: pandas.CSVDataset
+#  filepath: data/05_model_input/y_train_class.csv
+#  save_args:
+#    index: False
 
-y_test_class:
-  type: pandas.CSVDataset
-  filepath: data/05_model_input/y_test_class.csv
-  save_args:
-    index: False
+#y_test_class:
+#  type: pandas.CSVDataset
+#  filepath: data/05_model_input/y_test_class.csv
+#  save_args:
+#    index: False
 
 #Reportes de regresion
 
@@ -252,24 +252,21 @@ report_random_forest_model_classification:
 # aplicaremos tecnicas no supervizadas para limpiar, reducir dimensiones y agregar nuevas columnas con clustering. 
 
 pca_output:
-  type: pandas.ParquetDataSet
+  type: pandas.ParquetDataset
   filepath: data/04_feature/pca_output.parquet
-  description: "Resultado del proceso PCA: datos transformados a componentes principales para reducción de dimensionalidad."
 
 clustered_data:
-  type: pandas.ParquetDataSet
+  type: pandas.ParquetDataset
   filepath: data/04_feature/clustered_data.parquet
-  description: "Datos con etiquetas de clúster asignadas por el modelo de clustering."
 
+#eliminar si no se usa 
 datos_limpios_sin_anomalias:
-  type: pandas.ParquetDataSet
+  type: pandas.ParquetDataset
   filepath: data/04_feature/clean_data_no_anomalies.parquet
-  description: "Dataset limpio sin anomalías detectadas, listo para la etapa de clustering o PCA."
 
 clean_dataset:
-  type: pandas.ParquetDataSet
+  type: pandas.ParquetDataset
   filepath: data/04_feature/clean_dataset.parquet
-  description: "Dataset procesado tras limpieza general: valores nulos gestionados, tipos corregidos y datos normalizados."
 
 # -- ojo --
 
@@ -285,3 +282,49 @@ clean_dataset:
 # X_train_regression, X_test_regression, y_train_regression
 
 # X_train_class, X_test_class, y_train_class, y_test_class 
+
+# ============================
+# TRAIN / TEST - CLASIFICACION Y REGRESION (UNSUPERVISED)
+
+# ============================
+
+X_train_regression:
+  type: pandas.CSVDataset
+  filepath: data/05_model_input/X_train_regression_unsup.csv
+
+X_test_regression:
+  type: pandas.CSVDataset
+  filepath: data/05_model_input/X_test_regression_unsup.csv
+
+y_train_regression:
+  type: pandas.CSVDataset
+  filepath: data/05_model_input/y_train_regression_unsup.csv
+
+y_test_regression:
+  type: pandas.CSVDataset
+  filepath: data/05_model_input/y_test_regression_unsup.csv
+
+
+X_train_class:
+  type: pandas.CSVDataset
+  filepath: data/05_model_input/X_train_class_unsup.csv
+  save_args:
+    index: False
+
+X_test_class:
+  type: pandas.CSVDataset
+  filepath: data/05_model_input/X_test_class_unsup.csv
+  save_args:
+    index: False
+
+y_train_class:
+  type: pandas.CSVDataset
+  filepath: data/05_model_input/y_train_class_unsup.csv
+  save_args:
+    index: False
+
+y_test_class:
+  type: pandas.CSVDataset
+  filepath: data/05_model_input/y_test_class_unsup.csv
+  save_args:
+    index: False

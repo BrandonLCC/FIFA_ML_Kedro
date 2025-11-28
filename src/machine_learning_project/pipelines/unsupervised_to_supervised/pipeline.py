@@ -17,9 +17,11 @@ def create_pipeline(**kwargs) -> Pipeline:
                 stratify_class="params:model_options_classification.stratify"
             ),
             outputs=[
-                "X_train_regression", "X_test_regression", "y_train_regression", "y_test_regression",
-                "X_train_class", "X_test_class", "y_train_class", "y_test_class"
-            ],
+                "X_train_class_unsup", "X_test_class_unsup", 
+                "y_train_class_unsup", "y_test_class_unsup",
+                "X_train_regression_unsup", "X_test_regression_unsup",
+                "y_train_regression_unsup", "y_test_regression_unsup"
+                ],
             name="create_supervised_datasets_node"
         )
     ])

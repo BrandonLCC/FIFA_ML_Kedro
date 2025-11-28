@@ -283,6 +283,16 @@ def transformacion2_columns(df, target='Overall_Class'):
 
     return df
 
+def clean_for_unsupervised(df):
+    # 1. Seleccionar solo columnas numéricas
+    df_num = df.select_dtypes(include=["number"])
+
+    # 2. Eliminar filas con NA si las hay
+    df_num = df_num.dropna()
+
+    return df_num
+
+
 # Procesando los dataset FIFA
 # haremos lo mismo que en jupyter notebook pero ahora en el pipeline de kedro
 #Retorna un dataframe limpio
@@ -343,6 +353,8 @@ def preprocess_fifa_22(fifa_22: pd.DataFrame) -> pd.DataFrame:
     money_cols = ['Value_num', 'Wage_num', 'ReleaseClause_num']
     fifa_22 = imputar_medianas(fifa_22, money_cols)
     
+    fifa_22 = clean_for_unsupervised(fifa_22)
+
     return fifa_22
 
    
@@ -389,6 +401,8 @@ def preprocess_fifa_21(fifa_21: pd.DataFrame) -> pd.DataFrame:
 
     money_cols = ['Value_num', 'Wage_num', 'ReleaseClause_num']
     fifa_21 = imputar_medianas(fifa_21, money_cols)
+
+    fifa_21 = clean_for_unsupervised(fifa_21)
 
     return fifa_21
 
@@ -437,6 +451,7 @@ def preprocess_fifa_20(fifa_20: pd.DataFrame) -> pd.DataFrame:
     money_cols = ['Value_num', 'Wage_num', 'ReleaseClause_num']
     fifa_20 = imputar_medianas(fifa_20, money_cols)
 
+    fifa_20 = clean_for_unsupervised(fifa_20)
 
     return fifa_20
 

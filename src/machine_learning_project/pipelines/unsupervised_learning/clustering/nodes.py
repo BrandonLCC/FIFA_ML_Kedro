@@ -44,25 +44,30 @@ def dbscan_clustering(dataset: pd.DataFrame, params: dict) -> pd.DataFrame:
     df["cluster_dbscan"] = labels
     return df
 
-def hierarchical_clustering(dataset: pd.DataFrame, params: dict) -> pd.DataFrame:
-    """
-    Aplica Hierarchical clustering al dataset.
-    
-    Args:
-        dataset: DataFrame con datos de entrada.
-        params: Diccionario con los parámetros de AgglomerativeClustering (n_clusters, linkage).
+def hierarchical_clustering(clean_data, params):
+    from sklearn.cluster import AgglomerativeClustering
 
-    Returns:
-        DataFrame con columna 'cluster_hierarchical'.
-    """
+    max_samples = params.get("max_samples", 2000)
+
+    # Muestra para evitar OOM
+    if len(clean_data) > max_samples:
+        data = clean_data.sample(max_samples, random_state=42).copy()
+    else:
+        data = clean_data.copy()
+
     model = AgglomerativeClustering(
-        n_clusters=params.get("n_clusters", 4),
-        linkage=params.get("linkage", "ward")
+        n_clusters=params["n_clusters"],
+        linkage=params["linkage"]
     )
-    labels = model.fit_predict(dataset)
-    df = dataset.copy()
-    df["cluster_hierarchical"] = labels
-    return df
+
+    labels = model.fit_predict(data)
+
+    # NOMBRE OBLIGATORIO PARA SELECT_BEST_CLUSTER
+    data["cluster_hierarchical"] = labels
+
+    return data
+
+
 
 def select_best_cluster(kmeans_df: pd.DataFrame, dbscan_df: pd.DataFrame, hierarchical_df: pd.DataFrame) -> pd.DataFrame:
     """

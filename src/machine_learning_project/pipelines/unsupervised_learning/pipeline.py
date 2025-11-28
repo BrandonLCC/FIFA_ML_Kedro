@@ -74,6 +74,19 @@ Esto es normal cuando:
 - Reduce ruido.
 - Acelera el entrenamiento.
 
+Objetivo del pipeline padre
+
+El pipeline padre debe:
+
+- Leer el dataset desde 03_primary
+- Aplicar en orden:
+    PCA
+    Clustering
+    Anomaly Detection
+
+- Retornar un clean_dataset final que será guardado en 04_feature
+
+Ese dataset será usado luego por data_processing para hacer el train/test split.
 
 Flujo casi exacto del los pipelines 
 
@@ -81,20 +94,36 @@ RAW → INTERMEDIATE → PRIMARY → FEATURE
     → UNSUPERVISED → CLEAN_DATASET → MODEL_INPUT
     → TRAIN_SUPERVISED → MODEL_OUTPUT
 
-Tambien nos pide un pipeline que orqueste todo (eso no se si es verdad)
+
 
 """
 
-from kedro.pipeline import Node, Pipeline  # noqa
+from kedro.pipeline import Pipeline, node, pipeline
 
+from .nodes import combine_unsupervised_outputs
+from .dimensionality_reduction.pipeline import create_pipeline as pca_pipeline
 from .clustering.pipeline import create_pipeline as clustering_pipeline
-from .dimensionality_reduction.pipeline import create_pipeline as dimred_pipeline
 from .anomaly_detection.pipeline import create_pipeline as anomaly_pipeline
 
 def create_pipeline(**kwargs) -> Pipeline:
-    return Pipeline([
-        dimred_pipeline(),
-        clustering_pipeline(),
-        anomaly_pipeline(),
+    # Crear sub-pipelines
+    pca = pca_pipeline()
+    clustering = clustering_pipeline()
+    anomalies = anomaly_pipeline()
 
-    ])
+    # Union de sub pipelines
+    full_unsupervised = pca + clustering + anomalies
+
+    # Nodo final que combina todo
+    final_node = node(
+        func=combine_unsupervised_outputs,
+        inputs=[
+            "pca_output",               # OUTPUT del subpipeline de PCA
+            "clustered_data",           # OUTPUT del subpipeline de clustering
+            "datos_limpios_sin_anomalias"   # OUTPUT del subpipeline de anomaly detection
+        ],
+        outputs="clean_dataset",
+        name="combine_unsupervised_outputs_node"
+    )
+
+    return pipeline([full_unsupervised, final_node])

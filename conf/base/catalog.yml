@@ -139,23 +139,25 @@ grid_random_forest_model_classification:
   filepath: data/06_models/grid_random_forest_model_classification.pkl
   versioned: true
 
+# Entradas de para los modelos, train y test.
+
 #TRAIN TEST REGRESION
 
 X_train_regression:
   type: pandas.CSVDataset
-  filepath: data/03_primary/X_train_regression.csv
+  filepath: data/05_model_input/X_train_regression.csv
   save_args:
     index: False
 
 X_test_regression:
   type: pandas.CSVDataset
-  filepath: data/03_primary/X_test_regression.csv
+  filepath: data/05_model_input/X_test_regression.csv
   save_args:
     index: False
 
 y_test_regression:
   type: pandas.CSVDataset
-  filepath: data/03_primary/y_test_regression.csv
+  filepath: data/05_model_input/y_test_regression.csv
   save_args:
     index: False
 
@@ -165,13 +167,13 @@ y_test_regression:
 
 X_train_class:
   type: pandas.CSVDataset
-  filepath: data/03_primary/X_train_class.csv
+  filepath: data/05_model_input/X_train_class.csv
   save_args:
     index: False
 
 X_test_class:
   type: pandas.CSVDataset
-  filepath: data/03_primary/X_test_class.csv
+  filepath: data/05_model_input/X_test_class.csv
   save_args:
     index: False
 
@@ -179,13 +181,13 @@ X_test_class:
 
 y_train_class:
   type: pandas.CSVDataset
-  filepath: data/03_primary/y_train_class.csv
+  filepath: data/05_model_input/y_train_class.csv
   save_args:
     index: False
 
 y_test_class:
   type: pandas.CSVDataset
-  filepath: data/03_primary/y_test_class.csv
+  filepath: data/05_model_input/y_test_class.csv
   save_args:
     index: False
 
@@ -242,3 +244,27 @@ report_random_forest_model_classification:
   type: pandas.CSVDataset
   filepath: data/08_reporting/report_random_forest_model_classification.csv
   versioned: true
+
+# Entradas o salidas de las tecnicas no supervizadas
+
+# aplicaremos tecnicas no supervizadas para limpiar, reducir dimensiones y agregar nuevas columnas con clustering. 
+
+pca_output:
+  type: pandas.ParquetDataSet
+  filepath: data/04_feature/pca_output.parquet
+  description: "Resultado del proceso PCA: datos transformados a componentes principales para reducción de dimensionalidad."
+
+clustered_data:
+  type: pandas.ParquetDataSet
+  filepath: data/04_feature/clustered_data.parquet
+  description: "Datos con etiquetas de clúster asignadas por el modelo de clustering."
+
+datos_limpios_sin_anomalias:
+  type: pandas.ParquetDataSet
+  filepath: data/04_feature/clean_data_no_anomalies.parquet
+  description: "Dataset limpio sin anomalías detectadas, listo para la etapa de clustering o PCA."
+
+clean_dataset:
+  type: pandas.ParquetDataSet
+  filepath: data/04_feature/clean_dataset.parquet
+  description: "Dataset procesado tras limpieza general: valores nulos gestionados, tipos corregidos y datos normalizados."

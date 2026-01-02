@@ -13,7 +13,7 @@ features:
   - ShotPower
   - Offensive_Skills
 
-target: Best_Position_Grouped_FW
+target: Overall_Class_Bin
 
 # mensaje importante
 

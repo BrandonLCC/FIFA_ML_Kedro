@@ -118,12 +118,13 @@ def create_pipeline(**kwargs) -> Pipeline:
     final_node = node(
         func=combine_unsupervised_outputs,
         inputs=[
-            "pca_output",               # OUTPUT del subpipeline de PCA
-            "clustered_data",           # OUTPUT del subpipeline de clustering
-            "datos_limpios_sin_anomalias"   # OUTPUT del subpipeline de anomaly detection
+            "pca_output", 
+            "clustered_data",          
+            "datos_limpios_sin_anomalias"   
         ],
         outputs="clean_dataset",
         name="combine_unsupervised_outputs_node"
     )
 
     return pipeline([full_unsupervised, final_node])
+ 

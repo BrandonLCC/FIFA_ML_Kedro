@@ -20,3 +20,4 @@ def combine_unsupervised_outputs(pca_data, clustered_data, datos_limpios_sin_ano
     df = df[df.index.isin(datos_limpios_sin_anomalias.index)]
 
     return df
+ 

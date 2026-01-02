@@ -111,3 +111,4 @@ def register_pipelines() -> dict[str, Pipeline]:
     )
 
     return pipelines
+ 

@@ -10,3 +10,4 @@ def create_pipeline(**kwargs):
             name="detectar_anomalias_node"
         )
     ])
+  

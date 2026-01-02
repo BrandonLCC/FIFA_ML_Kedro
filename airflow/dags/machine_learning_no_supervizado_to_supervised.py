@@ -1,0 +1,290 @@
+from __future__ import annotations
+
+from datetime import datetime, timedelta
+from pathlib import Path
+
+from airflow import DAG
+from airflow.models import BaseOperator
+from airflow.utils.decorators import apply_defaults
+
+from kedro.framework.session import KedroSession
+from kedro.framework.project import configure_project
+
+
+class KedroOperator(BaseOperator):
+    @apply_defaults
+    def __init__(
+        self,
+        package_name: str,
+        pipeline_name: str,
+        node_name: str | list[str],
+        project_path: str | Path,
+        env: str,
+        conf_source: str,
+        *args, **kwargs
+    ) -> None:
+        super().__init__(*args, **kwargs)
+        self.package_name = package_name
+        self.pipeline_name = pipeline_name
+        self.node_name = node_name
+        self.project_path = project_path
+        self.env = env
+        self.conf_source = conf_source
+
+    def execute(self, context):
+        configure_project(self.package_name)
+        with KedroSession.create(self.project_path, env=self.env, conf_source=self.conf_source) as session:
+            if isinstance(self.node_name, str):
+                self.node_name = [self.node_name]
+            session.run(self.pipeline_name, node_names=self.node_name)
+
+# Kedro settings required to run your pipeline
+env = "local"
+pipeline_name = "__default__"
+project_path = Path.cwd()
+package_name = "machine_learning_project"
+conf_source = "" or Path.cwd() / "conf"
+
+
+# Using a DAG context manager, you don't have to specify the dag property of each task
+with DAG(
+    dag_id="machine-learning-project",
+    start_date=datetime(2023,1,1),
+    max_active_runs=3,
+    # https://airflow.apache.org/docs/stable/scheduler.html#dag-runs
+    schedule_interval="@once",
+    catchup=False,
+    # Default settings applied to all tasks
+    default_args=dict(
+        owner="airflow",
+        depends_on_past=False,
+        email_on_failure=False,
+        email_on_retry=False,
+        retries=1,
+        retry_delay=timedelta(minutes=5)
+    )
+) as dag:
+    tasks = {
+        "grid-random-forest-model-clasificacion-node": KedroOperator(
+            task_id="grid-random-forest-model-clasificacion-node",
+            package_name=package_name,
+            pipeline_name=pipeline_name,
+            node_name="grid_random_forest_model_clasificacion_node",
+            project_path=project_path,
+            env=env,
+            conf_source=conf_source,
+        ),
+        "preprocess-fifa-20-node": KedroOperator(
+            task_id="preprocess-fifa-20-node",
+            package_name=package_name,
+            pipeline_name=pipeline_name,
+            node_name="preprocess_fifa_20_node",
+            project_path=project_path,
+            env=env,
+            conf_source=conf_source,
+        ),
+        "preprocess-fifa-21-node": KedroOperator(
+            task_id="preprocess-fifa-21-node",
+            package_name=package_name,
+            pipeline_name=pipeline_name,
+            node_name="preprocess_fifa_21_node",
+            project_path=project_path,
+            env=env,
+            conf_source=conf_source,
+        ),
+        "preprocess-fifa-22-node": KedroOperator(
+            task_id="preprocess-fifa-22-node",
+            package_name=package_name,
+            pipeline_name=pipeline_name,
+            node_name="preprocess_fifa_22_node",
+            project_path=project_path,
+            env=env,
+            conf_source=conf_source,
+        ),
+        "evaluacion-random-forest-node": KedroOperator(
+            task_id="evaluacion-random-forest-node",
+            package_name=package_name,
+            pipeline_name=pipeline_name,
+            node_name="evaluacion_random_forest_node",
+            project_path=project_path,
+            env=env,
+            conf_source=conf_source,
+        ),
+        "report-random-forest-model-classification-node": KedroOperator(
+            task_id="report-random-forest-model-classification-node",
+            package_name=package_name,
+            pipeline_name=pipeline_name,
+            node_name="report_random_forest_model_classification_node",
+            project_path=project_path,
+            env=env,
+            conf_source=conf_source,
+        ),
+        "transformacion2-columns-fifa20-node": KedroOperator(
+            task_id="transformacion2-columns-fifa20-node",
+            package_name=package_name,
+            pipeline_name=pipeline_name,
+            node_name="transformacion2_columns_fifa20.node",
+            project_path=project_path,
+            env=env,
+            conf_source=conf_source,
+        ),
+        "transformacion2-columns-fifa21-node": KedroOperator(
+            task_id="transformacion2-columns-fifa21-node",
+            package_name=package_name,
+            pipeline_name=pipeline_name,
+            node_name="transformacion2_columns_fifa21.node",
+            project_path=project_path,
+            env=env,
+            conf_source=conf_source,
+        ),
+        "transformacion2-columns-fifa22-node": KedroOperator(
+            task_id="transformacion2-columns-fifa22-node",
+            package_name=package_name,
+            pipeline_name=pipeline_name,
+            node_name="transformacion2_columns_fifa22.node",
+            project_path=project_path,
+            env=env,
+            conf_source=conf_source,
+        ),
+        "create-model-input-table-node": KedroOperator(
+            task_id="create-model-input-table-node",
+            package_name=package_name,
+            pipeline_name=pipeline_name,
+            node_name="create_model_input_table_node",
+            project_path=project_path,
+            env=env,
+            conf_source=conf_source,
+        ),
+        "detectar-anomalias-node": KedroOperator(
+            task_id="detectar-anomalias-node",
+            package_name=package_name,
+            pipeline_name=pipeline_name,
+            node_name="detectar_anomalias_node",
+            project_path=project_path,
+            env=env,
+            conf_source=conf_source,
+        ),
+        "pca-node": KedroOperator(
+            task_id="pca-node",
+            package_name=package_name,
+            pipeline_name=pipeline_name,
+            node_name="pca_node",
+            project_path=project_path,
+            env=env,
+            conf_source=conf_source,
+        ),
+        "create-supervised-datasets-node": KedroOperator(
+            task_id="create-supervised-datasets-node",
+            package_name=package_name,
+            pipeline_name=pipeline_name,
+            node_name="create_supervised_datasets_node",
+            project_path=project_path,
+            env=env,
+            conf_source=conf_source,
+        ),
+        "dbscan-clustering-node": KedroOperator(
+            task_id="dbscan-clustering-node",
+            package_name=package_name,
+            pipeline_name=pipeline_name,
+            node_name="dbscan_clustering_node",
+            project_path=project_path,
+            env=env,
+            conf_source=conf_source,
+        ),
+        "hierarchical-clustering-node": KedroOperator(
+            task_id="hierarchical-clustering-node",
+            package_name=package_name,
+            pipeline_name=pipeline_name,
+            node_name="hierarchical_clustering_node",
+            project_path=project_path,
+            env=env,
+            conf_source=conf_source,
+        ),
+        "kmeans-clustering-node": KedroOperator(
+            task_id="kmeans-clustering-node",
+            package_name=package_name,
+            pipeline_name=pipeline_name,
+            node_name="kmeans_clustering_node",
+            project_path=project_path,
+            env=env,
+            conf_source=conf_source,
+        ),
+        "tsne-umap-node": KedroOperator(
+            task_id="tsne-umap-node",
+            package_name=package_name,
+            pipeline_name=pipeline_name,
+            node_name="tsne_umap_node",
+            project_path=project_path,
+            env=env,
+            conf_source=conf_source,
+        ),
+        "select-best-cluster-node": KedroOperator(
+            task_id="select-best-cluster-node",
+            package_name=package_name,
+            pipeline_name=pipeline_name,
+            node_name="select_best_cluster_node",
+            project_path=project_path,
+            env=env,
+            conf_source=conf_source,
+        ),
+        "division-datos-test-train-node-regression": KedroOperator(
+            task_id="division-datos-test-train-node-regression",
+            package_name=package_name,
+            pipeline_name=pipeline_name,
+            node_name="division_datos_test_train_node_regression",
+            project_path=project_path,
+            env=env,
+            conf_source=conf_source,
+        ),
+        "grid-randomforest-model-node": KedroOperator(
+            task_id="grid-randomforest-model-node",
+            package_name=package_name,
+            pipeline_name=pipeline_name,
+            node_name="grid_randomforest_model_node",
+            project_path=project_path,
+            env=env,
+            conf_source=conf_source,
+        ),
+        "evaluacion-randomforestregressor-node": KedroOperator(
+            task_id="evaluacion-randomforestregressor-node",
+            package_name=package_name,
+            pipeline_name=pipeline_name,
+            node_name="evaluacion_RandomForestRegressor_node",
+            project_path=project_path,
+            env=env,
+            conf_source=conf_source,
+        ),
+        "evaluacion-linear-randomforest-regression-node": KedroOperator(
+            task_id="evaluacion-linear-randomforest-regression-node",
+            package_name=package_name,
+            pipeline_name=pipeline_name,
+            node_name="evaluacion_linear_randomforest_regression_node",
+            project_path=project_path,
+            env=env,
+            conf_source=conf_source,
+        )
+    }
+    tasks["grid-random-forest-model-clasificacion-node"] >> tasks["evaluacion-random-forest-node"]
+    tasks["grid-random-forest-model-clasificacion-node"] >> tasks["report-random-forest-model-classification-node"]
+    tasks["preprocess-fifa-20-node"] >> tasks["transformacion2-columns-fifa20-node"]
+    tasks["preprocess-fifa-21-node"] >> tasks["transformacion2-columns-fifa21-node"]
+    tasks["preprocess-fifa-22-node"] >> tasks["transformacion2-columns-fifa22-node"]
+    tasks["transformacion2-columns-fifa20-node"] >> tasks["create-model-input-table-node"]
+    tasks["transformacion2-columns-fifa22-node"] >> tasks["create-model-input-table-node"]
+    tasks["transformacion2-columns-fifa21-node"] >> tasks["create-model-input-table-node"]
+    tasks["create-model-input-table-node"] >> tasks["detectar-anomalias-node"]
+    tasks["create-model-input-table-node"] >> tasks["pca-node"]
+    tasks["detectar-anomalias-node"] >> tasks["create-supervised-datasets-node"]
+    tasks["detectar-anomalias-node"] >> tasks["dbscan-clustering-node"]
+    tasks["detectar-anomalias-node"] >> tasks["hierarchical-clustering-node"]
+    tasks["detectar-anomalias-node"] >> tasks["kmeans-clustering-node"]
+    tasks["pca-node"] >> tasks["tsne-umap-node"]
+    tasks["hierarchical-clustering-node"] >> tasks["select-best-cluster-node"]
+    tasks["dbscan-clustering-node"] >> tasks["select-best-cluster-node"]
+    tasks["kmeans-clustering-node"] >> tasks["select-best-cluster-node"]
+    tasks["select-best-cluster-node"] >> tasks["division-datos-test-train-node-regression"]
+    tasks["division-datos-test-train-node-regression"] >> tasks["grid-randomforest-model-node"]
+    tasks["division-datos-test-train-node-regression"] >> tasks["evaluacion-randomforestregressor-node"]
+    tasks["grid-randomforest-model-node"] >> tasks["evaluacion-randomforestregressor-node"]
+    tasks["division-datos-test-train-node-regression"] >> tasks["evaluacion-linear-randomforest-regression-node"]
+    tasks["grid-randomforest-model-node"] >> tasks["evaluacion-linear-randomforest-regression-node"]

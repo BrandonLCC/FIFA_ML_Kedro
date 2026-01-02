@@ -100,8 +100,8 @@ cd compose
 
 Ejecuta esto si agregas nuevos DAGs, cambios en dependencias o archivos importantes:
 
-docker-compose -f docker-compose.airflow.yml build # ejecuta de esta forma si el archivo compose no esta dentro de una carpeta o directorio
-docker-compose -f compose/docker-compose.airflow.yml up -d # ejecuta de esta forma si estan dentro de una carpeta o directorio
+docker-compose -f docker/docker-compose.airflow.yml build # ejecuta de esta forma si el archivo compose no esta dentro de una carpeta o directorio
+docker-compose -f docker/compose/docker-compose.airflow.yml up -d # ejecuta de esta forma si estan dentro de una carpeta o directorio
 
 # ejecucion de airflow 
 
@@ -151,14 +151,14 @@ docker logs airflow-scheduler -f
 
 Si editaste archivos en dags/:
 
-docker compose -f compose/docker-compose.airflow.yml restart airflow-scheduler
-docker compose -f compose/docker-compose.airflow.yml restart airflow-webserver
+docker compose -f docker/docker-compose.airflow.yml restart airflow-scheduler
+docker compose -f docker/docker-compose.airflow.yml restart airflow-webserver
 
 
 Esto es lo más usado durante el desarrollo.
 
 7. Apagar Airflow
-docker compose -f compose/docker-compose.airflow.yml down
+docker compose -f docker/docker-compose.airflow.yml down
 
 ## No veo los dags?
 
@@ -194,7 +194,7 @@ Dockerfile de Airflow — Explicación Rápida
 Este proyecto utiliza Airflow + Kedro, por lo que es necesario usar un Dockerfile personalizado para Airflow.
 La razón principal es que Airflow no se ejecuta en tu computador, sino dentro de contenedores Docker, y estos contenedores no tienen Kedro instalado por defecto.
 
-🔍 ¿Por qué usar un Dockerfile para Airflow?
+¿Por qué usar un Dockerfile para Airflow?
 
 Si no se usa un Dockerfile personalizado, dentro del contenedor aparecerán errores como:
 
@@ -209,17 +209,17 @@ El operador personalizado kedro_operator
 
 Acceso interno al proyecto Kedro
 
-🧩 ¿Qué soluciona el Dockerfile?
+¿Qué soluciona el Dockerfile?
 
 El dockerfile-airflow permite:
 
-✔️ Instalar Kedro dentro del contenedor Airflow
+- Instalar Kedro dentro del contenedor Airflow
 
-✔️ Instalar el operador kedro_operator
+- Instalar el operador kedro_operator
 
-✔️ Copiar o montar las rutas necesarias de Airflow (dags, plugins, etc.)
+-  Copiar o montar las rutas necesarias de Airflow (dags, plugins, etc.)
 
-✔️ Permitir que los DAGs interactúen con el proyecto Kedro
+- Permitir que los DAGs interactúen con el proyecto Kedro
 
 # no eliminar importante
 

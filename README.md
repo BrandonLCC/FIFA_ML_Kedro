@@ -2,32 +2,54 @@
 
 [![Python](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/)
 [![Kedro](https://img.shields.io/badge/kedro-1.0.0-orange.svg)](https://kedro.org/)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![EA](https://img.shields.io/badge/EA-%23000000.svg?logo=ea&logoColor=white)](#)
 
 ![image.png](https://assets.goal.com/images/v3/bltf84864c2d1921a81/Kylian%20Mbappe%20Real%20Madrid%20HIC.jpg?auto=webp&format=pjpg&width=3840&quality=60)
 
-**Autores:** Benjamin Andres Oviedo y Brandon Casas. 
+**Colaboradores:** Benjamin Andres Oviedo y Brandon Casas. 
 
 **Docente:** Giocrisrai Godoy Bonillo.
 
 ## Introducción  
 
-### Contexto del caso
+### Descripción del caso del proyecto
 
-*EA Sports FIFA*, conocido simplemente como FIFA, es una saga de videojuegos de fútbol publicada anualmente por *Electronic Arts* bajo el sello de EA Sports, en colaboración con la FIFA.
+*[EA Sports FIFA](https://www.ea.com/es-es/games)*, es una saga de videojuegos de fútbol publicada anualmente por *Electronic Arts* bajo el sello de **EA Sports**, en colaboración con la **FIFA**.
 
 ### Problema / Necesidad del negocio
 
 La empresa busca **replicar la experiencia del fútbol real**, tanto en la gestión de equipos como en la competencia dentro del campo, ofreciendo realismo gracias a sus licencias oficiales de equipos, jugadores y ligas de todo el mundo. Con la reciente transición a EA Sports FC, el objetivo principal sigue siendo simular el deporte del fútbol y permitir a los jugadores disputar partidos o gestionar un club en diversos modos de juego.
 
-### Herramientas  y Framework (mejora o elimina)
+### Herramientas  y Framework 
 
-Este proyecto utiliza la herramienta [Kedro](https://kedro.org/#get-started) para el procesamiento de datos de FIFA y aplicar técnicas de aprendizaje no supervisado y supervisado para predecir métricas y categorías de jugadores.
+#### Framework: 
 
-Se incluyen pipelines de limpieza, reducción de dimensionalidad, clustering y entrenamiento de modelos de regresión y clasificación.
+**Kedro**
 
-## Datos
+[Kedro](https://kedro.org/#get-started) es el framework principal de código abierto utilizado en este proyecto con el propósito de realizar el procesamiento y la limpieza de datos, el entrenamiento de modelos, la implementación de pipelines, entre otras tareas.
+
+#### Herramientas 
+
+
+[Jupyer notebooks](notebooks): 
+
+[DVC con Dagshub](https://dagshub.com/): 
+
+[Airflow-apache](https://airflow.apache.org/docs/apache-airflow/stable/start.html): 
+
+[DockerHub](https://hub.docker.com/) y [DockerDesktop](https://docs.docker.com/desktop/): Entorno de pruebas 
+
+**Librerias** 
+
+Algunas de las librerías utilizadas durante las etapas de [Data Understanding](notebooks/02_Data_Understanding.ipynb), [Data Preparation](notebooks/03_Data_Preparation.ipynb) y [Modeling](notebooks/04_Modeling.ipynb) en Jupyter Notebook. De la misma forma, estas librerías son aplicadas dentro de los pipelines del proyecto.
+
+- **numpy:** 
+- **pandas:**
+- **seaborn:**
+- **matplotlib:**
+- **sklearn:** 
+
+## Datos de FIFA
 
 ### Datos obtenidos
 
@@ -39,23 +61,13 @@ Contiene más de 17.000 registros con atributos demográficos, características 
 
 **Enlace al dataset:** [Link](https://www.kaggle.com/datasets/bryanb/fifa-player-stats-database?rvi=1)	
 
+## Objetivos
 
-Características claves 
-
-Caracteristicas de modelos 
-
-Clasificacion 
-
-Regresion: 
-
-### Objetivos
-
-**Objetivos del proyecto**
+### Objetivos del proyecto
 
 El objetivo principal del proyecto es desarrollar e integrar en un sistema funcionalidades basadas en modelos de predicción con machine learning, con el fin de generar análisis y predicciones automáticas sobre el desempeño de los jugadores de FIFA en función de determinadas características.
 
-
-### **Objetivos de Machine Learning**
+### Objetivos de Machine Learning
 
 - Analizar y evaluar la calidad y veracidad de los datos utilizados, asi como realizar una correcta limpieza e imputación de datos faltantes para el desarrollo de los modelos de predicción.
 
@@ -70,10 +82,14 @@ El objetivo principal del proyecto es desarrollar e integrar en un sistema funci
 - Construir un modelo de clasificación que categorice el rendimiento de los jugadores (por ejemplo: alto, medio o bajo) utilizando atributos clave que influyen en su desempeño.
 
 
-## Metodologias  
+La premisa central del machine learning (ML) es que si se optimiza el rendimiento de un modelo en un conjunto de datos de tareas que se asemejan adecuadamente a los problemas del mundo real para los que se usará, a través de un proceso llamado entrenamiento de modelos, el modelo puede hacer predicciones precisas sobre los nuevos datos que ve en su caso de uso final.
+
+## Metodologia
 
 ### Metodologia CRISP-DM
 
+
+Para mas información: [¿Qué es CRISP DM?](https://www.datascience-pm.com/crisp-dm-2/?utm_source=chatgpt.com)	
 
 Notebooks: 
 
@@ -95,16 +111,6 @@ Notebooks:
 
 [Deployment FIFA](#)
 
-# Contenido
-
-- Instalación
-- Estructura del proyecto
-- Ejecución de pipelines
-- Descripción de pipelines
-- Modelos entrenados
-- Métricas de evaluación
-- Visualización
-- Notas
 
 # Instalación
 
@@ -234,9 +240,5 @@ machine_learning_project/
 | Logistic Regression | ...      | ...       | ...    | ...      |
 
 
-### Visualización
-
-Usa Kedro-Viz para explorar tus pipelines:
-
-kedro viz
+### Conclusiones 
 

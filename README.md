@@ -12,32 +12,6 @@
 
 ## Índice 
 
-- [Descripción del caso del proyecto](#descripción-del-caso-del-proyecto)
-- [Problema / Necesidad del negocio](#problema--necesidad-del-negocio)
-- [Herramientas y Framework](#herramientas-y-framework)
-  - [Framework](#framework)
-  - [Herramientas](#herramientas)
-- [Datos de FIFA](#datos-de-fifa)
-  - [Datos obtenidos](#datos-obtenidos)
-  - [Acerca de los datos](#acerca-de-los-datos)
-- [Objetivos](#objetivos)
-  - [Objetivos del proyecto](#objetivos-del-proyecto)
-  - [Objetivos de Machine Learning](#objetivos-de-machine-learning)
-- [Metodología](#metodologia)
-  - [Metodología CRISP-DM](#metodologia-crisp-dm)
-  - [Repositorios](#repositorios)
-- [Estructura del proyecto](#estructura-del-proyecto)
-- [Estructura de los pipelines](#estructura-de-los-pipelines)
-  - [Descripción de pipelines](#descripción-de-pipelines)
-- [Modelos implementados](#modelos-implementados)
-- [Métricas de evaluación](#metricas-de-evaluación)
-  - [Regresión](#regresión)
-  - [Clasificación](#clasificación)
-- [Instalación / Colaboración](#instalación--colaboración)
-- [Conclusiones](#conclusiones)
-
-### Introduccion
-
 ### Descripción del caso del proyecto *
 
 *[EA Sports FIFA](https://www.ea.com/es-es/games)*, es una saga de videojuegos de fútbol publicada anualmente por *Electronic Arts* bajo el sello de **EA Sports**, en colaboración con la **FIFA**.
@@ -199,15 +173,15 @@ Se aplican las seis fases de CRISP-DM. A continuación se detallan cada fase y l
 
 **Notebooks:**
 
-1. [Business Understanding](notebooks\01_Business_Understanding.ipynb)
+- [Business Understanding](notebooks\01_Business_Understanding.ipynb)
 
-2. [Data Understanding](notebooks\02_Data_Understanding.ipynb)
+- [Data Understanding](notebooks\02_Data_Understanding.ipynb)
 
-3. [Data Preparation](notebooks\03_Data_Preparation.ipynb)
+- [Data Preparation](notebooks\03_Data_Preparation.ipynb)
 
-4. [Modeling](notebooks\04_Modeling.ipynb)
+- [Modeling](notebooks\04_Modeling.ipynb)
 
-5. [Final analysis](notebooks\06_final_analysis.ipynb)
+- [Final analysis](notebooks\06_final_analysis.ipynb)
 
 ## Repositorios 
 
@@ -254,6 +228,14 @@ machine_learning_project/
 | unsupervised_learning      | Limpieza de datos, reducción de dimensionalidad, clustering y reglas. |
 | supervised_models          | Entrena modelos de regresión y clasificación usando dataset limpio.   |
 | unsupervised_to_supervised | Genera datasets de train/test a partir del dataset limpio.            |
+
+
+### Flujos de ejecucion 
+
+Es importante entender el flujo realizado de los pipelines al usar modelos supervizados y no supervisados, donde este ultimo genera un cambio de flujo drastico, es por ello que en este link se proporciona una explicacion de los flujos realizados y explicados:
+
+[Documentacion-flujos-pipelines]()
+[O-Flujos]()
 
 
 ### Modelos implementados
@@ -305,6 +287,11 @@ machine_learning_project/
 | Random Forest       | 0.1075   | 0.1129    | 0.1075 | 0.0974   |
 | Logistic Regression | ...      | ...       | ...    | ...      |
 
+### Comparaciónes o evaluaciones etc
+
+# Conclusiónes
+
+
 ## Herramientas  y Framework 
 
 ### Framework
@@ -347,5 +334,5 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-### Conclusiones 
+### Referencias 
 

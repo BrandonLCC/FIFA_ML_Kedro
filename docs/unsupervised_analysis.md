@@ -138,3 +138,11 @@ notebooks/
 
 # Link a las etapas en Kedro
 - Formato README.md
+
+
+¿Debe existir un flujo definido para el dataset en un pipeline no supervisado, por ejemplo aplicando primero detección de anomalías sobre la tabla de entrada, generando un clean_dataset, luego usando ese dataset limpio para clustering (clustered_data), y finalmente aplicar reducción de dimensionalidad, o es correcto que algunas técnicas sigan usando directamente la tabla imputada original?
+
+Respuesta; 
+
+Sí, debe existir un flujo lógico para el dataset no supervisado, y ese flujo normalmente tiene como base un clean_dataset.
+Tiene sentido aplicar detección de anomalías primero sobre la tabla imputada para limpiar o marcar outliers y generar un dataset estable (clean_dataset). A partir de ese dataset limpio, clustering y reducción de dimensionalidad deberían usar el mismo clean_dataset como input, **no encadenarse obligatoriamente entre sí.** La reducción de dimensionalidad no necesita recibir el output del clustering, salvo que se use únicamente con fines de visualización. Por lo tanto, si actualmente el pipeline de reducción de dimensionalidad usa la tabla imputada original, no está mal, pero lo más coherente y consistente es que use el clean_dataset, ya que representa el estado validado y confiable de los datos para las técnicas no supervisadas.

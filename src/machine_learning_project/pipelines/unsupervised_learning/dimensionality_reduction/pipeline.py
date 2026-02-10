@@ -3,10 +3,15 @@ from .nodes import aplicar_pca, aplicar_tsne_umap
 
 def create_pipeline(**kwargs) -> Pipeline:
     return pipeline([
-        node(
+        node( 
             func=aplicar_pca,
             inputs=dict(
-                datos="model_input_table",
+                datos="clean_dataset", # cambio: Se cambia el dataset imput_table a clean_dataset debido a que se sigue el flujo 
+                                       # Flujo esperado: (anomaly_detection output: clea_dataset) > dimensionality_reduction 
+                                       # Ojo: La salida de este dataset no debe aplicarse a clustering, se puede usar el mismo clean_dataset. 
+                                       # me refiero a que no es necesario que haya un flujo de datasets anomaly>clustering>dimensionality  
+                                       # Todo depende de un  proposito claro.
+                                                                    
                 n_componentes="params:dimensionality_reduction.pca_n_components"
             ),
             outputs="pca_output",

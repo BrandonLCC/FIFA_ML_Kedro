@@ -68,35 +68,148 @@ El objetivo principal del proyecto es desarrollar e integrar en un sistema funci
 
 La premisa central del machine learning (ML) es que si se optimiza el rendimiento de un modelo en un conjunto de datos de tareas que se asemejan adecuadamente a los problemas del mundo real para los que se usará, a través de un proceso llamado entrenamiento de modelos, el modelo puede hacer predicciones precisas sobre los nuevos datos que ve en su caso de uso final. [ML](https://www.ibm.com/mx-es/think/topics/machine-learning)	
 
-## Metodologia
+---
+<!-- TEXTO readme hecho por el colaborador
 
-### Metodologia CRISP-DM *
+## Metodologia CRISP-DM **
+"""
+La metodología CRISP-DM es un modelo de proceso estandarizado para llevar a cabo proyectos de minería de datos y, por extensión, de machine learning. Fue desarrollada a finales de la década de 1990 por un consorcio de empresas como SPSS, Daimler AG y NCR. Su objetivo principal es proporcionar una guía **flexible** y no propietaria que sea aplicable a una amplia variedad de industrias y problemas.
 
-Para este proyecto se segura la metodologia CRISP-DM
+> CRISP-DM es ideal para Proyectos de Data Science e IA: Modelado de predicción, detección de anomalías y sistemas de recomendación.
 
-La metodologia CRISP-DM consiste en 6 fases enfocados desde 
 
-- **la comprension del negocio:** profundizando las necesidades del cliente, Definir **objetivos**, **Evaluar la situacion** desde diferentes puntos de vista, tanto de la empresa como desde los recursos de los desarrolladores del proyecto, de igual manera se evalua los riesgos y costos asociados.
+### Fases de CRISP-DM
 
-- **Comprension de datos:** Recopiando datos, describir, explorar y verificar su calidad con la que trabajara 
+Se aplican las 6 fases de La metodologia CRISP-DM. A continuación, se presenta un breve resumen de cada fases del proyecto y las tareas realizadas en cada una:
 
-- 
+- **la comprension del negocio:** 
+Se orienta a indetificar y entender las necesidades del cliente. En esta fase definimos los objetivos del proyecto y se evalua la situación desde distintos puntos de vista, tanto del contexto empresarial como de  los recursos monetarios asignados. Asi mismo se analizan los riesgos, alcances y costos asociados.
 
-Para mas información: [¿Qué es CRISP DM?](https://www.datascience-pm.com/crisp-dm-2/)	
+- **Comprension de datos:** 
+En esta fase, estudiamos en detalle los datos obtenidos. La comprensión de datos implicando acceder a ellos y explorarlos mediante tablas y gráficos. En esta etapa se realizan tareas como la recopilación de datos, la descripción de los resultados, la identificación de anomalías, la exploración inicial y la verificación de la calidad de los datos.
 
-Notebooks: 
+- **Modelado:** 
+Luego de la comprención de los datos, se utilizó **kedro** para realizar una limpieza de datos automatizada. Posteriormente, se seleccionaron las técnicas de modelos mas adecuados. En este proyecto se realizaron:
 
-[Business Understanding](notebooks\01_Business_Understanding.ipynb)
+-  Modelos supervizados de regresión.
 
-[Data Understanding](notebooks\02_Data_Understanding.ipynb)
+- Modelos supervizados de clasificación.
 
-[Data Preparation](notebooks\03_Data_Preparation.ipynb)
+- Modelos no supervizados. 
 
-[Modeling](notebooks\04_Modeling.ipynb)
+---
 
-[Final analysis](notebooks\06_final_analysis.ipynb)
+- **Evaluación:**
+Esta etapa se centra en la **evaluacion tecnica de los modelos**, considerando diferentes tipos de aspectos de desempeño y alineado con los objetivos del negocio 
 
-### Repositorios 
+- **Evaluación de resultados:** Modelos que cumplan con los criterios de exito empresarial utilizando métricas de desempeño aceptables como R², F1-Score, entre otras.
+
+- **Proceso de revisión:** Se revisan los parámetros aplicados, los pasos ejecutados durante el modelado y los hallazgos obtenidos, así como posibles errores o anomalías identificadas.
+
+- **Despliegue:** 
+Etapa final en la que se ponen a prueba los resultados obtenidos. En esta fase se realiza un entregable funcional, en el cual se ponen en uso los modelos desarrollados o las funciones basadas en dichos modelos, permitiendo su aplicación en un entorno real o de prueba Y da por finalizado las etapas de CRISP-DM 
+
+> Dependiendo de las necesidades de la organización es posible una o mas fases.
+
+En general, la fase de despliegue de CRISP-DM incluye dos tipos de actividades:
+
+- Planificación y control del despliegue de los resultados
+
+- Finalización de tareas de presentación como la producción de un informe final y la revisión de un proyecto
+
+-->
+
+# Metodología CRISP-DM
+
+La metodología **CRISP-DM** (*Cross-Industry Standard Process for Data Mining*) es un modelo estandarizado para proyectos de **minería de datos** y **machine learning**.  
+Fue desarrollada a finales de los años 90 por empresas como **SPSS, Daimler AG y NCR**, y proporciona una guía **flexible y no propietaria**, aplicable a diferentes industrias y tipos de problemas.
+
+> **CRISP-DM es ideal para proyectos de Data Science e Inteligencia Artificial**  
+> - Modelado de predicción  
+> - Detección de anomalías  
+> - Sistemas de recomendación
+
+---
+
+### Fases de CRISP-DM
+
+Se aplican las seis fases de CRISP-DM. A continuación se detallan cada fase y las tareas realizadas:
+
+---
+
+### 1. Comprensión del negocio
+- **Objetivo:** Identificar y entender las necesidades del cliente.  
+- **Tareas principales:**  
+  - Definir los objetivos del proyecto  
+  - Evaluar el contexto empresarial y los recursos asignados  
+  - Analizar riesgos, alcances y costos
+
+---
+
+### 2. Comprensión de los datos
+- **Objetivo:** Estudiar los datos en detalle y explorarlos mediante tablas y gráficos.  
+- **Tareas principales:**  
+  - Recopilación de datos  
+  - Descripción de resultados  
+  - Identificación de anomalías  
+  - Exploración inicial  
+  - Verificación de la calidad de los datos
+
+---
+
+### 3. Modelado
+- **Objetivo:** Construir modelos que respondan a los objetivos del proyecto.  
+- **Herramienta utilizada:** **Kedro** (para limpieza automatizada de datos)  
+- **Modelos desarrollados:**  
+  - Supervisados de **regresión**  
+  - Supervisados de **clasificación**  
+  - **No supervisados**
+
+---
+
+### 4. Evaluación
+- **Objetivo:** Evaluar el desempeño técnico de los modelos y su alineación con los objetivos de negocio.  
+- **Evaluación de resultados:**  
+  - Modelos que cumplan con criterios de éxito empresarial  
+  - Métricas utilizadas: **R²**, **F1-Score**, entre otras  
+- **Proceso de revisión:**  
+  - Revisión de parámetros aplicados  
+  - Pasos ejecutados durante el modelado  
+  - Hallazgos, errores o anomalías detectadas
+
+---
+
+### 5. Despliegue
+
+- **Objetivo:** Poner a prueba y entregar los modelos de manera funcional.  
+- **Actividades principales:**  
+  - Planificación y control del despliegue de resultados  
+  - Elaboración de informe final y revisión del proyecto  
+- **Notas:**  
+  - Permite la aplicación de modelos o funciones en entornos reales o de prueba  
+  - Esta fase finaliza el ciclo de CRISP-DM, aunque según las necesidades, puede ser necesario repetir alguna fase
+
+---
+
+**Para mas información:**
+
+- [La metodología CRISP-DM: desarrollo de modelos de machine learning](https://www.mytaskpanel.com/la-metodologia-crisp-dm-desarrollo-de-modelos-de-machine-learning/#:~:text=programas%20de%20retenci%C3%B3n.-,2.,de%20descuento%20ser%C3%ADan%20m%C3%A1s%20efectivas.)	
+
+- [¿Qué es CRISP DM?](https://www.datascience-pm.com/crisp-dm-2/)	
+
+**Notebooks:**
+
+1. [Business Understanding](notebooks\01_Business_Understanding.ipynb)
+
+2. [Data Understanding](notebooks\02_Data_Understanding.ipynb)
+
+3. [Data Preparation](notebooks\03_Data_Preparation.ipynb)
+
+4. [Modeling](notebooks\04_Modeling.ipynb)
+
+5. [Final analysis](notebooks\06_final_analysis.ipynb)
+
+## Repositorios 
 
 - [DockerHub](https://hub.docker.com/repository/docker/brandonlcc/fifa_ml_kedro/general)
 
@@ -132,34 +245,6 @@ machine_learning_project/
 │
 ├── README.md
 └── requirements.txt
-```
-
-## Estructura de los pipelines 
-```
-├── classification_models
-│   
-├── classification_report
-│ 
-├── data_processing
-│ 
-├── final_report_comparativo
-│ 
-├── regression_models
-│ 
-├── regression_report
-│ 
-├── unsupervised_learning
-│   │
-│   ├── anomaly_detection
-│   │   
-│   ├── association_rules
-│   │
-│   ├── clustering
-│   │   
-│   ├── dimensionality_reduction
-│   
-├───unsupervised_to_supervised   
-
 ```
 
 ### Descripción de pipelines
@@ -219,8 +304,6 @@ machine_learning_project/
 | Decision Tree       | 0.0975   | 0.0996    | 0.0975 | 0.0915   |
 | Random Forest       | 0.1075   | 0.1129    | 0.1075 | 0.0974   |
 | Logistic Regression | ...      | ...       | ...    | ...      |
-
-
 
 ## Herramientas  y Framework 
 

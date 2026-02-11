@@ -36,7 +36,7 @@ from sklearn.metrics import roc_curve, auc, precision_recall_curve
 # --- Funcion normal para la division de datos para los modelos que no requieren de escalado ---
 
 def division_datos_test_train(data: pd.DataFrame, parameters: dict) -> tuple:
-
+ 
     X = data[parameters["features"]]
     y = data[parameters["target"]]
     #En caso de error, si y necesita ser 1D usar .values.ravel
@@ -47,7 +47,7 @@ def division_datos_test_train(data: pd.DataFrame, parameters: dict) -> tuple:
     X, y, test_size=parameters["test_size"], random_state=parameters["random_state"])
 
     return X_train, X_test, y_train, y_test
-
+ 
 
 # Modelos como: SVM, KNN, LogisticRegression se le aplicara escalado
 

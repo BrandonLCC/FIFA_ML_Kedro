@@ -35,14 +35,13 @@ def create_pipeline(**kwargs) -> Pipeline:
 
             #Procesamiento 2
 
-              #reduce_columns_node: Es la unica funcion (funcion que esta al final de las funciones)
+            #reduce_columns_node: Es la unica funcion (funcion que esta al final de las funciones)
             # que se utilizara aparte de las funciones de preprocess 
-            #debido a su extension y reutilizacion en los 3 datasets
-            #Aqui tendremos un ejemplo practico de reutilizacion de codigo en kedro
-            #En vez de utilizarla en la funcion orquestadora preprocess_fifa_22
+            # debido a su extension y reutilizacion en los 3 datasets
+            # Aqui tendremos un ejemplo practico de reutilizacion de codigo en kedro
+            # En vez de utilizarla en la funcion orquestadora preprocess_fifa_22
 
             #Para futuras ocasiones, considerar realizar otros pipelines para disminuir la cantidad de codigos en nodes.py (para limpieza y transformacion de datos etc)
-
 
             Node(
                 func=transformacion2_columns,

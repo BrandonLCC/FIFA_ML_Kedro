@@ -11,9 +11,9 @@ def create_pipeline(**kwargs) -> Pipeline:
                 target_regression="params:model_options_regression.target",##
                 features_classification="params:model_options_classification.features", ####
                 target_classification="params:model_options_classification.target",###
-                test_size_reg="params:model_options.test_size",
+                test_size_reg="params:model_options_regression.test_size",
                 test_size_class="params:model_options_classification.test_size",
-                random_state="params:model_options.random_state",
+                random_state="params:model_options_regression.random_state",
                 stratify_class="params:model_options_classification.stratify"
             ),
             outputs=[

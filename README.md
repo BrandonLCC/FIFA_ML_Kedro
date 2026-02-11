@@ -289,7 +289,7 @@ Es importante entender el flujo realizado de los pipelines al usar modelos super
 
 ### Comparaciónes o evaluaciones etc
 
-# Conclusiónes
+## Conclusion
 
 
 ## Herramientas  y Framework 
@@ -300,8 +300,7 @@ Es importante entender el flujo realizado de los pipelines al usar modelos super
 
 ### Herramientas 
 
-- **[Jupyter Notebooks](notebooks):**  
-En este proyecto, Kedro incorpora Jupyter Notebooks para la creación y edición de cuadernos digitales en formato `.ipynb`, utilizando Python.  
+- **[Jupyter Notebooks](notebooks):** En este proyecto, Kedro incorpora Jupyter Notebooks para la creación y edición de cuadernos digitales en formato `.ipynb`, utilizando Python.  
   Dentro de la carpeta `notebooks` se organizan los distintos notebooks asociados a la metodología **CRISP-DM**, así como aquellos destinados a la implementación de modelos **supervisados y no supervisados**.
 
 - **[DVC con Dagshub](https://dagshub.com/)**: La herramienta **DVC (Data Version Control)** permite realizar el versionamiento de los datos generados por el proyecto, con el objetivo de mantener un respaldo seguro y reproducible.  
@@ -309,8 +308,7 @@ DVC establece una conexión con **DagsHub**, donde se alojan los datos en una pl
 
 - **[Airflow-apache](https://airflow.apache.org)**: Es una plataforma de código abierto diseñada para orquestar, programar y monitorear flujos de trabajo (pipelines) de datos complejos mediante código Python. [Ver más](https://liora.io/es/todo-sobre-apache-airflow)
 
-- **[Docker Hub](https://hub.docker.com/) y [Docker Desktop](https://docs.docker.com/desktop/):**  
-  Docker nos permite crear un **entorno de pruebas aislado** de la producción real, manteniendo controladas las **dependencias**, **versiones de lenguajes** y **librerías** mediante el uso de **imágenes y contenedores**.
+- **[Docker Hub](https://hub.docker.com/) y [Docker Desktop](https://docs.docker.com/desktop/):** Docker nos permite crear un **entorno de pruebas aislado** de la producción real, manteniendo controladas las **dependencias**, **versiones de lenguajes** y **librerías** mediante el uso de **imágenes y contenedores**.
 
 ## Librerias 
 

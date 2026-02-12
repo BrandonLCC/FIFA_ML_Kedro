@@ -162,6 +162,27 @@ si da error usa el contendor con este codigo para acceder a las carpetas ya que 
 docker run -it -v "${PWD}:/app" fifa-ml-kedro /bin/bash
 
 
+## ¿Como inicar un contenedor sin crearlo constantemnete?
+
+## Comando Docker start :D
+
+Beneficios: menos tiempo de ejecucion 
+
+```bash
+
+# Verifica si existe el contenedor, sino, toca crearlo 
+
+docker ps -a
+
+# Ejemplo: 
+
+docker start -ai nombre_contenedor
+
+# En mi caso: 
+
+docker start -ai awesome_bose # (Docker le puso ese nombre a mi contenedor)
+
+```
 
 # Kedro viz
 

@@ -26,7 +26,7 @@ def create_pipeline(**kwargs) -> Pipeline:
             outputs=["X_train_class", "X_test_class", "y_train_class", "y_test_class"],
             name="division_datos_test_train_node_classification"
        ),
-        
+         
         # Entrenamiento de modelos usando datasets de clasificación
 
         # Node(

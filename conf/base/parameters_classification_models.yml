@@ -1,19 +1,24 @@
 model_options_classification:
   test_size: 0.2
   random_state: 42
-  stratify: true 
-features:
-  - Age
-  - BallControl
-  - Finishing
-  - Dribbling
-  - International Reputation
-  - Acceleration
-  - SprintSpeed
-  - ShotPower
-  - Offensive_Skills
-
-target: Overall_Class_Bin
+  stratify: true # Para: clases desbalanceadas, si clase es minoritaria, etc.
+  
+  #Error numero 1. el targer y el feature estaban un espacio hacia atras. 
+  # Error numero 2. El parameters en unuspersived_to_supervised estaban repetidos 
+  # Con el mismo nombre llamados: model_options_classification generando conflictos
+  # Esto generaba que los modelos obtengan valores maximo o minimos. 
+  
+  features:
+    - Age
+    - BallControl
+    - Finishing
+    - Dribbling
+    - International Reputation
+    - Acceleration
+    - SprintSpeed
+    - ShotPower
+    - Offensive_Skills
+  target: Overall_Class_Bin
 
 # mensaje importante
 

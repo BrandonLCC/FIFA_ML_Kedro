@@ -35,6 +35,25 @@ from sklearn.metrics import roc_curve, auc, precision_recall_curve
 
 # --- Funcion normal para la division de datos para los modelos que no requieren de escalado ---
 
+# Version corregida: agrregamos statify
+"""def division_datos_test_train(data: pd.DataFrame, parameters: dict) -> tuple:
+    
+    X = data[parameters["features"]]
+    y = data[parameters["target"]]
+
+    stratify_value = y if parameters.get("stratify", False) else None
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X,
+        y,
+        test_size=parameters["test_size"],
+        random_state=parameters["random_state"],
+        stratify=stratify_value
+    )
+
+    return X_train, X_test, y_train, y_test
+"""
+
 def division_datos_test_train(data: pd.DataFrame, parameters: dict) -> tuple:
  
     X = data[parameters["features"]]
@@ -47,7 +66,7 @@ def division_datos_test_train(data: pd.DataFrame, parameters: dict) -> tuple:
     X, y, test_size=parameters["test_size"], random_state=parameters["random_state"])
 
     return X_train, X_test, y_train, y_test
- 
+
 
 # Modelos como: SVM, KNN, LogisticRegression se le aplicara escalado
 

@@ -74,6 +74,61 @@ model_input_table:
   type: pandas.ParquetDataset 
   filepath: data/05_model_input/model_input_table.parquet #lo definimos en primary porque ya tendremos nuestros datasets unidos
 
+
+# ============================
+# Entradas de para los modelos, train y test.
+# ============================
+
+#TRAIN TEST REGRESION
+
+X_train_regression:
+  type: pandas.CSVDataset
+  filepath: data/05_model_input/X_train_regression.csv
+  save_args:
+    index: False
+
+X_test_regression:
+  type: pandas.CSVDataset
+  filepath: data/05_model_input/X_test_regression.csv
+  save_args:
+    index: False
+
+y_test_regression:
+  type: pandas.CSVDataset
+  filepath: data/05_model_input/y_test_regression.csv
+  save_args:
+    index: False
+
+# TRAIN TEST CLASIFICACION
+
+# -- Features de entrenamiento y prueba --
+
+X_train_class:
+  type: pandas.CSVDataset
+  filepath: data/05_model_input/X_train_class.csv
+  save_args:
+    index: False
+
+X_test_class:
+  type: pandas.CSVDataset
+  filepath: data/05_model_input/X_test_class.csv
+  save_args:
+    index: False
+
+# -- Target de entrenamiento y prueba --
+
+y_train_class:
+  type: pandas.CSVDataset
+  filepath: data/05_model_input/y_train_class.csv
+  save_args:
+    index: False
+
+y_test_class:
+  type: pandas.CSVDataset
+  filepath: data/05_model_input/y_test_class.csv
+  save_args:
+    index: False
+
 # ============================
 # Etapa de  modelodo
 # ============================
@@ -141,60 +196,6 @@ grid_random_forest_model_classification:
   type: pickle.PickleDataset 
   filepath: data/06_models/grid_random_forest_model_classification.pkl
   versioned: true
-
-# ============================
-# Entradas de para los modelos, train y test.
-# ============================
-
-#TRAIN TEST REGRESION
-
-X_train_regression:
-  type: pandas.CSVDataset
-  filepath: data/05_model_input/X_train_regression.csv
-  save_args:
-    index: False
-
-X_test_regression:
-  type: pandas.CSVDataset
-  filepath: data/05_model_input/X_test_regression.csv
-  save_args:
-    index: False
-
-y_test_regression:
-  type: pandas.CSVDataset
-  filepath: data/05_model_input/y_test_regression.csv
-  save_args:
-    index: False
-
-# TRAIN TEST CLASIFICACION
-
-# -- Features de entrenamiento y prueba --
-
-X_train_class:
-  type: pandas.CSVDataset
-  filepath: data/05_model_input/X_train_class.csv
-  save_args:
-    index: False
-
-X_test_class:
-  type: pandas.CSVDataset
-  filepath: data/05_model_input/X_test_class.csv
-  save_args:
-    index: False
-
-# -- Target de entrenamiento y prueba --
-
-y_train_class:
-  type: pandas.CSVDataset
-  filepath: data/05_model_input/y_train_class.csv
-  save_args:
-    index: False
-
-y_test_class:
-  type: pandas.CSVDataset
-  filepath: data/05_model_input/y_test_class.csv
-  save_args:
-    index: False
 
 # ============================
 # Reportes de regresion

@@ -13,8 +13,20 @@ data_procesing > regression_models > classifitacion_models > reportes > comparat
 
 **Codigos docker runs**
 kedro run --pipeline data_processing -  [OK]
-kedro run --pipeline regression_models - [nooK] 
-kedro run --pipeline data_processing -  [OK] 
+
+kedro run --pipeline regression_models - [OK]
+
+Prueba pasada, metrica del unico modelo ejecutado
+
+Mean Squared Error (MSE): 4287408515877.725586
+Mean Absolute Error (MAE): 631584.990884
+Root Mean Squared Error (RMSE): 2070605.833054
+R2 Score: 0.896787
+
+kedro run --pipeline classification_models -  [NOOK] 
+
+mal desempeño 
+
 kedro run --pipeline data_processing -  [OK] 
 
 ## Archivos modificables

@@ -4,7 +4,10 @@
 # Documentation for this file format can be found in "Parameters"
 # Link: https://docs.kedro.org/en/1.0.0/configuration/parameters.html
 
-model_options_classification:
+# IDENTIFICANDO ERROR: METRICAS 
+# Nombre del model_options_classification repetido en dos parameters
+# CREAN CONFLICTOS, MODIFICADO A odel_options_classification_unsupersived_to_supervise
+model_options_classification_unsupersived_to_supervised:
   features:
     - Overall
     - Potential

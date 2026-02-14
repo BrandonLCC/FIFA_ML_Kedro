@@ -170,7 +170,7 @@ grid_randomforest_model:
   filepath: data/06_models/grid_randomforest_model.pkl
   versioned: true
 
-#Salidas de los modelos entrenados de clasificación
+# Salidas de los modelos entrenados de clasificación
 
 grid_logistic_model_classification:
   type: pickle.PickleDataset
@@ -272,22 +272,32 @@ report_random_forest_model_classification:
 # que sera la nueva base para los modelos supervisados.
 # ============================
 
-pca_output:
-  type: pandas.ParquetDataset
-  filepath: data/04_feature/pca_output.parquet
+# El clean_dataset se genera a partir de la combinacion de las tecnicas no supervizadas, y se utiliza como nueva entrada para los modelos supervisados.
 
-clustered_data:
-  type: pandas.ParquetDataset
-  filepath: data/04_feature/clustered_data.parquet
-
-#eliminar si no se usa 
-datos_limpios_sin_anomalias:
-  type: pandas.ParquetDataset
-  filepath: data/04_feature/clean_data_no_anomalies.parquet
+# Pipeline Submodulo anomaly_detection.
 
 clean_dataset:
   type: pandas.ParquetDataset
   filepath: data/04_feature/clean_dataset.parquet
+
+# Ver las salidasd de los clusters y reduccion 
+#dimensional como datasets separados, pero no necesariamente se aplican al dataset de entrada de los modelos supervisados, sino que se pueden usar como features adicionales o para analisis exploratorio.
+
+# Pipeline Submodulo clustering.
+
+clustered_dataset:
+  type: pandas.ParquetDataset
+  filepath: data/04_feature/clustered_dataset.parquet
+
+# Pipeline Submodulo dimensionality_reduction.
+
+pca_output:
+  type: pandas.ParquetDataset
+  filepath: data/04_feature/pca_output.parquet  
+
+unsupervised_processed_dataset:
+  type: pandas.ParquetDataset
+  filepath: data/04_feature/unsupervised_processed_dataset.parquet
 
 # -- ojo --
 
@@ -315,55 +325,4 @@ clean_dataset:
 # X_train_regression, X_test_regression, y_train_regression
 
 # X_train_class, X_test_class, y_train_class, y_test_class 
-
-# ============================
-# TRAIN / TEST - CLASIFICACION (UNSUPERVISED)
-# ============================
-
-X_train_class_unsup:
- type: pandas.CSVDataset
- filepath: data/05_model_input/X_train_class_unsup.csv
- save_args:
-   index: False
-
-X_test_class_unsup:
- type: pandas.CSVDataset
- filepath: data/05_model_input/X_test_class_unsup.csv
- save_args:
-   index: False
-
-y_train_class_unsup:
- type: pandas.CSVDataset
- filepath: data/05_model_input/y_train_class_unsup.csv
- save_args:
-   index: False
-
-y_test_class_unsup:
- type: pandas.CSVDataset
- filepath: data/05_model_input/y_test_class_unsup.csv
- save_args:
-   index: False
-
-# (Agregado recientemente)
-
-y_train_regression_unsup:
- type: pandas.CSVDataset
- filepath: data/05_model_input/y_train_regression_unsup.csv
- save_args:
-   index: False
-
-X_train_regression_unsup:
- type: pandas.CSVDataset
- filepath: data/05_model_input/X_train_regression_unsup.csv
- save_args:
-   index: False
-
-X_test_regression_unsup:
- type: pandas.CSVDataset
- filepath: data/05_model_input/X_test_regression_unsup.csv
- save_args:
-   index: False
-
-
-
 

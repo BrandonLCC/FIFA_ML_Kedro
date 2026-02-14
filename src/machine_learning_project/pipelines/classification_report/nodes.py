@@ -18,6 +18,7 @@ from sklearn.multiclass import OneVsRestClassifier
 
 import os
 
+# eliminar funcion, esta funcion ya se encuentra en el pipeline de clasificación, y se llama evaluacion_completa_modelo_clasificacion, se puede usar la misma funcion para ambos pipelines, tanto de regresion como de clasificacion, solo cambiando los parametros de entrada.
 def evaluacion_completa_modelo_clasificacion(model, X_test, y_test, model_name: str, save_path: str):
  
     os.makedirs(save_path, exist_ok=True)

@@ -43,7 +43,9 @@ El objetivo principal del proyecto es desarrollar e integrar en un sistema funci
 La premisa central del machine learning (ML) es que si se optimiza el rendimiento de un modelo en un conjunto de datos de tareas que se asemejan adecuadamente a los problemas del mundo real para los que se usará, a través de un proceso llamado entrenamiento de modelos, el modelo puede hacer predicciones precisas sobre los nuevos datos que ve en su caso de uso final. [ML](https://www.ibm.com/mx-es/think/topics/machine-learning)	
 
 ---
-<!-- TEXTO readme hecho por el colaborador
+<!-- TEXTO README hecho por el colaborador
+     
+     El texto visualizado en el repositorio fue simplicado por CHATGPT 
 
 ## Metodologia CRISP-DM **
 """
@@ -173,15 +175,11 @@ Se aplican las seis fases de CRISP-DM. A continuación se detallan cada fase y l
 
 **Notebooks:**
 
-- [Business Understanding](notebooks\01_Business_Understanding.ipynb)
-
-- [Data Understanding](notebooks\02_Data_Understanding.ipynb)
-
-- [Data Preparation](notebooks\03_Data_Preparation.ipynb)
-
-- [Modeling](notebooks\04_Modeling.ipynb)
-
-- [Final analysis](notebooks\06_final_analysis.ipynb)
+- [Business Understanding](notebooks/01_Business_Understanding.ipynb)
+- [Data Understanding](notebooks/02_Data_Understanding.ipynb)
+- [Data Preparation](notebooks/03_Data_Preparation.ipynb)
+- [Modeling](notebooks/04_Modeling.ipynb)
+- [Final analysis](notebooks/06_final_analysis.ipynb)
 
 ## Repositorios 
 
@@ -189,7 +187,7 @@ Se aplican las seis fases de CRISP-DM. A continuación se detallan cada fase y l
 
 - [DVC con Dagshub](https://dagshub.com/br.casas/ML-Kedro-FIFA-DVC)
 
-- [Deployment FIFA](#)
+- [Deployment FIFA](https://github.com/BrandonLCC/FIFA-web)
 
 ## Estructura del proyecto
 
@@ -220,76 +218,126 @@ machine_learning_project/
 ├── README.md
 └── requirements.txt
 ```
+## Pipelines del proyecto FIFA
 
 ### Descripción de pipelines
 
+Como lección de aprendizaje durante el desarrollo del proyecto FIFA y para futuras recomendaciónes: La creacion del pipeline data_processing realiza muchas actividades que pueden ser separadas en otro pipelines para.... ***
+
 | Pipeline                   | Función                                                               |
 | -------------------------- | --------------------------------------------------------------------- |
-| unsupervised_learning      | Limpieza de datos, reducción de dimensionalidad, clustering y reglas. |
-| supervised_models          | Entrena modelos de regresión y clasificación usando dataset limpio.   |
-| unsupervised_to_supervised | Genera datasets de train/test a partir del dataset limpio.            |
+| data_processing      | - |
+| regression_models      | - |
+| classification_models     | - |
+| classification_report     | - |
+| regression_report     | - |
+| final_report_comparativo    | - |
+| unsupervised_learning (Módulo raíz)         | Orquestador de los pipelines de limpieza de datos, reducción de dimensionalidad y  clustering |
+| dimensionality_reduction (submodulo) | | - |
+| anomaly_detection        (submodulo) | | - |
+| clustering               (submodulo) | | - |
 
 
-### Flujos de ejecucion 
+## Arquitectura pipelines  
 
-Es importante entender el flujo realizado de los pipelines al usar modelos supervizados y no supervisados, donde este ultimo genera un cambio de flujo drastico, es por ello que en este link se proporciona una explicacion de los flujos realizados y explicados:
+El pipeline unsupervised_learning se aplican 3 transformaciones sobre el mismo dataset base para generar UN dataset final enriquecido.
 
-[Documentacion-flujos-pipelines]()
-[O-Flujos]()
+```
+  data_processing 
+    ↓
+  unsupervised_learning
+    |
+    |--> anomaly_detection
+    |
+    |--> clustering
+    |
+    |--> dimensionality_reduction 
+    ↓
+  regression_models
+    ↓
+  classification_models
+    ↓
+  reporting_pipeline
+```
+
+## Arquitectura pipelines   con kedro-viz
+
+> Click the image to explore in full resolution.
+
+[![Kedro Pipeline Viz](https://raw.githubusercontent.com/BrandonLCC/FIFA_ML_Kedro/main/img-viz/kedro-pipeline-viz.svg)](https://github.com/BrandonLCC/FIFA_ML_Kedro/blob/main/img-viz/kedro-pipeline-viz.svg)
+
+
+## Conjunto de datos generados
 
 
 ### Modelos implementados
 
-| Modelo              | Tipo          | Archivo (.pkl)                              |
-| ------------------- | ------------- | ------------------------------------------- |
-| Linear Regression   | Regresión     | grid_linear_model.pkl                       |
-| SVR                 | Regresión     | grid_svr_model.pkl                          |
-| Decision Tree       | Regresión     | grid_decision_tree_model.pkl                |
-| Random Forest       | Regresión     | grid_randomforest_model.pkl                 |
-| Logistic Regression | Clasificación | grid_logistic_model_classification.pkl      |
-| KNN                 | Clasificación | grid_knn_model_classification.pkl           |
-| Decision Tree       | Clasificación | grid_decision_tree_model_classification.pkl |
-| Random Forest       | Clasificación | grid_random_forest_model_classification.pkl |
+| Modelo                     | Tipo          
+| -------------------------- | ------------- 
+| Simple Linear Regression   | Regresión     
+| Multiple Linear Regression | Regresión     
+| SVR                        | Regresión     
+| Decision Tree              | Regresión     
+| Random Forest              | Regresión     
+| Logistic Regression        | Clasificación 
+| KNN                        | Clasificación 
+| XGBClassifier              | Clasificación 
+| Decision Tree              | Clasificación 
+| Random Forest              | Clasificación 
 
 ### Metricas de evaluación 
 
 #### Regresión
 
-| Modelo            | MSE             | RMSE       | R²     |
-| ----------------- | --------------- | ---------- | ------ |
-| Random Forest     | 952,778,836,132 | 976,103.91 | 0.9353 |
-| Decision Tree     | ...             | ...        | ...    |
-| Linear Regression | ...             | ...        | ...    |
+| Modelo                     | MSE             | RMSE       | R²     |
+| -----------------          | --------------- | ---------- | ------ |
+| Simple_Linear_Regression   | ...             | ...        | ...    |
+| Multiple_Linear_Regression | ...             | ...        | ...    |
+| SVR_Model                  | ...             | ...        |        |
+| Decision_Tree_Regression   | ...             | ...        | ...    |
+| Random_Forest_Regression   | ...             | ...        | ...    |
 
 #### Clasificación
 
 | Modelo              | Accuracy | Precision | Recall | F1 Score |
 | ------------------- | -------- | --------- | ------ | -------- |
+| Logistic Regression | ...      | ...       | ...    | ...      |
+| KNN                 | ...      | ...       | ...    | ...      |
+| XGBClassifier       | ...      | ...       | ...    | ...      |
 | Decision Tree       | 0.0975   | 0.0996    | 0.0975 | 0.0915   |
 | Random Forest       | 0.1075   | 0.1129    | 0.1075 | 0.0974   |
-| Logistic Regression | ...      | ...       | ...    | ...      |
 
 - Resultados com implementación de modelos no supervizados
 
 #### Regresión
 
-| Modelo            | MSE             | RMSE       | R²     |
-| ----------------- | --------------- | ---------- | ------ |
-| Random Forest     | 952,778,836,132 | 976,103.91 | 0.9353 |
-| Decision Tree     | ...             | ...        | ...    |
-| Linear Regression | ...             | ...        | ...    |
+| Modelo                     | MSE             | RMSE       | R²     |
+| -----------------          | --------------- | ---------- | ------ |
+| Simple_Linear_Regression   | ...             | ...        | ...    |
+| Multiple_Linear_Regression | ...             | ...        | ...    |
+| SVR_Model                  | ...             | ...        |        |
+| Decision_Tree_Regression   | ...             | ...        | ...    |
+| Random_Forest_Regression   | ...             | ...        | ...    |
 
 #### Clasificación
 
 | Modelo              | Accuracy | Precision | Recall | F1 Score |
 | ------------------- | -------- | --------- | ------ | -------- |
+| Logistic Regression | ...      | ...       | ...    | ...      |
+| KNN                 | ...      | ...       | ...    | ...      |
+| XGBClassifier       | ...      | ...       | ...    | ...      |
 | Decision Tree       | 0.0975   | 0.0996    | 0.0975 | 0.0915   |
 | Random Forest       | 0.1075   | 0.1129    | 0.1075 | 0.0974   |
-| Logistic Regression | ...      | ...       | ...    | ...      |
 
 ### Comparaciónes o evaluaciones etc
 
-## Conclusion
+## Conclusión
+
+### Cierre
+
+### Reflexion 
+
+Puede incluir un "llamado a la acción" o una reflexión final que invite a nuevas investigaciones.
 
 
 ## Herramientas  y Framework 
@@ -333,4 +381,13 @@ pip install -r requirements.txt
 ```
 
 ### Referencias 
+
+
+### kedro viz (dejarlo en otra ubicacion)
+
+![Kedro Pipeline Viz](img-viz/kedro-pipeline-viz.svg)
+
+
+![Kedro Pipeline Viz](https://raw.githubusercontent.com/BrandonLCC/FIFA_ML_Kedro/main/img-viz/kedro-pipeline-viz.svg)
+
 

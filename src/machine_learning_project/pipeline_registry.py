@@ -65,9 +65,6 @@ from machine_learning_project.pipelines.unsupervised_learning.dimensionality_red
 from machine_learning_project.pipelines.unsupervised_learning.clustering import pipeline as clust_pipeline
 from machine_learning_project.pipelines.unsupervised_learning.anomaly_detection import pipeline as anom_pipeline
 
-# Pipeline de transición a supervisado
-from machine_learning_project.pipelines.unsupervised_to_supervised import pipeline as uts_pipeline
-
 # Pipelines de modelos supervisados
 from machine_learning_project.pipelines.regression_models import pipeline as reg_pipeline
 from machine_learning_project.pipelines.classification_models import pipeline as class_pipeline
@@ -83,7 +80,6 @@ def register_pipelines() -> dict[str, Pipeline]:
         "dimensionality_reduction": dimred_pipeline.create_pipeline(),
         "clustering": clust_pipeline.create_pipeline(),
         "anomaly_detection": anom_pipeline.create_pipeline(),
-        "unsupervised_to_supervised": uts_pipeline.create_pipeline(),
         "regression_models": reg_pipeline.create_pipeline(),
         "classification_models": class_pipeline.create_pipeline(),
         "regression_report": reg_report_pipeline.create_pipeline(),
@@ -102,7 +98,6 @@ def register_pipelines() -> dict[str, Pipeline]:
     pipelines["__default__"] = (
         pipelines["data_processing"]
         + pipelines["unsupervised_learning"]
-        + pipelines["unsupervised_to_supervised"]
         + pipelines["regression_models"]
         + pipelines["classification_models"]
         + pipelines["regression_report"]

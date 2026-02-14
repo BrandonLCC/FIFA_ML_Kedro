@@ -10,7 +10,7 @@
 
 **Docente:** Giocrisrai Godoy Bonillo.
 
-## Índice 
+## Contenido 
 
 ### Descripción del caso del proyecto *
 
@@ -222,25 +222,27 @@ machine_learning_project/
 
 ### Descripción de pipelines
 
-Como lección de aprendizaje durante el desarrollo del proyecto FIFA y para futuras recomendaciónes: La creacion del pipeline data_processing realiza muchas actividades que pueden ser separadas en otro pipelines para.... ***
+**Recomendaciónes:** Como aprendizaje para futuras iteraciones del proyecto o nuevo proyectos, se identificó que el pipeline `data_processing` concentra demasiadas funciones, lo que dificulta su mantenimiento, modificación y escalabilidad.
 
-| Pipeline                   | Función                                                               |
-| -------------------------- | --------------------------------------------------------------------- |
-| data_processing      | - |
-| regression_models      | - |
-| classification_models     | - |
-| classification_report     | - |
-| regression_report     | - |
-| final_report_comparativo    | - |
-| unsupervised_learning (Módulo raíz)         | Orquestador de los pipelines de limpieza de datos, reducción de dimensionalidad y  clustering |
-| dimensionality_reduction (submodulo) | | - |
-| anomaly_detection        (submodulo) | | - |
-| clustering               (submodulo) | | - |
+Se recomienda dividir este pipeline en varios pipelines más pequeños y especializados, con el objetivo de mejorar la modularidad, facilitar futuras modificaciones y reducir la complejidad dentro de un único flujo.
 
+---
+| Pipeline | Función |
+|-----------|----------|
+| **data_processing** | Limpieza de datos, imputación de valores faltantes, conversión de tipos, eliminación de inconsistencias y *feature engineering* inicial para generar el dataset base del proyecto. |
+| **unsupervised_learning** (Módulo raíz) | Pipeline orquestador que integra procesos de detección de anomalías, clustering y reducción de dimensionalidad para enriquecer el dataset antes del modelado supervisado. |
+|  **anomaly_detection** (submódulo) | Identificación y tratamiento de valores atípicos para mejorar la calidad y estabilidad del dataset. |
+| **clustering** (submódulo) | Segmentación de los datos en grupos homogéneos para generar nuevas características (por ejemplo, etiquetas de cluster). |
+| **dimensionality_reduction** (submódulo) | Reducción de la dimensionalidad del dataset mediante técnicas como PCA, generando un dataset optimizado para el modelado. |
+| **regression_models** | Entrenamiento y evaluación de modelos de regresión utilizando métricas apropiadas (por ejemplo, MAE, RMSE y R²). |
+| **classification_models** | Entrenamiento y evaluación de modelos de clasificación utilizando métricas como accuracy, precision, recall y F1-score. |
+| **regression_report** | Generación de visualizaciones y análisis de desempeño de los modelos de regresión. |
+| **classification_report** | Generación de visualizaciones y análisis de desempeño de los modelos de clasificación. |
+| **final_report_comparativo** (No realizado) | Comparación de resultados entre modelos de regresión y clasificación para facilitar el análisis global del rendimiento del sistema. |
 
-## Arquitectura pipelines  
+### Arquitectura pipelines  
 
-El pipeline unsupervised_learning se aplican 3 transformaciones sobre el mismo dataset base para generar UN dataset final enriquecido.
+El pipeline `unsupervised_learning` aplica tres transformaciones sobre el mismo dataset base para generar un dataset final enriquecido, que posteriormente es utilizado por los modelos supervisados.
 
 ```
   data_processing 
@@ -260,76 +262,61 @@ El pipeline unsupervised_learning se aplican 3 transformaciones sobre el mismo d
   reporting_pipeline
 ```
 
-## Arquitectura pipelines   con kedro-viz
+### Arquitectura de Pipelines (Kedro Viz)
 
-> Click the image to explore in full resolution.
+> Haz clic en la imagen para explorar el flujo automatizado del proyecto.
 
-[![Kedro Pipeline Viz](https://raw.githubusercontent.com/BrandonLCC/FIFA_ML_Kedro/main/img-viz/kedro-pipeline-viz.svg)](https://github.com/BrandonLCC/FIFA_ML_Kedro/blob/main/img-viz/kedro-pipeline-viz.svg)
+![Kedro Pipeline Viz](https://raw.githubusercontent.com/BrandonLCC/FIFA_ML_Kedro/main/img-viz/kedro-pipeline-viz.svg)
 
+### Airflow img
 
 ## Conjunto de datos generados
 
+## Modelos 
 
 ### Modelos implementados
 
 | Modelo                     | Tipo          
 | -------------------------- | ------------- 
-| Simple Linear Regression   | Regresión     
-| Multiple Linear Regression | Regresión     
-| SVR                        | Regresión     
-| Decision Tree              | Regresión     
-| Random Forest              | Regresión     
-| Logistic Regression        | Clasificación 
-| KNN                        | Clasificación 
-| XGBClassifier              | Clasificación 
-| Decision Tree              | Clasificación 
-| Random Forest              | Clasificación 
+| **Simple Linear Regression**   | Regresión     
+| **Multiple Linear Regression** | Regresión     
+| **SVR**                        | Regresión     
+| **Decision Tree**              | Regresión     
+| **Random Forest**              | Regresión     
+| **Logistic Regression**        | Clasificación 
+| **KNN**                        | Clasificación 
+| **XGBClassifier**              | Clasificación 
+| **Decision Tree**              | Clasificación 
+| **Random Forest**              | Clasificación 
 
-### Metricas de evaluación 
+## Metricas de evaluación 
 
-#### Regresión
-
-| Modelo                     | MSE             | RMSE       | R²     |
-| -----------------          | --------------- | ---------- | ------ |
-| Simple_Linear_Regression   | ...             | ...        | ...    |
-| Multiple_Linear_Regression | ...             | ...        | ...    |
-| SVR_Model                  | ...             | ...        |        |
-| Decision_Tree_Regression   | ...             | ...        | ...    |
-| Random_Forest_Regression   | ...             | ...        | ...    |
-
-#### Clasificación
-
-| Modelo              | Accuracy | Precision | Recall | F1 Score |
-| ------------------- | -------- | --------- | ------ | -------- |
-| Logistic Regression | ...      | ...       | ...    | ...      |
-| KNN                 | ...      | ...       | ...    | ...      |
-| XGBClassifier       | ...      | ...       | ...    | ...      |
-| Decision Tree       | 0.0975   | 0.0996    | 0.0975 | 0.0915   |
-| Random Forest       | 0.1075   | 0.1129    | 0.1075 | 0.0974   |
-
-- Resultados com implementación de modelos no supervizados
-
-#### Regresión
+### Regresión
 
 | Modelo                     | MSE             | RMSE       | R²     |
 | -----------------          | --------------- | ---------- | ------ |
-| Simple_Linear_Regression   | ...             | ...        | ...    |
-| Multiple_Linear_Regression | ...             | ...        | ...    |
-| SVR_Model                  | ...             | ...        |        |
-| Decision_Tree_Regression   | ...             | ...        | ...    |
-| Random_Forest_Regression   | ...             | ...        | ...    |
+| **Simple_Linear_Regression**   | ...             | ...        | ...    |
+| **Multiple_Linear_Regression** | ...             | ...        | ...    |
+| **SVR_Model**                  | ...             | ...        |        |
+| **Decision_Tree_Regression**   | ...             | ...        | ...    |
+| **Random_Forest_Regression**   | ...             | ...        | ...    |
 
-#### Clasificación
+### Clasificación
 
 | Modelo              | Accuracy | Precision | Recall | F1 Score |
 | ------------------- | -------- | --------- | ------ | -------- |
-| Logistic Regression | ...      | ...       | ...    | ...      |
-| KNN                 | ...      | ...       | ...    | ...      |
-| XGBClassifier       | ...      | ...       | ...    | ...      |
-| Decision Tree       | 0.0975   | 0.0996    | 0.0975 | 0.0915   |
-| Random Forest       | 0.1075   | 0.1129    | 0.1075 | 0.0974   |
+| **Logistic Regression** | ...      | ...       | ...    | ...      |
+| **KNN**                 | ...      | ...       | ...    | ...      |
+| **XGBClassifier**       | ...      | ...       | ...    | ...      |
+| **Decision Tree**       | 0.0975   | 0.0996    | 0.0975 | 0.0915   |
+| **Random Forest**       | 0.1075   | 0.1129    | 0.1075 | 0.0974   |
 
-### Comparaciónes o evaluaciones etc
+
+## Comparaciónes o evaluaciones etc
+
+### Mejores modelos obtenidos 
+
+(mostrar graficos, metricas, hallazgos,etc)
 
 ## Conclusión
 
@@ -346,12 +333,12 @@ Puede incluir un "llamado a la acción" o una reflexión final que invite a nuev
 
 - **[Kedro](https://kedro.org/#get-started)**: Es el framework principal utilizado en este proyecto con el propósito de realizar el procesamiento y la limpieza de datos, el entrenamiento de modelos, la implementación de pipelines, entre otras tareas.
 
-### Herramientas 
+### Herramientas
 
 - **[Jupyter Notebooks](notebooks):** En este proyecto, Kedro incorpora Jupyter Notebooks para la creación y edición de cuadernos digitales en formato `.ipynb`, utilizando Python.  
   Dentro de la carpeta `notebooks` se organizan los distintos notebooks asociados a la metodología **CRISP-DM**, así como aquellos destinados a la implementación de modelos **supervisados y no supervisados**.
 
-- **[DVC con Dagshub](https://dagshub.com/)**: La herramienta **DVC (Data Version Control)** permite realizar el versionamiento de los datos generados por el proyecto, con el objetivo de mantener un respaldo seguro y reproducible.  
+- **[DVC con Dagshub](https://dagshub.com/)**: Se utiliza la herramienta **DVC (Data Version Control)** que permite realizar el versionamiento de los datos generados por el proyecto, con el objetivo de mantener un respaldo seguro y reproducible.  
 DVC establece una conexión con **DagsHub**, donde se alojan los datos en una plataforma de colaboración en la nube diseñada específicamente para científicos de datos.
 
 - **[Airflow-apache](https://airflow.apache.org)**: Es una plataforma de código abierto diseñada para orquestar, programar y monitorear flujos de trabajo (pipelines) de datos complejos mediante código Python. [Ver más](https://liora.io/es/todo-sobre-apache-airflow)
@@ -380,14 +367,7 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-### Referencias 
+## Referencias 
 
-
-### kedro viz (dejarlo en otra ubicacion)
-
-![Kedro Pipeline Viz](img-viz/kedro-pipeline-viz.svg)
-
-
-![Kedro Pipeline Viz](https://raw.githubusercontent.com/BrandonLCC/FIFA_ML_Kedro/main/img-viz/kedro-pipeline-viz.svg)
 
 

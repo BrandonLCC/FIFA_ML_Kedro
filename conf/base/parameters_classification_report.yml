@@ -3,6 +3,7 @@
 #
 # Documentation for this file format can be found in "Parameters"
 # Link: https://docs.kedro.org/en/1.0.0/configuration/parameters.html
+
 _modelo_logistic_classification: "Logistic Regression"
 
 _modelo_knn_classification: "KNN Classification"

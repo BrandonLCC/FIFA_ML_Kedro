@@ -3,10 +3,10 @@ model_options_classification:
   random_state: 42
   stratify: true # Para: clases desbalanceadas, si clase es minoritaria, etc.
   
-  #Error numero 1. el targer y el feature estaban un espacio hacia atras. 
+  # Error numero 1. el target y el feature estaban un espacio hacia atras. 
   # Error numero 2. El parameters en unuspersived_to_supervised estaban repetidos 
   # Con el mismo nombre llamados: model_options_classification generando conflictos
-  # Esto generaba que los modelos obtengan valores maximo o minimos. 
+  # Esto generaba que los modelos obtengan valores maximo o minimos. (Este pipeline fue eliminado ya que no se estaba usando y generaba confusiones)
   
   features:
     - Age
@@ -20,10 +20,8 @@ model_options_classification:
     - Offensive_Skills
   target: Overall_Class_Bin
 
-# mensaje importante
-
 # los parametros que contiene doble guion __ deben tener ese formato para los modelos de node.py que usan pipeline y escalado
-# los que no los tienen, son los normales o no lo requieren
+# los que no los tienen, son los normales o no lo requieren.
 
 _logistic_param_grid:
   logistic__penalty: ["l2"]

@@ -4,6 +4,7 @@ generated using Kedro 1.0.0
 """
 from kedro.pipeline import Node, Pipeline 
 import pandas as pd 
+
 # -- Tratamiento de datos --
 import numpy as np
 import pandas as pd
@@ -25,7 +26,7 @@ from sklearn.model_selection import GridSearchCV
 
 from sklearn.preprocessing import StandardScaler
 
-#Funcion para dividir los datos (usado para todos los mdelos)
+# Funcion para dividir los datos (usado para todos los mdelos)
 def division_datos_test_train(data: pd.DataFrame, parameters: dict) -> tuple:
 
     X = data[parameters["features"]]

@@ -257,7 +257,6 @@ report_random_forest_model_classification:
   filepath: data/08_reporting/report_random_forest_model_classification.csv
   versioned: true
 
-
 # ============================
 #      UNSUPERVISED
 # ============================
@@ -268,11 +267,12 @@ report_random_forest_model_classification:
 
 #  ============================
 # Estas tecnicas no supervizadas se aplicaran en el dataset de entrada
-# model_input_table, y generaran un nuevo dataset limpio (clean_dataset) 
-# que sera la nueva base para los modelos supervisados.
+# model_input_table, y generaran 3 nuevos datasets 
+# clean_dataset > clustered_dataset y unsupervised_processed_dataset. En la que esta ultima sera la nueva base para los modelos supervisados .
 # ============================
 
-# El clean_dataset se genera a partir de la combinacion de las tecnicas no supervizadas, y se utiliza como nueva entrada para los modelos supervisados.
+# Luego de hacer el pipeline padre unsupervised_learning, configurar el pipeline registry, los submodulos pipelines y sus parameters
+# ahora hay que hacer que las tecnicas de aprendizaje no supervizado afecten nuestro dataset.
 
 # Pipeline Submodulo anomaly_detection.
 
@@ -280,8 +280,7 @@ clean_dataset:
   type: pandas.ParquetDataset
   filepath: data/04_feature/clean_dataset.parquet
 
-# Ver las salidasd de los clusters y reduccion 
-#dimensional como datasets separados, pero no necesariamente se aplican al dataset de entrada de los modelos supervisados, sino que se pueden usar como features adicionales o para analisis exploratorio.
+# Ver las salidas de los clusters y reduccion 
 
 # Pipeline Submodulo clustering.
 
@@ -298,31 +297,4 @@ pca_output:
 unsupervised_processed_dataset:
   type: pandas.ParquetDataset
   filepath: data/04_feature/unsupervised_processed_dataset.parquet
-
-# -- ojo --
-
-# Nodo final combine_unsupervised_outputs que genera clean_dataset.
-#
-# El clean_dataset se utiliza como nueva entrada base para los modelos supervisados,
-# ya que incorpora validaciones de calidad de datos (por ejemplo, filtrado de anomalías).
-# Las salidas de clustering y reducción dimensional no reemplazan las variables originales,
-# y solo se conservan como información analítica o como features opcionales si aportan valor.
-
-# mensaje version 2 
-
-# Nodo final combine_unsupervised_outputs que genera clean_dataset.
-#
-# El clean_dataset reemplaza al model_input_table previo únicamente como dataset limpio.
-# Opcionalmente se agregan features derivadas del no supervisado (por ejemplo, cluster_id),
-# sin eliminar las variables originales ni forzar una reducción dimensional.
-
-
-# Luego de hacer el pipeline padre,configurar el pipeline registry, los submodulos pipelines y sus parameters
-# ahora hay que hacer que las tecnicas de aprendizaje no supervizado afecten nuestro dataset.
-
-#1. El clean_dataset generado por unsupervised_learning será la base para crear los datasets de:
-
-# X_train_regression, X_test_regression, y_train_regression
-
-# X_train_class, X_test_class, y_train_class, y_test_class 
 

@@ -34,7 +34,7 @@ def create_pipeline(**kwargs) -> Pipeline:
                 "dbscan_clusters",
                 "hierarchical_clusters"
             ],
-            outputs="clustered_dataset",
+            outputs="clustered_unsupervised_processed_dataset",
             name="select_best_cluster_node"
         )
     ])

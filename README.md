@@ -240,7 +240,7 @@ Se recomienda dividir este pipeline en varios pipelines más pequeños y especia
 | **classification_report** | Generación de visualizaciones y análisis de desempeño de los modelos de clasificación. |
 | **final_report_comparativo** (No realizado) | Comparación de resultados entre modelos de regresión y clasificación para facilitar el análisis global del rendimiento del sistema. |
 
-### Arquitectura pipelines  
+### Arquitectura pipelines  ** (actualizar la arquitec)
 
 El pipeline `unsupervised_learning` aplica tres transformaciones sobre el mismo dataset base para generar un dataset final enriquecido, que posteriormente es utilizado por los modelos supervisados.
 
@@ -273,6 +273,16 @@ El pipeline `unsupervised_learning` aplica tres transformaciones sobre el mismo 
 ## Conjunto de datos generados
 
 ## Modelos 
+
+
+## Variables
+
+
+Modelo regresion: 
+
+target: x - significado: es una target x de caracteristicas x
+
+features: 
 
 ### Modelos implementados
 

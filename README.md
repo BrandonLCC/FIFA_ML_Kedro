@@ -396,7 +396,6 @@ El pipeline `unsupervised_learning` aplica tres transformaciones sobre el mismo 
 
 (mostrar graficos, metricas, hallazgos,etc)
 
-
 --- 
 
 ## Conclusión

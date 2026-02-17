@@ -16,9 +16,11 @@
 
 *[EA Sports FIFA](https://www.ea.com/es-es/games)*, es una saga de videojuegos de fútbol publicada anualmente por *Electronic Arts* bajo el sello de **EA Sports**, en colaboración con la **FIFA**.
 
-### Problema / Necesidad del negocio *
+### Necesidad del negocio / Problema *
 
 La empresa busca **replicar la experiencia del fútbol real**, tanto en la gestión de equipos como en la competencia dentro del campo, ofreciendo realismo gracias a sus licencias oficiales de equipos, jugadores y ligas de todo el mundo. Con la reciente transición a EA Sports FC, el objetivo principal sigue siendo simular el deporte del fútbol y permitir a los jugadores disputar partidos o gestionar un club en diversos modos de juego.
+
+Es por eso..
 
 ## Datos de FIFA
 
@@ -189,35 +191,93 @@ Se aplican las seis fases de CRISP-DM. A continuación se detallan cada fase y l
 
 - [Deployment FIFA](https://github.com/BrandonLCC/FIFA-web)
 
+---
+
 ## Estructura del proyecto
 
 ```
-machine_learning_project/
+Proyecto_ML_Kedro/
 │
-├── data/
-│   ├── 01_raw/                  # Datos originales CSV
-│   ├── 02_intermediate/         # Datos preprocesados
-│   ├── 04_feature/              # Features generadas con unsupervised
-│   ├── 05_model_input/          # Datasets para entrenamiento y test
-│   ├── 06_models/               # Modelos entrenados (Pickle)
-│   └── 08_reporting/            # Reportes de métricas
+├── .dvc/
 │
-├── src/
-│   ├── pipelines/
-│   │   ├── unsupervised_learning/
-│   │   └── supervised_models/
-│   ├── nodes.py
-│   └── catalog.yml
+├── airflow/
+│   ├── dags/
+│   ├── logs/
+│   └── plugins/
 │
 ├── conf/
 │   ├── base/
-│   │   ├── parameters.yml       # Configuración de parámetros
-│   │   └── catalog.yml          # Catalog de datasets
+│   │   ├── parameters.yml    # Configuración de parámetros
+│   │   └── catalog.yml       # Catalog de datasets
 │   └── local/
 │
-├── README.md
-└── requirements.txt
+├── data/
+│   ├── 01_raw/
+│   ├── 02_intermediate/      # Datos preprocesados
+│   ├── 03_primary/      
+│   ├── 04_feature/           # Features generadas con unsupervised
+│   ├── 05_model_input/       # Datasets para entrenamiento y test
+│   ├── 06_models/            # Modelos entrenados (Pickle)
+│   ├── 07_model_output/
+│   └── 08_reporting/         # Reportes de métricas
+│
+├── docker/
+│   ├── Dockerfile
+│   ├── docker-compose.yml
+│   └── requirements.txt
+|
+├── docs/
+|
+├── img-viz/
+| 
+├── logs/
+|
+├── notebooks/
+│
+├── src/
+│   └── proyecto_ml_kedro/
+│       ├── __init__.py
+│       ├── pipeline_registry.py
+│       │
+│       ├── pipelines/
+│       │   ├── data_processing/
+|       |   |
+│       │   ├── regression_models/
+|       |   |
+│       │   ├── classification_models/
+|       |   |
+│       │   ├── regression_report/
+|       |   |
+│       │   ├── classification_report/
+|       |   |
+│       │   ├── classification_report/
+│       │   │
+│       │   │
+│       │   └── unsupervised_learning/
+│       │
+│       └── settings.py
+│
+├── .dockerignore
+├── .dvcignore
+├── .gitignore
+├── pyproject.toml
+├── requirements.txt
+├── start.sh
+└── README.md
 ```
+
+--- 
+
+## Documentación
+
+Algunos documentos no menciónados seran modificados o borrados.
+
+| Documentos                     | Descripción          
+| -------------------------- | ------------- 
+| [Integración de airflow.md](docs\airflow.md)	   | Pasos de como se realizo la integración y configuración de Airflow.    
+| [Uso de DVC](docs\dvc.md)| Pasos y configuración de DVC     
+| [dockerfile-kedro](docs\Aprendizaje\dockerfile-kedro.md)                       | Pasos realizados para la implementación de Docker con kedro.    
+
 ## Pipelines del proyecto FIFA
 
 ### Descripción de pipelines
@@ -239,6 +299,8 @@ Se recomienda dividir este pipeline en varios pipelines más pequeños y especia
 | **regression_report** | Generación de visualizaciones y análisis de desempeño de los modelos de regresión. |
 | **classification_report** | Generación de visualizaciones y análisis de desempeño de los modelos de clasificación. |
 | **final_report_comparativo** (No realizado) | Comparación de resultados entre modelos de regresión y clasificación para facilitar el análisis global del rendimiento del sistema. |
+
+---
 
 ### Arquitectura pipelines  ** (actualizar la arquitec)
 
@@ -274,15 +336,20 @@ El pipeline `unsupervised_learning` aplica tres transformaciones sobre el mismo 
 
 ## Modelos 
 
-
 ## Variables
 
 
-Modelo regresion: 
+| Target   | Descripción      
+| --------------|-------------
+| `Value_num`   |  d 
 
-target: x - significado: es una target x de caracteristicas x
-
-features: 
+| Features            | Descripción      
+| ---------------------------|-------------
+| `Best Overall Rating`      |
+| `Special`                  |
+| `International Reputation` |
+| `Reactions`                |
+| `Potential`                |
 
 ### Modelos implementados
 
@@ -321,12 +388,15 @@ features:
 | **Decision Tree**       | 0.0975   | 0.0996    | 0.0975 | 0.0915   |
 | **Random Forest**       | 0.1075   | 0.1129    | 0.1075 | 0.0974   |
 
+---
 
 ## Comparaciónes o evaluaciones etc
 
 ### Mejores modelos obtenidos 
 
 (mostrar graficos, metricas, hallazgos,etc)
+
+--- 
 
 ## Conclusión
 
@@ -336,6 +406,7 @@ features:
 
 Puede incluir un "llamado a la acción" o una reflexión final que invite a nuevas investigaciones.
 
+--- 
 
 ## Herramientas  y Framework 
 

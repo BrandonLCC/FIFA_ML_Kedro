@@ -49,8 +49,10 @@ La premisa central del machine learning (ML) es que si se optimiza el rendimient
      
      El texto visualizado en el repositorio fue simplicado por CHATGPT 
 
-## Metodologia CRISP-DM **
 """
+
+## Metodologia CRISP-DM **
+
 La metodología CRISP-DM es un modelo de proceso estandarizado para llevar a cabo proyectos de minería de datos y, por extensión, de machine learning. Fue desarrollada a finales de la década de 1990 por un consorcio de empresas como SPSS, Daimler AG y NCR. Su objetivo principal es proporcionar una guía **flexible** y no propietaria que sea aplicable a una amplia variedad de industrias y problemas.
 
 > CRISP-DM es ideal para Proyectos de Data Science e IA: Modelado de predicción, detección de anomalías y sistemas de recomendación.
@@ -274,9 +276,9 @@ Algunos documentos no menciónados seran modificados o borrados.
 
 | Documentos                     | Descripción          
 | -------------------------- | ------------- 
-| [Integración de airflow.md](docs\airflow.md)	   | Pasos de como se realizo la integración y configuración de Airflow.    
-| [Uso de DVC](docs\dvc.md)| Pasos y configuración de DVC     
-| [dockerfile-kedro](docs\Aprendizaje\dockerfile-kedro.md)                       | Pasos realizados para la implementación de Docker con kedro.    
+| [Integración de airflow.md](docs/airflow.md)	   | Pasos de como se realizo la integración y configuración de Airflow.    
+| [Uso de DVC](docs/dvc.md)| Pasos y configuración de DVC     
+| [dockerfile-kedro](docs/Aprendizaje/dockerfile-kedro.md)                       | Pasos realizados para la implementación de Docker con kedro.    
 
 ## Pipelines del proyecto FIFA
 
@@ -286,11 +288,10 @@ Algunos documentos no menciónados seran modificados o borrados.
 
 Se recomienda dividir este pipeline en varios pipelines más pequeños y especializados, con el objetivo de mejorar la modularidad, facilitar futuras modificaciones y reducir la complejidad dentro de un único flujo.
 
----
 | Pipeline | Función |
 |-----------|----------|
 | **data_processing** | Limpieza de datos, imputación de valores faltantes, conversión de tipos, eliminación de inconsistencias y *feature engineering* inicial para generar el dataset base del proyecto. |
-| **unsupervised_learning** (Módulo raíz) | Pipeline orquestador que integra procesos de detección de anomalías, clustering y reducción de dimensionalidad para enriquecer el dataset antes del modelado supervisado. |
+| **unsupervised_learning** (Módulo raíz) | Pipeline orquestador que integra procesos de detección de anomalías, clustering y reducción de dimensionalidad para enriquecer el dataset antes del modelado de regresión y clasificación. |
 |  **anomaly_detection** (submódulo) | Identificación y tratamiento de valores atípicos para mejorar la calidad y estabilidad del dataset. |
 | **clustering** (submódulo) | Segmentación de los datos en grupos homogéneos para generar nuevas características (por ejemplo, etiquetas de cluster). |
 | **dimensionality_reduction** (submódulo) | Reducción de la dimensionalidad del dataset mediante técnicas como PCA, generando un dataset optimizado para el modelado. |
@@ -300,11 +301,9 @@ Se recomienda dividir este pipeline en varios pipelines más pequeños y especia
 | **classification_report** | Generación de visualizaciones y análisis de desempeño de los modelos de clasificación. |
 | **final_report_comparativo** (No realizado) | Comparación de resultados entre modelos de regresión y clasificación para facilitar el análisis global del rendimiento del sistema. |
 
----
-
 ### Arquitectura pipelines  ** (actualizar la arquitec)
 
-El pipeline `unsupervised_learning` aplica tres transformaciones sobre el mismo dataset base para generar un dataset final enriquecido, que posteriormente es utilizado por los modelos supervisados.
+El pipeline `unsupervised_learning` aplica tres transformaciones sobre el dataset base para generar un conjunto de datos enriquecido, el cual posteriormente es utilizado por modelos de aprendizaje supervisado para tareas de predicción.
 
 ```
   data_processing 
@@ -328,7 +327,7 @@ El pipeline `unsupervised_learning` aplica tres transformaciones sobre el mismo 
 
 > Haz clic en la imagen para explorar el flujo automatizado del proyecto.
 
-![Kedro Pipeline Viz](https://raw.githubusercontent.com/BrandonLCC/FIFA_ML_Kedro/main/img-viz/kedro-pipeline-viz.svg)
+![Kedro Pipeline Viz](https://raw.githubusercontent.com/BrandonLCC/FIFA_ML_Kedro/main/img/kedro-pipeline-viz.svg)
 
 ### Airflow img
 
@@ -417,7 +416,7 @@ Puede incluir un "llamado a la acción" o una reflexión final que invite a nuev
 ### Herramientas
 
 - **[Jupyter Notebooks](notebooks):** En este proyecto, Kedro incorpora Jupyter Notebooks para la creación y edición de cuadernos digitales en formato `.ipynb`, utilizando Python.  
-  Dentro de la carpeta `notebooks` se organizan los distintos notebooks asociados a la metodología **CRISP-DM**, así como aquellos destinados a la implementación de modelos **supervisados y no supervisados**.
+  Dentro de la carpeta `notebooks` se organizan los distintos notebooks asociados a la metodología **CRISP-DM**, así como aquellos destinados a la implementación de modelos de aprendizaje **supervisados y no supervisados**.
 
 - **[DVC con Dagshub](https://dagshub.com/)**: Se utiliza la herramienta **DVC (Data Version Control)** que permite realizar el versionamiento de los datos generados por el proyecto, con el objetivo de mantener un respaldo seguro y reproducible.  
 DVC establece una conexión con **DagsHub**, donde se alojan los datos en una plataforma de colaboración en la nube diseñada específicamente para científicos de datos.

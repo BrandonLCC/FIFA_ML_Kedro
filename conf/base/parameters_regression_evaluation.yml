@@ -1,0 +1,10 @@
+# This is a boilerplate parameters config generated for pipeline 'regression_report'
+# using Kedro 1.0.0.
+#
+# Documentation for this file format can be found in "Parameters"
+# Link: https://docs.kedro.org/en/1.0.0/configuration/parameters.html
+_modelo_linear_regression: "Linear Regression"
+_modelo_linear_multiple_regression: "linear multiple"
+_modelo_svr_regression: "SVR Regression"
+_modelo_decision_tree_regression: "Decision tree regression Regression"
+_modelo_grid_randomforest_regression: "randomforest Regression"

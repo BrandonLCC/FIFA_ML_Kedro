@@ -1,6 +1,6 @@
 # todo lo que tenga que ver con modelo no supervizado
 
-## creacion y orgnaizcion para los modelos no supervizados
+## creacion y orgnaizcion para el aprendizaje no supervizados
 
 1. primero creamos el pipeline
 

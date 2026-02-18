@@ -197,65 +197,93 @@ grid_random_forest_model_classification:
   filepath: data/06_models/grid_random_forest_model_classification.pkl
   versioned: true
 
+# FALTAA!!
+#en 07_model_output/ guardaremos las predicciones de los modelos, tanto de regresion como de clasificacion, para luego generar los reportes.
+
+#Predicciones:
+
+#y_pred_linear.csv
+#y_pred_rf.csv
+
+# ============================
+# Metricas regresion
+# ============================
+
+metrics_linear_simple_regression:
+  type: pandas.CSVDataset
+  filepath: data/08_reporting/metrics_regression/metrics_linear_simple_regression.csv
+  versioned: true
+
+metrics_linear_multiple_regression:
+  type: pandas.CSVDataset
+  filepath: data/08_reporting/metrics_regression/metrics_linear_multiple_regression.csv
+  versioned: true
+
+metrics_svr:
+  type: pandas.CSVDataset
+  filepath: data/08_reporting/metrics_regression/metrics_svr.csv
+  versioned: true
+
+metrics_decision_tree_regression:
+  type: pandas.CSVDataset
+  filepath: data/08_reporting/metrics_regression/metrics_decision_tree_regression.csv
+  versioned: true
+
+metrics_random_forest_regression:
+  type: pandas.CSVDataset
+  filepath: data/08_reporting/metrics_regression/metrics_random_forest_regression.csv
+  versioned: true
+
+# ============================
+# Metricas clasificación
+# ============================
+
+metrics_logistic:
+  type: pandas.CSVDataset
+  filepath: data/08_reporting/metrics_classification/logistic.csv
+  versioned: true
+
+metrics_knn_classification:
+  type: pandas.CSVDataset
+  filepath: data/08_reporting/metrics_classification/knn.csv
+  versioned: true
+
+metrics_svc:
+  type: pandas.CSVDataset
+  filepath: data/08_reporting/metrics_classification/svc.csv
+  versioned: true
+
+metrics_decision_tree_classification:
+  type: pandas.CSVDataset
+  filepath: data/08_reporting/metrics_classification/decision_tree.csv
+  versioned: true
+
+metrics_random_forest_classification:
+  type: pandas.CSVDataset
+  filepath: data/08_reporting/metrics_classification/random_forest.csv
+  versioned: true
+
+
 # ============================
 # Reportes de regresion
 # ============================
 
 # Para report utilizar la libreria plotlib al utilizar Kedro viz
 
-regression_report_linear_simple:
-  type: pandas.CSVDataset
-  filepath: data/08_reporting/regression_report_linear_simple.csv
-  versioned: true
-
-regression_report_linear_multiple:
-  type: pandas.CSVDataset
-  filepath: data/08_reporting/regression_report_linear_multiple.csv
-  versioned: true
-
-regression_report_svr:
-  type: pandas.CSVDataset
-  filepath: data/08_reporting/regression_report_svr.csv
-  versioned: true
-
-regression_report_decision_tree:
-  type: pandas.CSVDataset
-  filepath: data/08_reporting/regression_report_decision_tree.csv
-  versioned: true
-
-regression_report_randomforest:
-  type: pandas.CSVDataset
-  filepath: data/08_reporting/regression_report_randomforest.csv
-  versioned: true
 
 # ============================
-# Reportes clasificación
+
+# Esta es una version anterior de como de guardaban los reportes. Estos reportes en realidad eran metricas,
+# entonces se guardaran como metricas en vez de reportes. Por lo que se creo otra carpeta raiz.
+# Estas evaluaciones se generan en el pipeline de class_models y regression_models, y se guardan en la carpeta de reporting.
+
+# regression_report_linear_simple:
+#  type: pandas.CSVDataset
+#  filepath: data/08_reporting/regression/regression_report_linear_simple.csv
+#  versioned: true
 # ============================
 
-report_logistic_model_classification:
-  type: pandas.CSVDataset
-  filepath: data/08_reporting/report_logistic_model_classification.csv
-  versioned: true
-
-report_knn_model_classification:
-  type: pandas.CSVDataset
-  filepath: data/08_reporting/regression_report_knn_model_classification.csv
-  versioned: true
-
-report_grind_svc_cv_model_classification:
-  type: pandas.CSVDataset
-  filepath: data/08_reporting/report_grind_svc_cv_model_classification.csv
-  versioned: true
-
-report_decision_tree_model_classification:
-  type: pandas.CSVDataset
-  filepath: data/08_reporting/report_decision_tree_model_classification.csv
-  versioned: true
-
-report_random_forest_model_classification:
-  type: pandas.CSVDataset
-  filepath: data/08_reporting/report_random_forest_model_classification.csv
-  versioned: true
+# Dejas si o si los reportes aqui tanto para data/08 o para kedro viz.
 
 # ============================
 #      UNSUPERVISED
@@ -298,3 +326,15 @@ unsupervised_processed_dataset:
   type: pandas.ParquetDataset
   filepath: data/04_feature/unsupervised_processed_dataset.parquet
 
+
+# regression_dvc_paths:
+#  type: pickle.PickleDataset
+#  filepath: data/07_model_output/regression_dvc_paths.pkl
+
+# classification_dvc_paths:
+#  type: pickle.PickleDataset
+#  filepath: data/07_model_output/classification_dvc_paths.pkl
+
+# model_comparison_report:
+#  type: pickle.PickleDataset
+#  filepath: data/07_model_output/model_comparison_report.pkl

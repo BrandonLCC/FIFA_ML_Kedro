@@ -1,5 +1,5 @@
 """
-This is a boilerplate test file for pipeline 'unsupervised_to_supervised'
+This is a boilerplate test file for pipeline 'classification_prediction'
 generated using Kedro 1.0.0.
 Please add your pipeline tests here.
 

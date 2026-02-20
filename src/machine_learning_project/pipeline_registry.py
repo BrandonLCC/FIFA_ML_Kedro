@@ -71,7 +71,6 @@ from machine_learning_project.pipelines.classification_evaluation import pipelin
 
 from machine_learning_project.pipelines.regression_report import pipeline as reg_report_pipeline
 from machine_learning_project.pipelines.classification_report import pipeline as class_report_pipeline
-from machine_learning_project.pipelines.final_report_comparativo import pipeline as final_report_pipeline
 
 def register_pipelines() -> dict[str, Pipeline]:
     pipelines = {
@@ -83,10 +82,8 @@ def register_pipelines() -> dict[str, Pipeline]:
         "classification_models": class_pipeline.create_pipeline(),
         "regression_evaluation": reg_eval_pipeline.create_pipeline(),
         "classification_evaluation": class_eval_pipeline.create_pipeline(),
-
         "regression_report": reg_report_pipeline.create_pipeline(),
         "classification_report": class_report_pipeline.create_pipeline(),
-        "final_report_comparativo": final_report_pipeline.create_pipeline(),
     }
 
     # Pipeline maestro no supervisado
@@ -106,7 +103,6 @@ def register_pipelines() -> dict[str, Pipeline]:
         + pipelines["classification_evaluation"] 
         + pipelines["regression_report"]
         + pipelines["classification_report"]
-        + pipelines["final_report_comparativo"]
     )
 
     return pipelines

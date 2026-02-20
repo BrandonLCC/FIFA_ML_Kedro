@@ -1,5 +1,5 @@
 """
-This is a boilerplate pipeline 'final_report_comparativo'
+This is a boilerplate pipeline 'regresssion_prediction'
 generated using Kedro 1.0.0
 """
 
@@ -7,4 +7,6 @@ from kedro.pipeline import Node, Pipeline  # noqa
 
 
 def create_pipeline(**kwargs) -> Pipeline:
-    return Pipeline([])
+    return Pipeline([
+        Node(
+    ])

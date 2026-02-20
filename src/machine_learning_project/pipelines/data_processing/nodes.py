@@ -224,7 +224,7 @@ pipelines >
 
 '''
 
-def transformacion2_columns(df, target='Overall_Class'):
+def transformacion_columns(df, target='Overall_Class'):
     """
     Reduce columnas One-Hot y LabelEncoder para FIFA datasets:
     - Agrupa Best Position

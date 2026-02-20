@@ -86,13 +86,15 @@ El pipeline padre debe:
 
 - Retornar un clean_dataset final que será guardado en 04_feature
 
-Ese dataset será usado luego por data_processing para hacer el train/test split.
+Ese dataset será usado luego por data_processing para hacer el train/test split. ojo aqui, no se si en data_prcoesing pero si verificar si crear nuesvo train test _nosupervisado o algo asi para no mezclarlo con el train test original.
 
 Flujo casi exacto del los pipelines 
 
 RAW → INTERMEDIATE → PRIMARY → FEATURE
     → UNSUPERVISED → CLEAN_DATASET → MODEL_INPUT
     → TRAIN_SUPERVISED → MODEL_OUTPUT
+
+    
 
 
 

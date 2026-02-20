@@ -51,17 +51,17 @@ preprocess_fifa_20:
   filepath: data/02_intermediate/preprocess_fifa_20.parquet 
 
 
-FIFA22_processed_con_transformacion2_columns:
+FIFA22_processed_con_transformacion_columns:
   type: pandas.ParquetDataset 
-  filepath: data/02_intermediate/FIFA22_processed_con_transformacion2_columns.parquet  
+  filepath: data/02_intermediate/FIFA22_processed_con_transformacion_columns.parquet  
 
-FIFA21_processed_con_transformacion2_columnss:
+FIFA21_processed_con_transformacion_columns:
   type: pandas.ParquetDataset
-  filepath: data/02_intermediate/FIFA21_processed_con_transformacion2_columns.parquet
+  filepath: data/02_intermediate/FIFA21_processed_con_transformacion_columns.parquet
 
-FIFA20_processed_con_transformacion2_columns:
+FIFA20_processed_con_transformacion_columns:
   type: pandas.ParquetDataset 
-  filepath: data/02_intermediate/FIFA20_processed_con_transformacion2_columns.parquet  
+  filepath: data/02_intermediate/FIFA20_processed_con_transformacion_columns.parquet  
 
 # ============================
 # Union de datasets y creacion de dataset de entrada para los modelos (Model input table)
@@ -72,8 +72,7 @@ FIFA20_processed_con_transformacion2_columns:
 
 model_input_table:
   type: pandas.ParquetDataset 
-  filepath: data/05_model_input/model_input_table.parquet #lo definimos en primary porque ya tendremos nuestros datasets unidos
-
+  filepath: data/03_primary/model_input_table.parquet #lo definimos en 03_primary porque ya tendremos nuestros datasets unidos
 
 # ============================
 # Entradas de para los modelos, train y test.
@@ -197,13 +196,86 @@ grid_random_forest_model_classification:
   filepath: data/06_models/grid_random_forest_model_classification.pkl
   versioned: true
 
-# FALTAA!!
-#en 07_model_output/ guardaremos las predicciones de los modelos, tanto de regresion como de clasificacion, para luego generar los reportes.
+# ============================
+# Salidas de las predicciones de los modelos, para luego generar los reportes.
+# En 07_model_output/
 
-#Predicciones:
+# Se guardan los Outputs del modelo
+# No el modelo en sí.
 
+# predictions_classification.parquet
+# predictions_regression.parquet
+# evaluation_metrics_classification.json
+# evaluation_metrics_regression.json
+# confusion_matrix.csv
+
+# ============================
+# Predicciónes 
+# PD: lo habiamos eliminado y sus pipelines, pero el profe nos dice que (si aplica)
+# Por lo que se vuelve a agregar, pero ahora con un nuevo formato, en vez de parquet, csv, para que sea mas facil de leer y generar los reportes.
+# #en 07_model_output/ guardaremos las predicciones de los modelos, tanto de regresion como de clasificacion, para luego generar los reportes.
+
+# ============================
 #y_pred_linear.csv
 #y_pred_rf.csv
+
+# ============================
+# Predicciones de regresion 
+# ============================
+
+y_pred_linear_regression:
+  type: pandas.CSVDataset
+  filepath: data/07_model_output/y_pred_linear_regression.csv
+  versioned: true
+
+y_pred_linear_multiple_regression:
+  type: pandas.CSVDataset
+  filepath: data/07_model_output/y_pred_linear_multiple_regression.csv
+  versioned: true
+  
+y_pred_svr:
+  type: pandas.CSVDataset
+  filepath: data/07_model_output/y_pred_svr.csv
+  versioned: true
+
+y_pred_decision_tree_regression:
+  type: pandas.CSVDataset
+  filepath: data/07_model_output/y_pred_decision_tree_regression.csv
+  versioned: true
+
+y_pred_random_forest_regression:
+  type: pandas.CSVDataset
+  filepath: data/07_model_output/y_pred_random_forest_regression.csv
+  versioned: true
+
+# ============================
+# Predicciones de clasificación
+# ============================
+
+y_pred_logistic_classification:
+  type: pandas.CSVDataset
+  filepath: data/07_model_output/y_pred_logistic_classification.csv
+  versioned: true
+
+y_pred_knn_classification:
+  type: pandas.CSVDataset
+  filepath: data/07_model_output/y_pred_knn_classification.csv
+  versioned: true
+
+y_pred_svc:
+  type: pandas.CSVDataset
+  filepath: data/07_model_output/y_pred_svc.csv
+  versioned: true
+
+y_pred_decision_tree_classification:
+  type: pandas.CSVDataset
+  filepath: data/07_model_output/y_pred_decision_tree_classification.csv
+  versioned: true
+
+y_pred_random_forest_classification:
+  type: pandas.CSVDataset
+  filepath: data/07_model_output/y_pred_random_forest_classification.csv
+  versioned: true  
 
 # ============================
 # Metricas regresion
@@ -335,6 +407,6 @@ unsupervised_processed_dataset:
 #  type: pickle.PickleDataset
 #  filepath: data/07_model_output/classification_dvc_paths.pkl
 
-# model_comparison_report:
+# model_comparison_report: regresion
 #  type: pickle.PickleDataset
 #  filepath: data/07_model_output/model_comparison_report.pkl

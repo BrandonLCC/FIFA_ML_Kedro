@@ -299,7 +299,7 @@ Se recomienda dividir este pipeline en varios pipelines más pequeños y especia
 | **classification_models** | Entrenamiento y evaluación de modelos de clasificación utilizando métricas como accuracy, precision, recall y F1-score. |
 | **regression_report** | Generación de visualizaciones y análisis de desempeño de los modelos de regresión. |
 | **classification_report** | Generación de visualizaciones y análisis de desempeño de los modelos de clasificación. |
-| **final_report_comparativo** (No realizado) | Comparación de resultados entre modelos de regresión y clasificación para facilitar el análisis global del rendimiento del sistema. |
+| **final_report_comparativo** (Eliminado) | Comparación de resultados entre modelos de regresión y clasificación para facilitar el análisis global del rendimiento del sistema. |
 
 ### Arquitectura pipelines  ** (actualizar la arquitec)
 
@@ -329,18 +329,20 @@ El pipeline `unsupervised_learning` aplica tres transformaciones sobre el datase
 
 ![Kedro Pipeline Viz](https://raw.githubusercontent.com/BrandonLCC/FIFA_ML_Kedro/main/img/kedro-pipeline-viz.svg)
 
-### Airflow img
+## Airflow 
 
-## Conjunto de datos generados
+## Flujos de dags tipos de dag pipelines airflow archivos etc.
+
 
 ## Modelos 
 
 ## Variables
 
+-regresion 
 
-| Target   | Descripción      
+| Target        | Descripción      
 | --------------|-------------
-| `Value_num`   |  d 
+| `Value_num`   |  -
 
 | Features            | Descripción      
 | ---------------------------|-------------
@@ -349,6 +351,25 @@ El pipeline `unsupervised_learning` aplica tres transformaciones sobre el datase
 | `International Reputation` |
 | `Reactions`                |
 | `Potential`                |
+
+
+- class  
+
+| Target        | Descripción      
+| --------------|-------------
+| `Overall_Class_Bin` |  -
+
+| Features            | Descripción      
+| ---------------------------|-------------
+| `Age`                      |
+| `BallControl`              |
+| `Finishing`                |
+| `Dribbling`                |
+| `International Reputation` |
+| `Acceleration`             |
+| `SprintSpeed`              |
+| `ShotPower`                |
+| `Offensive Skills`         |
 
 ### Modelos implementados
 
@@ -369,25 +390,29 @@ El pipeline `unsupervised_learning` aplica tres transformaciones sobre el datase
 
 ### Regresión
 
-| Modelo                     | MSE             | RMSE       | R²     |
-| -----------------          | --------------- | ---------- | ------ |
-| **Simple_Linear_Regression**   | ...             | ...        | ...    |
-| **Multiple_Linear_Regression** | ...             | ...        | ...    |
-| **SVR_Model**                  | ...             | ...        |        |
-| **Decision_Tree_Regression**   | ...             | ...        | ...    |
-| **Random_Forest_Regression**   | ...             | ...        | ...    |
+La variable objetivo `Value_num` contiene valores con una gran cantidad de digitos, por lo que los valores de MSE Y RMSE se justifican en este caso.
+
+| Modelo                       | MSE (×10¹²) | RMSE      | R²    |
+| ---------------------------- | ----------- | --------- | ----- |
+| **Simple_Linear_Regression** | 19.83       | 4,452,670 | 0.523 |
+| **SVR_Model**                | 32.38       | 5,690,346 | 0.221 |
+| **Decision_Tree_Regression** | 5.20        | 2,280,996 | 0.875 |
+| **Random_Forest_Regression** | 4.29        | 2,070,606 | 0.897 |
+
 
 ### Clasificación
 
-| Modelo              | Accuracy | Precision | Recall | F1 Score |
-| ------------------- | -------- | --------- | ------ | -------- |
-| **Logistic Regression** | ...      | ...       | ...    | ...      |
-| **KNN**                 | ...      | ...       | ...    | ...      |
-| **XGBClassifier**       | ...      | ...       | ...    | ...      |
-| **Decision Tree**       | 0.0975   | 0.0996    | 0.0975 | 0.0915   |
-| **Random Forest**       | 0.1075   | 0.1129    | 0.1075 | 0.0974   |
+| Modelo                  | Accuracy | Precision | Recall | F1 Score |
+| ----------------------- | -------- | --------- | ------ | -------- |
+| **Decision Tree**       | 0.8950   | 0.8928    | 0.8950 | 0.8919   |
+| **KNN**                 | 0.9141   | 0.9126    | 0.9141 | 0.9127   |
+| **Logistic Regression** | 0.8247   | 0.8176    | 0.8247 | 0.8080   |
+| **Random Forest**       | 0.9280   | 0.9270    | 0.9280 | 0.9267   |
+| **SVC**                 | 0.8975   | 0.8955    | 0.8975 | 0.8942   |
 
----
+## Metricas de evaluación con aprendizaje no supervizado
+
+Se busca que...
 
 ## Comparaciónes o evaluaciones etc
 

@@ -1,5 +1,5 @@
 """
-This is a boilerplate test file for pipeline 'final_report_comparativo'
+This is a boilerplate test file for pipeline 'regresssion_prediction'
 generated using Kedro 1.0.0.
 Please add your pipeline tests here.
 

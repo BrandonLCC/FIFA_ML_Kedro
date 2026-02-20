@@ -21,7 +21,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 # La evaluacion esta bien, pero los reportes en pipeline de reportes y definir salidas. si es necesario ya que las salidas se definen si, pero en parameters??
-
+ 
 def evaluacion_modelo_individual(modelo, X_test, y_test, nombre_modelo):
     # Asegurar Series unidimensionales
     if isinstance(y_test, pd.DataFrame):
@@ -38,24 +38,7 @@ def evaluacion_modelo_individual(modelo, X_test, y_test, nombre_modelo):
     rmse = np.sqrt(mse)
     r2 = r2_score(y_test, y_pred)
 
-    # Gráficos
-    plt.figure(figsize=(5,5))
-    plt.scatter(y_test, y_pred, alpha=0.7)
-    plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--')
-    plt.xlabel("Valores Reales")
-    plt.ylabel("Predicciones")
-    plt.title(f"Predicho vs Real: {nombre_modelo}")
-    plt.show()
-
-    residuals = y_test - y_pred
-    plt.figure(figsize=(5,4))
-    plt.scatter(y_pred, residuals, alpha=0.7)
-    plt.axhline(0, color='r', linestyle='--')
-    plt.xlabel("Predicciones")
-    plt.ylabel("Residuos")
-    plt.title(f"Residuals plot: {nombre_modelo}")
-    plt.show()
-
+ 
     # Devolver DataFrame para que Kedro pueda guardarlo como CSV
     df_result = pd.DataFrame([{
         "Modelo": nombre_modelo,

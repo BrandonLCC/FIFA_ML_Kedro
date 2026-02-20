@@ -25,7 +25,7 @@ def create_pipeline(**kwargs) -> Pipeline:
                "params:_modelo_knn_classification",
                "params:report_path_knn"
            ],
-           outputs="metrics_knn",
+           outputs="metrics_knn_classification",
            name="metrics_knn_node"
         ),
 

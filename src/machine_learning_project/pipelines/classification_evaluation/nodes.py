@@ -21,22 +21,29 @@ import os
 # eliminar funcion, esta funcion ya se encuentra en el pipeline de clasificación, y se llama evaluacion_completa_modelo_clasificacion, se puede usar la misma funcion para ambos pipelines, tanto de regresion como de clasificacion, solo cambiando los parametros de entrada.
 # Eliminar las funcinoes o elementos de generacion de reportes y moverlo en el pipeline de reportes.
 
+
+
+def evaluacion_modelo_individual(y_pred, y_test, nombre_modelo):
+    # Asegurar formato correcto
+    if isinstance(y_test, pd.DataFrame):
+        y_test = y_test.iloc[:, 0]
+    if isinstance(y_pred, pd.DataFrame):
+        y_pred = y_pred.iloc[:, 0]
+
+    metrics = {
+        "Model": nombre_modelo,
+        "Accuracy": accuracy_score(y_test, y_pred),
+        "Precision": precision_score(y_test, y_pred, average="weighted"),
+        "Recall": recall_score(y_test, y_pred, average="weighted"),
+        "F1_score": f1_score(y_test, y_pred, average="weighted")
+    }
+    return metrics
+
+""" 
 def evaluacion_completa_modelo_clasificacion(model, X_test, y_test, model_name: str, save_path: str):
  
     os.makedirs(save_path, exist_ok=True)
 
-    y_pred = model.predict(X_test)
-    y_proba = None
-    if hasattr(model, "predict_proba"):
-        y_proba = model.predict_proba(X_test)[:, 1]  # Probabilidad clase positiva
-    
-    # --- Métricas ---
-    metrics = {
-        "accuracy": accuracy_score(y_test, y_pred),
-        "precision": precision_score(y_test, y_pred, average="weighted"),
-        "recall": recall_score(y_test, y_pred, average="weighted"),
-        "f1_score": f1_score(y_test, y_pred, average="weighted")
-    }
     
     # --- Matriz de confusión ---
     cm = confusion_matrix(y_test, y_pred)
@@ -89,3 +96,4 @@ def evaluacion_completa_modelo_clasificacion(model, X_test, y_test, model_name: 
     metrics_df.index = [model_name]
     return metrics_df
 
+"""

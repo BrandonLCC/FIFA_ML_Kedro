@@ -21,16 +21,21 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 # La evaluacion esta bien, pero los reportes en pipeline de reportes y definir salidas. si es necesario ya que las salidas se definen si, pero en parameters??
- 
-def evaluacion_modelo_individual(modelo, X_test, y_test, nombre_modelo):
+#  X_test eliminado
+# input model eliminado
+# se agrega y_pred
+
+def evaluacion_modelo_individual(y_pred, y_test, nombre_modelo):
+
     # Asegurar Series unidimensionales
     if isinstance(y_test, pd.DataFrame):
         y_test = y_test.iloc[:, 0]
     elif isinstance(y_test, np.ndarray) and y_test.ndim > 1:
         y_test = pd.Series(y_test.ravel())
 
-    y_pred = modelo.predict(X_test)
-    if isinstance(y_pred, np.ndarray) and y_pred.ndim > 1:
+    if isinstance(y_pred, pd.DataFrame):
+        y_pred = y_pred.iloc[:, 0]
+    elif isinstance(y_pred, np.ndarray) and y_pred.ndim > 1:
         y_pred = pd.Series(y_pred.ravel())
 
     mse = mean_squared_error(y_test, y_pred)
@@ -38,8 +43,6 @@ def evaluacion_modelo_individual(modelo, X_test, y_test, nombre_modelo):
     rmse = np.sqrt(mse)
     r2 = r2_score(y_test, y_pred)
 
- 
-    # Devolver DataFrame para que Kedro pueda guardarlo como CSV
     df_result = pd.DataFrame([{
         "Modelo": nombre_modelo,
         "MSE": mse,
@@ -47,6 +50,7 @@ def evaluacion_modelo_individual(modelo, X_test, y_test, nombre_modelo):
         "RMSE": rmse,
         "R2": r2
     }])
+
     return df_result
 
 '''

@@ -75,25 +75,3 @@ def entrenar_random_forest_cv(X_train, y_train, param_grid):
     grid = GridSearchCV(RandomForestRegressor(random_state=42), param_grid=param_grid, cv=5)
     grid.fit(X_train, y_train)
     return grid.best_estimator_
-
-def evaluacion_modelo(modelo, X_test, y_test):
-    # Predicciones
-    y_pred = modelo.predict(X_test)
-    
-    # Métricas principales
-    mse = mean_squared_error(y_test, y_pred)
-    mae = mean_absolute_error(y_test, y_pred)
-    rmse = np.sqrt(mse)
-    r2 = r2_score(y_test, y_pred)
-    
-    print(f"Mean Squared Error (MSE): {mse:.6f}")
-    print(f"Mean Absolute Error (MAE): {mae:.6f}")
-    print(f"Root Mean Squared Error (RMSE): {rmse:.6f}")
-    print(f"R2 Score: {r2:.6f}")
-    
-    return {
-        "MSE": mse,
-        "MAE": mae,
-        "RMSE": rmse,
-        "R2": r2
-    }

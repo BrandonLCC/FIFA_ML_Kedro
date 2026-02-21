@@ -66,6 +66,9 @@ from machine_learning_project.pipelines.unsupervised_learning.anomaly_detection 
 from machine_learning_project.pipelines.regression_models import pipeline as reg_pipeline
 from machine_learning_project.pipelines.classification_models import pipeline as class_pipeline
 
+from machine_learning_project.pipelines.regresssion_prediction import pipeline as reg_pred_pipeline
+from machine_learning_project.pipelines.classification_prediction import pipeline as class_pred_pipeline
+
 from machine_learning_project.pipelines.regression_evaluation import pipeline as reg_eval_pipeline
 from machine_learning_project.pipelines.classification_evaluation import pipeline as class_eval_pipeline
 
@@ -80,6 +83,8 @@ def register_pipelines() -> dict[str, Pipeline]:
         "anomaly_detection": anom_pipeline.create_pipeline(),
         "regression_models": reg_pipeline.create_pipeline(),
         "classification_models": class_pipeline.create_pipeline(),
+        "regression_prediction": reg_pred_pipeline.create_pipeline(),
+        "classification_prediction": class_pred_pipeline.create_pipeline(),
         "regression_evaluation": reg_eval_pipeline.create_pipeline(),
         "classification_evaluation": class_eval_pipeline.create_pipeline(),
         "regression_report": reg_report_pipeline.create_pipeline(),
@@ -98,8 +103,10 @@ def register_pipelines() -> dict[str, Pipeline]:
         pipelines["data_processing"]
         + pipelines["unsupervised_learning"]
         + pipelines["regression_models"]
+        + pipelines["regression_prediction"]
+        + pipelines["regression_evaluation"]
         + pipelines["classification_models"]
-        + pipelines["regression_evaluation"]          
+        + pipelines["classification_prediction"]       
         + pipelines["classification_evaluation"] 
         + pipelines["regression_report"]
         + pipelines["classification_report"]

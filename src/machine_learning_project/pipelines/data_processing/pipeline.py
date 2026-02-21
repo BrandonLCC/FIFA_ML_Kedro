@@ -46,19 +46,19 @@ def create_pipeline(**kwargs) -> Pipeline:
                 func=transformacion_columns,
                 inputs="preprocess_fifa_22",                             # Dataset crudo
                 outputs="FIFA22_processed_con_transformacion_columns",  # Dataset procesado
-                name="transformacion_columns_fifa22.node",
+                name="transformacion_columns_fifa22_node",
             ),
             Node(
                 func=transformacion_columns,
                 inputs="preprocess_fifa_21",
                 outputs="FIFA21_processed_con_transformacion_columns",
-                name="transformacion_columns_fifa21.node",
+                name="transformacion_columns_fifa21_node",
             ),
             Node(
                 func=transformacion_columns,
                 inputs="preprocess_fifa_20",
                 outputs="FIFA20_processed_con_transformacion_columns",
-                name="transformacion_columns_fifa20.node",
+                name="transformacion_columns_fifa20_node",
             ),
             Node(
                 func=create_model_input_table,

@@ -3,3 +3,10 @@
 #
 # Documentation for this file format can be found in "Parameters"
 # Link: https://docs.kedro.org/en/1.0.0/configuration/parameters.html
+ 
+prediction_columns:
+  linear_simple: "Prediccion_modelo_lineal_simple"
+  linear_multiple: "Prediccion_modelo_lineal_multiple"
+  svr: "Prediccion_modelo_SVR"
+  decision_tree: "Prediccion_modelo_DecisionTreeRegressor"
+  random_forest: "Prediccion_modelo_random_forest"

@@ -221,32 +221,29 @@ grid_random_forest_model_classification:
 
 # ============================
 # Predicciones de regresion 
+
+# y_nombre_modelo = y_pred
 # ============================
 
 y_pred_linear_regression:
   type: pandas.CSVDataset
   filepath: data/07_model_output/y_pred_linear_regression.csv
-  versioned: true
 
 y_pred_linear_multiple_regression:
   type: pandas.CSVDataset
   filepath: data/07_model_output/y_pred_linear_multiple_regression.csv
-  versioned: true
   
 y_pred_svr:
   type: pandas.CSVDataset
   filepath: data/07_model_output/y_pred_svr.csv
-  versioned: true
 
 y_pred_decision_tree_regression:
   type: pandas.CSVDataset
   filepath: data/07_model_output/y_pred_decision_tree_regression.csv
-  versioned: true
 
 y_pred_random_forest_regression:
   type: pandas.CSVDataset
   filepath: data/07_model_output/y_pred_random_forest_regression.csv
-  versioned: true
 
 # ============================
 # Predicciones de clasificación
@@ -255,27 +252,22 @@ y_pred_random_forest_regression:
 y_pred_logistic_classification:
   type: pandas.CSVDataset
   filepath: data/07_model_output/y_pred_logistic_classification.csv
-  versioned: true
 
 y_pred_knn_classification:
   type: pandas.CSVDataset
   filepath: data/07_model_output/y_pred_knn_classification.csv
-  versioned: true
 
 y_pred_svc:
   type: pandas.CSVDataset
   filepath: data/07_model_output/y_pred_svc.csv
-  versioned: true
 
 y_pred_decision_tree_classification:
   type: pandas.CSVDataset
   filepath: data/07_model_output/y_pred_decision_tree_classification.csv
-  versioned: true
 
 y_pred_random_forest_classification:
   type: pandas.CSVDataset
   filepath: data/07_model_output/y_pred_random_forest_classification.csv
-  versioned: true  
 
 # ============================
 # Metricas regresion

@@ -9,12 +9,13 @@
 # Documentation for this file format can be found in "Parameters"
 # Link: https://docs.kedro.org/en/1.0.0/configuration/parameters.html
 
-_modelo_logistic_classification: "Logistic Regression"
-_modelo_knn_classification: "KNN Classification"
-_svc_classification: "SVC Classification"
-_modelo_decision_tree_classification: "Decision Tree Classification"
-_modelo_random_forest_classification: "Random Forest Classification"
+modelo_logistic_classification: "Logistic Regression"
+modelo_knn_classification: "KNN Classification"
+svc_classification: "SVC Classification"
+modelo_decision_tree_classification: "Decision Tree Classification"
+modelo_random_forest_classification: "Random Forest Classification"
 
+# mover esto a report de class
 report_path_logistic: data/08_reporting/logistic
 report_path_knn: data/08_reporting/KNN_classification
 report_path_svc: data/08_reporting/SVC_classification

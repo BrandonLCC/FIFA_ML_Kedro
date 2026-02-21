@@ -3,3 +3,10 @@
 #
 # Documentation for this file format can be found in "Parameters"
 # Link: https://docs.kedro.org/en/1.0.0/configuration/parameters.html
+
+classification_columns:
+  logistic_classification: "Prediccion_modelo_logistic_classification"
+  knn: "Prediccion_modelo_KNN"
+  svc: "Prediccion_modelo_SVC"
+  decision_tree: "Prediccion_modelo_DecisionTreeClassifier"
+  random_forest: "Prediccion_modelo_random_forest"

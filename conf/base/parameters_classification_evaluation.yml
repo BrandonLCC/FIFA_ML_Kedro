@@ -14,10 +14,3 @@ modelo_knn_classification: "KNN Classification"
 svc_classification: "SVC Classification"
 modelo_decision_tree_classification: "Decision Tree Classification"
 modelo_random_forest_classification: "Random Forest Classification"
-
-# mover esto a report de class
-report_path_logistic: data/08_reporting/logistic
-report_path_knn: data/08_reporting/KNN_classification
-report_path_svc: data/08_reporting/SVC_classification
-report_path_decision_tree: data/08_reporting/decision_tree_classification
-report_path_random_forest: data/08_reporting/random_forest_classification

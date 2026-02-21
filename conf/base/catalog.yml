@@ -327,27 +327,163 @@ metrics_random_forest_classification:
   filepath: data/08_reporting/metrics_classification/random_forest.csv
   versioned: true
 
-
 # ============================
 # Reportes de regresion
 # ============================
 
 # Para report utilizar la libreria plotlib al utilizar Kedro viz
-
-
 # ============================
-
 # Esta es una version anterior de como de guardaban los reportes. Estos reportes en realidad eran metricas,
 # entonces se guardaran como metricas en vez de reportes. Por lo que se creo otra carpeta raiz.
 # Estas evaluaciones se generan en el pipeline de class_models y regression_models, y se guardan en la carpeta de reporting.
 
-# regression_report_linear_simple:
-#  type: pandas.CSVDataset
-#  filepath: data/08_reporting/regression/regression_report_linear_simple.csv
-#  versioned: true
+# report_linear_simple_regression:
+
+report_linear_simple_pred_vs_real:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/08_reporting/report_regression/linear_simple/pred_vs_real.png
+  versioned: true
+
+report_linear_simple_residual_plot:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/08_reporting/report_regression/linear_simple/residual_plot.png
+  versioned: true
+
+report_linear_simple_qq_plot:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/08_reporting/report_regression/linear_simple/qq_plot.png
+  versioned: true
+
+
+# report_linear_multiple_regression:
+
+report_linear_multiple_pred_vs_real:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/08_reporting/report_regression/linear_multiple/pred_vs_real.png
+  versioned: true
+
+report_linear_multiple_residual_plot:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/08_reporting/report_regression/linear_multiple/residual_plot.png
+  versioned: true
+
+report_linear_multiple_qq_plot:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/08_reporting/report_regression/linear_multiple/qq_plot.png
+  versioned: true
+
+
+# report_svr:
+
+report_svr_pred_vs_real:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/08_reporting/report_regression/svr/pred_vs_real.png
+  versioned: true
+
+report_svr_residual_plot:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/08_reporting/report_regression/svr/residual_plot.png
+  versioned: true
+
+report_svr_qq_plot:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/08_reporting/report_regression/svr/qq_plot.png
+  versioned: true 
+
+
+# report_decision_tree_regression:
+
+report_decision_tree_pred_vs_real:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/08_reporting/report_regression/decision_tree/pred_vs_real.png
+  versioned: true
+
+report_decision_tree_residual_plot:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/08_reporting/report_regression/decision_tree/residual_plot.png
+  versioned: true 
+
+report_decision_tree_qq_plot:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/08_reporting/report_regression/decision_tree/qq_plot.png
+  versioned: true
+
+# report_random_forest_regression:
+
+report_random_forest_pred_vs_real:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/08_reporting/report_regression/random_forest/pred_vs_real.png
+  versioned: true
+
+report_random_forest_residual_plot:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/08_reporting/report_regression/random_forest/residual_plot.png
+  versioned: true
+
+report_random_forest_qq_plot:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/08_reporting/report_regression/random_forest/qq_plot.png
+  versioned: true
+
+
+
 # ============================
 
-# Dejas si o si los reportes aqui tanto para data/08 o para kedro viz.
+
+# Se analizan resultados del modelo
+# Se comparan métricas
+# Se visualizan patrones
+# Se presentan conclusiones
+
+# Ejemplos típicos:
+# Matriz de confusión
+# Curva ROC
+# Comparación de accuracy entre modelos
+
+# Generar:
+
+# - Archivos CSV
+# - Gráficos (PNG)
+# - Reportes HTML
+# - Tablas consolidadas
+
+
+# ============================
+# Reportes de clasificacion
+# ============================
+
+
+# ============================
+# Reporte final, comparacion de modelos regresion y clasificacion
+# ============================
+
+# report comparación mejor modelo regresion:
+
+metris_all_models_regression:
+  type: pandas.CSVDataset
+  filepath: data/08_reporting/report_regression/metris_all_models_regression.csv
+  versioned: true
+
+Reporte_mejor_metrica_modelo_regresion:
+  type: pandas.CSVDataset
+  filepath: data/08_reporting/report_regression/Reporte_mejor_metrica_modelo_regresion.csv
+  versioned: true  
+
+# report comparación mejor modelo clasificacion:
+
+metris_all_models_clasificacion:
+  type: pandas.CSVDataset
+  filepath: data/08_reporting/report_classification/metris_all_models_clasificacion.csv
+  versioned: true
+
+Reporte_mejor_metrica_modelo_clasificacion:
+  type: pandas.CSVDataset
+  filepath: data/08_reporting/report_classification/Reporte_mejor_metrica_modelo_clasificacion.csv
+  versioned: true
+
+# model_comparison_report: regresion
+#  type: pickle.PickleDataset
+#  filepath: data/07_model_output/model_comparison_report.pkl
 
 # ============================
 #      UNSUPERVISED
@@ -398,7 +534,3 @@ unsupervised_processed_dataset:
 # classification_dvc_paths:
 #  type: pickle.PickleDataset
 #  filepath: data/07_model_output/classification_dvc_paths.pkl
-
-# model_comparison_report: regresion
-#  type: pickle.PickleDataset
-#  filepath: data/07_model_output/model_comparison_report.pkl

@@ -1,0 +1,7 @@
+
+name_report_regression:
+  linear_simple: "linear_simple"
+  linear_multiple: "linear_multiple"
+  svr: "svr"
+  decision_tree: "decision_tree"
+  random_forest: "random_forest"

@@ -3,6 +3,8 @@ This is a boilerplate pipeline 'classification_prediction'
 generated using Kedro 1.0.0
 """
 
+from platform import node
+
 from kedro.pipeline import Node, Pipeline  # noqa
 from .nodes import predict_model  # noqa
 
@@ -17,8 +19,8 @@ def create_pipeline(**kwargs) -> Pipeline:
         Node(
             func=predict_model,
             inputs=["grid_knn_model_classification", "X_test_class", "params:classification_columns.knn"], 
-            outputs="y_pred_knn",
-            name="y_pred_knn_node"
+            outputs="y_pred_knn_classification",
+            name="y_pred_knn_classification_node"
         ),
         Node(
             func=predict_model,
@@ -29,8 +31,8 @@ def create_pipeline(**kwargs) -> Pipeline:
         Node(
             func=predict_model,
             inputs=["grid_decision_tree_model_classification", "X_test_class", "params:classification_columns.decision_tree"], 
-            outputs="y_pred_decision_tree",
-            name="y_pred_decision_tree_node"
+            outputs="y_pred_decision_tree_classification",
+            name="y_pred_decision_tree_classification_node"
         ),
         Node(
             func=predict_model,

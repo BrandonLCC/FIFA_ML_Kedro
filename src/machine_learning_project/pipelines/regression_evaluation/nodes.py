@@ -52,39 +52,3 @@ def evaluacion_modelo_individual(y_pred, y_test, nombre_modelo):
     }])
 
     return df_result
-
-'''
-#Funcion que realiza una comparativa de todos los modelos entrenados
-
-def generate_regression_report(results_regresion, X_test_dict, y_test_dict):
-    report_data = []
-    
-    # Evaluación individual de cada modelo
-    for model_name, model in results_regresion.items():
-        metrics = evaluacion_modelo_individual(
-            modelo=model,
-            X_test=X_test_dict[model_name],
-            y_test=y_test_dict[model_name],
-            nombre_modelo=model_name
-        )
-        report_data.append(metrics)
-    
-    # Crear DataFrame resumen
-    df_report = pd.DataFrame(report_data)
-    print("\nTabla comparativa de métricas")
-    print(df_report[["Modelo","MSE","MAE","RMSE","R2"]])
-    
-    # --- Gráficos comparativos ---
-    metrics = ["MSE", "MAE", "RMSE", "R2"]
-    plt.figure(figsize=(12,4))
-    for i, metric in enumerate(metrics):
-        plt.subplot(1, len(metrics), i+1)
-        plt.bar(df_report["Modelo"], df_report[metric], color='skyblue')
-        plt.title(metric)
-        plt.xticks(rotation=45)
-    plt.tight_layout()
-    plt.show()
-    
-    return df_report[["Modelo","MSE","MAE","RMSE","R2"]]
-
-'''

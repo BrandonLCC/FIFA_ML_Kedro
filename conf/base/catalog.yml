@@ -516,6 +516,10 @@ clustered_dataset:
   type: pandas.ParquetDataset
   filepath: data/04_feature/clustered_dataset.parquet
 
+clustered_unsupervised_processed_dataset:
+  type: pandas.ParquetDataset
+  filepath: data/04_feature/clustered_unsupervised_processed_dataset.parquet    
+
 # Pipeline Submodulo dimensionality_reduction.
 
 pca_output:

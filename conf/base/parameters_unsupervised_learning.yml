@@ -1,14 +1,8 @@
-# This is a boilerplate parameters config generated for pipeline 'unsupervised_learning'
-# using Kedro 1.0.0.
-#
-# Documentation for this file format can be found in "Parameters"
-# Link: https://docs.kedro.org/en/1.0.0/configuration/parameters.html
-
 dimensionality_reduction:
   pca_n_components: 5
   tsne_umap_method: "tsne"   # o "umap"
   tsne_umap_n_components: 2
-  tsne_umap_random_state: 42
+  tsne_umap_random_state: 42 
 
 clustering:
   kmeans:

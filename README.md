@@ -1,4 +1,4 @@
-# *Proyecto de análisis de Jugadores FIFA 20-22*
+# *Proyecto de análisis de Jugadores FIFA 20-23*
 
 [![Python](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/)
 [![Kedro](https://img.shields.io/badge/kedro-1.0.0-orange.svg)](https://kedro.org/)
@@ -6,7 +6,7 @@
 
 ![image.png](https://assets.goal.com/images/v3/bltf84864c2d1921a81/Kylian%20Mbappe%20Real%20Madrid%20HIC.jpg?auto=webp&format=pjpg&width=3840&quality=60)
 
-**Colaboradores:** Benjamin Andres Oviedo y Brandon Casas. 
+**Colaboradores:** Benjamin Andres Oviedo y Brandon. 
 
 **Docente:** Giocrisrai Godoy Bonillo.
 
@@ -26,13 +26,13 @@ Es por eso..
 
 ### Datos obtenidos
 
-El dataset (conjunto de datos) obtenidos para el proyecto es probeniente de [kaggle](https://www.kaggle.com/) en la que se obtuvieron los datasets de FIFA20 hasta FIFA22. En este proyecto se descartaron el uso de los datos de años anteriores al fifa20
+El dataset (conjunto de datos) obtenidos para el proyecto es proveniente de [kaggle](https://www.kaggle.com/) en la que se obtuvieron los datasets de FIFA20 hasta FIFA23. En este proyecto se descartaron el uso de los datos de años anteriores al FIFA20.
 
 ### Acerca de los datos
 
 Contiene más de 17.000 registros con atributos demográficos, características físicas, estadísticas de juego, detalles contractuales y afiliaciones a clubes.
 
-**Enlace al dataset:** [Link](https://www.kaggle.com/datasets/bryanb/fifa-player-stats-database?rvi=1)	
+**Kaggle-FIFA:** [Link](https://www.kaggle.com/datasets/bryanb/fifa-player-stats-database?rvi=1)	
 
 ## Objetivos
 
@@ -43,6 +43,13 @@ El objetivo principal del proyecto es desarrollar e integrar en un sistema funci
 ### Objetivos de Machine Learning *
 
 La premisa central del machine learning (ML) es que si se optimiza el rendimiento de un modelo en un conjunto de datos de tareas que se asemejan adecuadamente a los problemas del mundo real para los que se usará, a través de un proceso llamado entrenamiento de modelos, el modelo puede hacer predicciones precisas sobre los nuevos datos que ve en su caso de uso final. [ML](https://www.ibm.com/mx-es/think/topics/machine-learning)	
+
+
+**Aprendizaje semisupervisado**
+
+Mejorar los modelos de supervizados utiliando aprendizaje no supervizado
+
+
 
 ---
 <!-- TEXTO README hecho por el colaborador
@@ -171,12 +178,6 @@ Se aplican las seis fases de CRISP-DM. A continuación se detallan cada fase y l
 
 ---
 
-**Para mas información:**
-
-- [La metodología CRISP-DM: desarrollo de modelos de machine learning](https://www.mytaskpanel.com/la-metodologia-crisp-dm-desarrollo-de-modelos-de-machine-learning/#:~:text=programas%20de%20retenci%C3%B3n.-,2.,de%20descuento%20ser%C3%ADan%20m%C3%A1s%20efectivas.)	
-
-- [¿Qué es CRISP DM?](https://www.datascience-pm.com/crisp-dm-2/)	
-
 **Notebooks:**
 
 - [Business Understanding](notebooks/01_Business_Understanding.ipynb)
@@ -220,7 +221,7 @@ Proyecto_ML_Kedro/
 │   ├── 04_feature/           # Features generadas con unsupervised
 │   ├── 05_model_input/       # Datasets para entrenamiento y test
 │   ├── 06_models/            # Modelos entrenados (Pickle)
-│   ├── 07_model_output/
+│   ├── 07_model_output/      # Predicciónes 
 │   └── 08_reporting/         # Reportes de métricas
 │
 ├── docker/
@@ -230,7 +231,7 @@ Proyecto_ML_Kedro/
 |
 ├── docs/
 |
-├── img-viz/
+├── img/
 | 
 ├── logs/
 |
@@ -267,6 +268,7 @@ Proyecto_ML_Kedro/
 ├── start.sh
 └── README.md
 ```
+Mira en [Architecture](docs/architecture.md) para mas información.
 
 --- 
 
@@ -280,13 +282,15 @@ Algunos documentos no menciónados seran modificados o borrados.
 | [Uso de DVC](docs/dvc.md)| Pasos y configuración de DVC     
 | [dockerfile-kedro](docs/Aprendizaje/dockerfile-kedro.md)                       | Pasos realizados para la implementación de Docker con kedro.    
 
-## Pipelines del proyecto FIFA
+## Pipelines
 
-### Descripción de pipelines
+**Aprendizaje** 
 
-**Recomendaciónes:** Como aprendizaje para futuras iteraciones del proyecto o nuevo proyectos, se identificó que el pipeline `data_processing` concentra demasiadas funciones, lo que dificulta su mantenimiento, modificación y escalabilidad.
+Para futuras iteraciones del proyecto o nuevo proyectos, se identificó que el pipeline `data_processing` concentra demasiadas funciones, lo que dificulta su mantenimiento, modificación y escalabilidad.
 
 Se recomienda dividir este pipeline en varios pipelines más pequeños y especializados, con el objetivo de mejorar la modularidad, facilitar futuras modificaciones y reducir la complejidad dentro de un único flujo.
+
+### Descripción de pipelines
 
 | Pipeline | Función |
 |-----------|----------|
@@ -297,33 +301,84 @@ Se recomienda dividir este pipeline en varios pipelines más pequeños y especia
 | **dimensionality_reduction** (submódulo) | Reducción de la dimensionalidad del dataset mediante técnicas como PCA, generando un dataset optimizado para el modelado. |
 | **regression_models** | Entrenamiento y evaluación de modelos de regresión utilizando métricas apropiadas (por ejemplo, MAE, RMSE y R²). |
 | **classification_models** | Entrenamiento y evaluación de modelos de clasificación utilizando métricas como accuracy, precision, recall y F1-score. |
+| **pipelines_prediction** | - |
+| **pipelines_evaluation** | - |
 | **regression_report** | Generación de visualizaciones y análisis de desempeño de los modelos de regresión. |
 | **classification_report** | Generación de visualizaciones y análisis de desempeño de los modelos de clasificación. |
-| **final_report_comparativo** (Eliminado) | Comparación de resultados entre modelos de regresión y clasificación para facilitar el análisis global del rendimiento del sistema. |
+
 
 ### Arquitectura pipelines  ** (actualizar la arquitec)
 
+aprendizaje semisupervisado
+se aplicara la semisuperivzado porque ...
+
+https://medium.com/academy-team/semi-supervised-learning-the-bridge-between-supervised-and-unsupervised-learning-a4c9942b814b
+
+
 El pipeline `unsupervised_learning` aplica tres transformaciones sobre el dataset base para generar un conjunto de datos enriquecido, el cual posteriormente es utilizado por modelos de aprendizaje supervisado para tareas de predicción.
 
-```
-  data_processing 
-    ↓
-  unsupervised_learning
-    |
-    |--> anomaly_detection
-    |
-    |--> clustering
-    |
-    |--> dimensionality_reduction 
-    ↓
-  regression_models
-    ↓
-  classification_models
-    ↓
-  reporting_pipeline
+
+
+
+```mermaid
+flowchart TD
+
+subgraph PD["Procesamiento de datos"]
+    A0[data_processing]
+end
+
+subgraph UNS["Aprendizaje no supervisado"]
+    A[unsupervised_learning]
+    A1[anomaly_detection]
+    A2[clustering]
+    A3[dimensionality_reduction]
+    A4[dataset_clean]
+
+    A --> A1
+    A --> A2
+    A --> A3
+
+    A1 --> A4
+    A2 --> A4
+    A3 --> A4
+end
+
+A0 --> A
+
+subgraph MOD["Modelos supervizados"]
+    B1[regression_models]
+    B2[classification_models]
+end
+
+A4 --> B1
+A4 --> B2
+
+subgraph PRED["Predicción"]
+    C1[regression_prediction]
+    C2[classification_prediction]
+end
+
+B1 --> C1
+B2 --> C2
+
+subgraph EVAL["Evaluación de modelos"]
+    D1[regression_evaluation]
+    D2[classification_evaluation]
+end
+
+C1 --> D1
+C2 --> D2
+
+subgraph REP["Reportes"]
+    E1[regression_report]
+    E2[classification_report]
+end
+
+D1 --> E1
+D2 --> E2
 ```
 
-### Arquitectura de Pipelines (Kedro Viz)
+### Kedro Viz
 
 > Haz clic en la imagen para explorar el flujo automatizado del proyecto.
 
@@ -331,66 +386,64 @@ El pipeline `unsupervised_learning` aplica tres transformaciones sobre el datase
 
 ## Airflow 
 
-## Flujos de dags tipos de dag pipelines airflow archivos etc.
-
-
 ## Modelos 
 
-## Variables
+### Target y features de los modelos de regresión
 
--regresion 
-
-| Target        | Descripción      
+| Target variable (y)        | Descripción      
 | --------------|-------------
-| `Value_num`   |  -
+| `Value_num`   |  El valor de mercado estimado del jugador expresado en euros (€).
+
+| Input features (X)           | Descripción      
+| ---------------------------|-------------
+| `Best Overall Rating`      | La calificación general más alta del jugador.
+| `Special`                  | Un valor numérico que representa las habilidades especiales del jugador.
+| `International Reputation` | Una calificación que indica la reputación internacional del jugador.
+| `Reactions`                | Rapidez de respuesta ante jugadas y cambios en el partido.
+| `Potential`                | La calificación potencial que representa el desarrollo futuro del jugador.
+
+**Criterio de selección**
+
+Nos basamos en algunos criterios de graifcos de x...
+
+
+### Target y features de los modelos de clasificación
+
+| Target variable (y)        | Descripción      
+| --------------|-------------
+| `Overall_Class_Bin` **(feature engineer)** |  Clasificación de rendimiento (alto, medio/bajo) de los jugadores
+
 
 | Features            | Descripción      
 | ---------------------------|-------------
-| `Best Overall Rating`      |
-| `Special`                  |
-| `International Reputation` |
-| `Reactions`                |
-| `Potential`                |
-
-
-- class  
-
-| Target        | Descripción      
-| --------------|-------------
-| `Overall_Class_Bin` |  -
-
-| Features            | Descripción      
-| ---------------------------|-------------
-| `Age`                      |
-| `BallControl`              |
-| `Finishing`                |
-| `Dribbling`                |
-| `International Reputation` |
-| `Acceleration`             |
-| `SprintSpeed`              |
-| `ShotPower`                |
-| `Offensive Skills`         |
+| `Age`                      | La edad del jugador en el momento de la recopilación de datos.
+| `BallControl`              | Control del balón al recibirlo y al mantenerlo cerca.
+| `Finishing`                | Capacidad para definir y marcar goles en situaciones de tiro.
+| `Dribbling`                | Control y habilidad en el regate para superar rivales.
+| `International Reputation` |  Una calificación que indica la reputación internacional del jugador.
+| `Acceleration`             | Velocidad con la que el jugador alcanza su máxima carrera.
+| `SprintSpeed`              | Velocidad máxima en carrera larga.
+| `ShotPower`                | Fuerza con la que el jugador ejecuta los tiros.
+| `Offensive Skills`         | Capacidad, técnica o acción diseñada para atacar, dañar, incapacitar o superar a un oponente.
 
 ### Modelos implementados
 
-| Modelo                     | Tipo          
+| Modelo Regresión                     | Modelo Clasificación         
 | -------------------------- | ------------- 
-| **Simple Linear Regression**   | Regresión     
-| **Multiple Linear Regression** | Regresión     
-| **SVR**                        | Regresión     
-| **Decision Tree**              | Regresión     
-| **Random Forest**              | Regresión     
-| **Logistic Regression**        | Clasificación 
-| **KNN**                        | Clasificación 
-| **XGBClassifier**              | Clasificación 
-| **Decision Tree**              | Clasificación 
-| **Random Forest**              | Clasificación 
+| Simple Linear Regression   |Logistic Regression     
+|Multiple Linear Regression |KNN     
+|SVC                        |SVR     
+|Decision Tree Regression             |Decision Tree classification      
+|Random Forest Regression              |Random Forest classification      
 
-## Metricas de evaluación 
 
-### Regresión
+## Resultados de los modelos supervizados 
+### Metricas de evaluación y interpretaciónes
 
-La variable objetivo `Value_num` contiene valores con una gran cantidad de digitos, por lo que los valores de MSE Y RMSE se justifican en este caso.
+### Regresión** falta una metrica y un modelo
+
+La variable objetivo `Value_num` contiene valores con una gran cantidad de digitos, por lo que los valores de MSE Y RMSE se validan en este caso.
+
 
 | Modelo                       | MSE (×10¹²) | RMSE      | R²    |
 | ---------------------------- | ----------- | --------- | ----- |
@@ -399,6 +452,17 @@ La variable objetivo `Value_num` contiene valores con una gran cantidad de digit
 | **Decision_Tree_Regression** | 5.20        | 2,280,996 | 0.875 |
 | **Random_Forest_Regression** | 4.29        | 2,070,606 | 0.897 |
 
+**Mejor modelo obtenido**
+
+| Modelo                  | MSE | MAE | RMSE | R2 |
+| ----------------------- | -------- | --------- | ------ | -------- |
+| **randomforest Regression**       | 4287408515877.631584.9908841846   | 2070605.833054115    | 0.927 | 0.896
+
+- graficos 
+
+- interpretaciónes
+
+- conclusion
 
 ### Clasificación
 
@@ -410,9 +474,18 @@ La variable objetivo `Value_num` contiene valores con una gran cantidad de digit
 | **Random Forest**       | 0.9280   | 0.9270    | 0.9280 | 0.9267   |
 | **SVC**                 | 0.8975   | 0.8955    | 0.8975 | 0.8942   |
 
-## Metricas de evaluación con aprendizaje no supervizado
 
-Se busca que...
+**Mejor Modelo de clasificación**
+
+
+| Modelo                  | Accuracy | Precision | Recall | F1 Score |
+| ----------------------- | -------- | --------- | ------ | -------- |
+| **Random Forest Classification**       | 0.927   | 0.926    | 0.927 | 0.926  
+
+- ds
+
+## Metricas de evaluación modelos semisupervizados
+
 
 ## Comparaciónes o evaluaciones etc
 
@@ -423,6 +496,12 @@ Se busca que...
 --- 
 
 ## Conclusión
+
+- metricas modelos
+
+- parametros 
+
+- etc
 
 ### Cierre
 
@@ -469,10 +548,58 @@ python -m venv venv
 source venv/bin/activate       # Linux/Mac
 venv\Scripts\activate          # Windows
 pip install --upgrade pip
+# Install dependencies
 pip install -r requirements.txt
+
+# Run pipeline
+kedro run
 ```
 
+What Not to Commit
+- .env file
+- docker-compose.override.yml
+- data/ directory contents
+- logs/ directory
+- sessions/ directory
+- IDE-specific files
+- Credentials or secrets
+
+### Crea un nuevo pipeline
+```bash
+# Create new pipeline
+kedro pipeline create my_pipeline
+
+# Implement nodes in src/spaceflights/pipelines/my_pipeline/
+# Run new pipeline
+kedro run --pipeline my_pipeline
+```
 ## Referencias 
 
 
+- Documentación Kedro
 
+https://docs.kedro.org/en/stable/tutorials/spaceflights_tutorial/
+
+- Docuemntación Airflow
+
+https://airflow.apache.org/docs/apache-airflow/stable/installation/index.html
+
+
+**Metodologia CRISP-DM**
+
+- [La metodología CRISP-DM: desarrollo de modelos de machine learning](https://www.mytaskpanel.com/la-metodologia-crisp-dm-desarrollo-de-modelos-de-machine-learning/#:~:text=programas%20de%20retenci%C3%B3n.-,2.,de%20descuento%20ser%C3%ADan%20m%C3%A1s%20efectivas.)	
+
+- [¿Qué es CRISP DM?](https://www.datascience-pm.com/crisp-dm-2/)	
+
+**Semisupervizado**
+
+https://medium.com/academy-team/semi-supervised-learning-the-bridge-between-supervised-and-unsupervised-learning-a4c9942b814b
+
+- Prediction fifa 
+
+https://themukherjee.medium.com/lets-build-a-performance-analysis-prediction-project-fifa-2023-a20aab7ff2e2
+
+
+### Frase motivaciónal
+
+Es mejor haberlo intentado que no haberlo hecho.

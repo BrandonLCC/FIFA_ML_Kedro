@@ -454,7 +454,8 @@ report_random_forest_qq_plot:
 
 
 # ============================
-# Reporte final, comparacion de modelos regresion y clasificacion
+# Reporte final 
+# Comparacion de modelos regresion y clasificacion
 # ============================
 
 # report comparación mejor modelo regresion:
@@ -481,10 +482,6 @@ Reporte_mejor_metrica_modelo_clasificacion:
   filepath: data/08_reporting/report_classification/Reporte_mejor_metrica_modelo_clasificacion.csv
   versioned: true
 
-# model_comparison_report: regresion
-#  type: pickle.PickleDataset
-#  filepath: data/07_model_output/model_comparison_report.pkl
-
 # ============================
 #      UNSUPERVISED
 # ============================
@@ -502,8 +499,7 @@ Reporte_mejor_metrica_modelo_clasificacion:
 # Luego de hacer el pipeline padre unsupervised_learning, configurar el pipeline registry, los submodulos pipelines y sus parameters
 # ahora hay que hacer que las tecnicas de aprendizaje no supervizado afecten nuestro dataset.
 
-# Pipeline Submodulo anomaly_detection.
-
+# Clean_Dataset definido en unsupervised_learning.
 clean_dataset:
   type: pandas.ParquetDataset
   filepath: data/04_feature/clean_dataset.parquet

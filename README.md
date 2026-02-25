@@ -10,21 +10,17 @@
 
 **Docente:** Giocrisrai Godoy Bonillo.
 
-## Contenido 
+## Introducción 
 
-### Descripción del caso del proyecto *
+### Descripción del caso *
 
 *[EA Sports FIFA](https://www.ea.com/es-es/games)*, es una saga de videojuegos de fútbol publicada anualmente por *Electronic Arts* bajo el sello de **EA Sports**, en colaboración con la **FIFA**.
 
-### Necesidad del negocio / Problema *
+### Necesidad del negocio
 
 La empresa busca **replicar la experiencia del fútbol real**, tanto en la gestión de equipos como en la competencia dentro del campo, ofreciendo realismo gracias a sus licencias oficiales de equipos, jugadores y ligas de todo el mundo. Con la reciente transición a EA Sports FC, el objetivo principal sigue siendo simular el deporte del fútbol y permitir a los jugadores disputar partidos o gestionar un club en diversos modos de juego.
 
-Es por eso..
-
-## Datos de FIFA
-
-### Datos obtenidos
+##  Datos obtenidos
 
 El dataset (conjunto de datos) obtenidos para el proyecto es proveniente de [kaggle](https://www.kaggle.com/) en la que se obtuvieron los datasets de FIFA20 hasta FIFA23. En este proyecto se descartaron el uso de los datos de años anteriores al FIFA20.
 
@@ -42,7 +38,11 @@ El objetivo principal del proyecto es desarrollar e integrar en un sistema funci
 
 ### Objetivos de Machine Learning *
 
-La premisa central del machine learning (ML) es que si se optimiza el rendimiento de un modelo en un conjunto de datos de tareas que se asemejan adecuadamente a los problemas del mundo real para los que se usará, a través de un proceso llamado entrenamiento de modelos, el modelo puede hacer predicciones precisas sobre los nuevos datos que ve en su caso de uso final. [ML](https://www.ibm.com/mx-es/think/topics/machine-learning)	
+**Aprendizaje semisupervisado** *
+
+Mejorar los modelos de supervizados utiliando aprendizaje no supervizado para obtener resultados mas preciso para el negocio..
+
+
 
 
 **Aprendizaje semisupervisado**
@@ -178,7 +178,7 @@ Se aplican las seis fases de CRISP-DM. A continuación se detallan cada fase y l
 
 ---
 
-**Notebooks:**
+**Notebooks**
 
 - [Business Understanding](notebooks/01_Business_Understanding.ipynb)
 - [Data Understanding](notebooks/02_Data_Understanding.ipynb)
@@ -299,10 +299,10 @@ Se recomienda dividir este pipeline en varios pipelines más pequeños y especia
 |  **anomaly_detection** (submódulo) | Identificación y tratamiento de valores atípicos para mejorar la calidad y estabilidad del dataset. |
 | **clustering** (submódulo) | Segmentación de los datos en grupos homogéneos para generar nuevas características (por ejemplo, etiquetas de cluster). |
 | **dimensionality_reduction** (submódulo) | Reducción de la dimensionalidad del dataset mediante técnicas como PCA, generando un dataset optimizado para el modelado. |
-| **regression_models** | Entrenamiento y evaluación de modelos de regresión utilizando métricas apropiadas (por ejemplo, MAE, RMSE y R²). |
-| **classification_models** | Entrenamiento y evaluación de modelos de clasificación utilizando métricas como accuracy, precision, recall y F1-score. |
-| **pipelines_prediction** | - |
-| **pipelines_evaluation** | - |
+| **regression_models** | Entrena distintos modelos de regresión usando los datos procesados. Estos modelos se utilizan para predecir valores numéricos continuos.  |
+| **classification_models** | Entrena distintos modelos  de clasificación usando los datos procesados. Estos modelos se utilizan para predecir categorías o clases.|
+| **pipelines_prediction** | Pipeline encargado de generar predicciones utilizando los modelos entrenados y el conjunto de prueba (X_test). Produce como salida los vectores de predicción que serán utilizados en las etapas de evaluación y generación de reportes. |
+| **pipelines_evaluation** | Evaluación cuantitativa del desempeño de los modelos de regresión y clasificación mediante métricas apropiadas para cada tipo de problema. Para regresión: MAE, RMSE y R². Para clasificación: Accuracy, Precision, Recall y F1-score. Genera resultados comparativos estructurados para análisis posterior. |
 | **regression_report** | Generación de visualizaciones y análisis de desempeño de los modelos de regresión. |
 | **classification_report** | Generación de visualizaciones y análisis de desempeño de los modelos de clasificación. |
 
@@ -555,7 +555,7 @@ pip install -r requirements.txt
 kedro run
 ```
 
-What Not to Commit
+### Que no subir al repositorio 
 - .env file
 - docker-compose.override.yml
 - data/ directory contents
@@ -574,6 +574,29 @@ kedro pipeline create my_pipeline
 kedro run --pipeline my_pipeline
 ```
 ## Referencias 
+
+**Kedro**
+
+- [Documentación Kedro](https://docs.kedro.org/en/stable/tutorials/spaceflights_tutorial/)	
+
+**Airflow**
+
+- [Documentación Airflow](https://airflow.apache.org/docs/apache-airflow/stable/installation/index.html)	
+
+**Metodologia CRISP-DM**
+
+- [La metodología CRISP-DM: desarrollo de modelos de machine learning](https://www.mytaskpanel.com/la-metodologia-crisp-dm-desarrollo-de-modelos-de-machine-learning/#:~:text=programas%20de%20retenci%C3%B3n.-,2.,de%20descuento%20ser%C3%ADan%20m%C3%A1s%20efectivas.)	
+
+- [¿Qué es CRISP DM?](https://www.datascience-pm.com/crisp-dm-2/)	
+
+**Semisupervizado**
+
+- [Semisupervizado](https://medium.com/academy-team/semi-supervised-learning-the-bridge-between-supervised-and-unsupervised-learning-a4c9942b814b)	
+
+
+**Otras referencias**
+
+- [Prediction fifa ](https://themukherjee.medium.com/lets-build-a-performance-analysis-prediction-project-fifa-2023-a20aab7ff2e2)	
 
 
 - Documentación Kedro

@@ -44,6 +44,13 @@ Mejorar los modelos de supervizados utiliando aprendizaje no supervizado para ob
 
 
 
+
+**Aprendizaje semisupervisado**
+
+Mejorar los modelos de supervizados utiliando aprendizaje no supervizado
+
+
+
 ---
 <!-- TEXTO README hecho por el colaborador
      
@@ -592,4 +599,30 @@ kedro run --pipeline my_pipeline
 - [Prediction fifa ](https://themukherjee.medium.com/lets-build-a-performance-analysis-prediction-project-fifa-2023-a20aab7ff2e2)	
 
 
+- Documentación Kedro
 
+https://docs.kedro.org/en/stable/tutorials/spaceflights_tutorial/
+
+- Docuemntación Airflow
+
+https://airflow.apache.org/docs/apache-airflow/stable/installation/index.html
+
+
+**Metodologia CRISP-DM**
+
+- [La metodología CRISP-DM: desarrollo de modelos de machine learning](https://www.mytaskpanel.com/la-metodologia-crisp-dm-desarrollo-de-modelos-de-machine-learning/#:~:text=programas%20de%20retenci%C3%B3n.-,2.,de%20descuento%20ser%C3%ADan%20m%C3%A1s%20efectivas.)	
+
+- [¿Qué es CRISP DM?](https://www.datascience-pm.com/crisp-dm-2/)	
+
+**Semisupervizado**
+
+https://medium.com/academy-team/semi-supervised-learning-the-bridge-between-supervised-and-unsupervised-learning-a4c9942b814b
+
+- Prediction fifa 
+
+https://themukherjee.medium.com/lets-build-a-performance-analysis-prediction-project-fifa-2023-a20aab7ff2e2
+
+
+### Frase motivaciónal
+
+Es mejor haberlo intentado que no haberlo hecho.

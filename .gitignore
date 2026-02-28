@@ -201,3 +201,6 @@ airflow.cfg
  
 # agregar si es neceasrio
 start.sh
+
+# Ignorar archivos de configuración de IDEs
+.vscode/

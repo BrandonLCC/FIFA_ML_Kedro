@@ -51,6 +51,13 @@ Mejorar los modelos de supervizados utiliando aprendizaje no supervizado
 
 
 
+
+**Aprendizaje semisupervisado**
+
+Mejorar los modelos de supervizados utiliando aprendizaje no supervizado
+
+
+
 ---
 <!-- TEXTO README hecho por el colaborador
      
@@ -593,6 +600,7 @@ kedro run --pipeline my_pipeline
 
 - [Semisupervizado](https://medium.com/academy-team/semi-supervised-learning-the-bridge-between-supervised-and-unsupervised-learning-a4c9942b814b)	
 
+- Documentación Kedro
 
 **Otras referencias**
 

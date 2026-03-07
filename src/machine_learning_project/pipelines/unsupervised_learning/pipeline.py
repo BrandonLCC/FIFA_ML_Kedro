@@ -111,10 +111,10 @@ def create_pipeline(**kwargs) -> Pipeline:
     # Crear sub-pipelines
     pca = pca_pipeline()
     clustering = clustering_pipeline()
-    anomalies = anomaly_pipeline()
+    # anomalies = anomaly_pipeline()
 
     # Union de sub pipelines
-    full_unsupervised = pca + clustering + anomalies
+    full_unsupervised = pca + clustering # + anomalies
 
     # Nodo final que combina todo
     final_node = node(
@@ -122,7 +122,7 @@ def create_pipeline(**kwargs) -> Pipeline:
         inputs=[
             "pca_output", 
             "clustered_data",          
-            "datos_limpios_sin_anomalias"   
+            #"datos_limpios_sin_anomalias"   
         ],
         outputs="clean_dataset",
         name="combine_unsupervised_outputs_node"
@@ -130,3 +130,4 @@ def create_pipeline(**kwargs) -> Pipeline:
 
     return pipeline([full_unsupervised, final_node])
  
+ # (Faltan modificar cosas para desactivar el pipeline de deteccion de anomalias.)

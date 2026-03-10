@@ -3,21 +3,36 @@ This is a boilerplate pipeline 'unsupervised_learning'
 generated using Kedro 1.0.0
 
 """
+import pandas as pd
 
-def combine_unsupervised_outputs(pca_data, clustered_data, datos_limpios_sin_anomalias):
-    """
-    Combina los resultados de PCA, clustering y anomaly detection
-    para formar un dataset final.
-    """
-    # clustered_data ya incluye las columnas originales + cluster
-    df = clustered_data.copy()
+# Función para combinar los resultados de PCA con el dataset original
+# Para que el clustering y la detección de anomalías puedan usar tanto las características originales como las componentes PCA.
+# Se puede usar solo los componentes, pero en mi caso usaremos tanto componentes, como caracteristicas.
+def merge_dimensionality_with_dataset(imput_table: pd.DataFrame, pca_output: pd.DataFrame) -> pd.DataFrame:
+    
+    # Asegurar mismo índice
+    pca_output = pca_output.set_index(imput_table.index)
 
-    # Agregar componentes PCA
-    for col in pca_data.columns:
-        df[col] = pca_data[col]
+    dataset_with_components = pd.concat(
+        [imput_table, pca_output],
+        axis=1
+    )
 
-    # Filtrar anomalías (clean_data viene filtrado desde el submódulo)
-    df = df[df.index.isin(datos_limpios_sin_anomalias.index)]
+    return dataset_with_components
 
-    return df
- 
+
+def dataset_for_clustering(pca_output: pd.DataFrame) -> pd.DataFrame:
+    
+    clustering_dataset = pca_output.copy()
+
+    return clustering_dataset
+
+
+def merge_clusters_with_dataset(
+    dataset_with_pca: pd.DataFrame,clustered_dataset: pd.DataFrame ) -> pd.DataFrame:
+
+    result = dataset_with_pca.copy()
+
+    result["cluster_id"] = clustered_dataset["cluster_id"]
+
+    return result

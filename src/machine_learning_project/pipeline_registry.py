@@ -61,7 +61,6 @@ from machine_learning_project.pipelines.data_processing import pipeline as de_pi
 
 from machine_learning_project.pipelines.unsupervised_learning.dimensionality_reduction import pipeline as dimred_pipeline
 from machine_learning_project.pipelines.unsupervised_learning.clustering import pipeline as clust_pipeline
-from machine_learning_project.pipelines.unsupervised_learning.anomaly_detection import pipeline as anom_pipeline
 
 from machine_learning_project.pipelines.regression_models import pipeline as reg_pipeline
 from machine_learning_project.pipelines.classification_models import pipeline as class_pipeline
@@ -80,7 +79,6 @@ def register_pipelines() -> dict[str, Pipeline]:
         "data_processing": de_pipeline.create_pipeline(),
         "dimensionality_reduction": dimred_pipeline.create_pipeline(),
         "clustering": clust_pipeline.create_pipeline(),
-        "anomaly_detection": anom_pipeline.create_pipeline(),
         "regression_models": reg_pipeline.create_pipeline(),
         "classification_models": class_pipeline.create_pipeline(),
         "regression_prediction": reg_pred_pipeline.create_pipeline(),
@@ -95,7 +93,6 @@ def register_pipelines() -> dict[str, Pipeline]:
     pipelines["unsupervised_learning"] = (
         pipelines["dimensionality_reduction"]
         + pipelines["clustering"]
-        + pipelines["anomaly_detection"]
     )
 
     # Pipeline master end-to-end

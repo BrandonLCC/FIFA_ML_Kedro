@@ -493,38 +493,47 @@ Reporte_mejor_metrica_modelo_clasificacion:
 #  ============================
 # Estas tecnicas no supervizadas se aplicaran en el dataset de entrada
 # model_input_table, y generaran 3 nuevos datasets 
-# clean_dataset > clustered_dataset y unsupervised_processed_dataset. En la que esta ultima sera la nueva base para los modelos supervisados .
+# dataset_for_clustering > clustered_dataset y unsupervised_processed_dataset. En la que esta ultima sera la nueva base para los modelos supervisados .
 # ============================
 
 # Luego de hacer el pipeline padre unsupervised_learning, configurar el pipeline registry, los submodulos pipelines y sus parameters
 # ahora hay que hacer que las tecnicas de aprendizaje no supervizado afecten nuestro dataset.
 
-# Clean_Dataset definido en unsupervised_learning.
-clean_dataset:
-  type: pandas.ParquetDataset
-  filepath: data/04_feature/clean_dataset.parquet
 
-# Ver las salidas de los clusters y reduccion 
-
-# Pipeline Submodulo clustering.
-
-clustered_dataset:
-  type: pandas.ParquetDataset
-  filepath: data/04_feature/clustered_dataset.parquet
-
-clustered_unsupervised_processed_dataset:
-  type: pandas.ParquetDataset
-  filepath: data/04_feature/clustered_unsupervised_processed_dataset.parquet    
-
-# Pipeline Submodulo dimensionality_reduction.
+# Pipeline Submodulo: dimensionality_reduction.
 
 pca_output:
   type: pandas.ParquetDataset
   filepath: data/04_feature/pca_output.parquet  
 
-unsupervised_processed_dataset:
+umap_dataset:
   type: pandas.ParquetDataset
-  filepath: data/04_feature/unsupervised_processed_dataset.parquet
+  filepath: data/04_feature/umap_dataset.parquet
+
+# pipeline padre: salida de la funcion que fusiona
+# model imput table + PCA para clustering
+
+model_imput_table_with_pca:
+  type: pandas.ParquetDataset
+  filepath: data/04_feature/model_imput_table_with_pca.parquet
+
+# pipeline padre: salida de 
+
+dataset_for_clustering:
+  type: pandas.ParquetDataset
+  filepath: data/04_feature/dataset_for_clustering.parquet
+
+# pipeline submodulo que genera el dataset con los mejores clusters, que se fusionara con el dataset de PCA para generar el dataset final de entrada para los modelos supervisados.
+
+dataset_with_best_clusters:
+  type: pandas.ParquetDataset
+  filepath: data/04_feature/dataset_with_best_clusters.parquet
+
+# Reduccion con PCA + el mejor clustering junto con model imput table.
+
+reduccion_clustering_dataset_final:
+  type: pandas.ParquetDataset
+  filepath: data/04_feature/reduccion_clustering_dataset_final.parquet  
 
 
 # regression_dvc_paths:

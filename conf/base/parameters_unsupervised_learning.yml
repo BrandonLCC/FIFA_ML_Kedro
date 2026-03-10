@@ -1,10 +1,10 @@
 dimensionality_reduction:
-  pca_n_components: 5
-  tsne_umap_method: "tsne"   # o "umap"
-  tsne_umap_n_components: 2
-  tsne_umap_random_state: 42 
+  pca_n_components: 14 # OK 
+  umap_method: "umap"  # OK 
+  umap_n_components: 2 # NOK, pero no se usara 
+  umap_random_state: 42   # menos
 
-clustering:
+clustering: # nook
   kmeans:
     n_clusters: 4
     random_state: 42
@@ -16,5 +16,3 @@ clustering:
     linkage: "ward"
           # número de clusters
           
-anomaly:
-  contamination: 0.02      # % de anomalías a eliminar

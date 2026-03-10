@@ -10,11 +10,13 @@ submodulos de pipeline
 -- Tomar en cuenta para configurar el pipeline -- 
 
 1. Crear y configurar los submodulos (pipelines) manualmente (_init_.py, nodes.py y pipeline.py) - ok
-2. Realizar las configuraciónes en catalog y los parametros etc
+2. Realizar las configuraciónes en catalog y los parametros etc - ok
 3. modificar y Conectar los pipelines en pipeline_registry.py - ok
 4. El consejo que dio el profesor en clases. 
    
-   Re-entrenar los modelos supervisados usando datos transformados por los pipelines no supervisados.
+   Re-entrenar los modelos supervisados usando datos transformados por los pipelines no supervisados. (Confirmado y bien hecho: 09/03/2026)
+
+    Flujo: correcto 
 
     raw_data
     ↓
@@ -93,41 +95,49 @@ Flujo casi exacto del los pipelines
 RAW → INTERMEDIATE → PRIMARY → FEATURE
     → UNSUPERVISED → CLEAN_DATASET → MODEL_INPUT
     → TRAIN_SUPERVISED → MODEL_OUTPUT
-
-    
-
-
-
 """
 
 from kedro.pipeline import Pipeline, node, pipeline
 
-from .nodes import combine_unsupervised_outputs
+from .nodes import dataset_for_clustering, merge_dimensionality_with_dataset, merge_clusters_with_dataset
 from .dimensionality_reduction.pipeline import create_pipeline as pca_pipeline
 from .clustering.pipeline import create_pipeline as clustering_pipeline
-from .anomaly_detection.pipeline import create_pipeline as anomaly_pipeline
 
 def create_pipeline(**kwargs) -> Pipeline:
-    # Crear sub-pipelines
     pca = pca_pipeline()
+
+    prepare_nodes = [
+        node(
+            func=merge_dimensionality_with_dataset,
+            inputs=["model_imput_table", "pca_output"],
+            outputs="model_imput_table_with_pca",
+            name="merge_dimensionality_node"
+        ),
+
+        node(
+            # cuidado con esta funsion, verificar para no confidirte 
+            func=dataset_for_clustering, # funcion no hace mucho y se puede modificar para que no sea solo PCA
+            inputs="model_imput_table_with_pca",
+            outputs="dataset_for_clustering",
+            name="prepare_clustering_dataset_node"
+        ),
+        node(
+            func=merge_clusters_with_dataset,
+            inputs=[
+                "model_imput_table_with_pca", # pca y modelo imput
+                "dataset_with_best_clusters" # clusteres 
+            ],
+            outputs="reduccion_clustering_dataset_final", # componentes + clusteres + model imput
+            name="merge_clusters_dataset_node"
+        ),
+    ]
+
     clustering = clustering_pipeline()
-    # anomalies = anomaly_pipeline()
 
-    # Union de sub pipelines
-    full_unsupervised = pca + clustering # + anomalies
-
-    # Nodo final que combina todo
-    final_node = node(
-        func=combine_unsupervised_outputs,
-        inputs=[
-            "pca_output", 
-            "clustered_data",          
-            #"datos_limpios_sin_anomalias"   
-        ],
-        outputs="clean_dataset",
-        name="combine_unsupervised_outputs_node"
-    )
-
-    return pipeline([full_unsupervised, final_node])
+    return pipeline([
+        pca,
+        *prepare_nodes,
+        clustering
+    ])
  
  # (Faltan modificar cosas para desactivar el pipeline de deteccion de anomalias.)

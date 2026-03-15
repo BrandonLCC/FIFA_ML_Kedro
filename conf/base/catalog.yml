@@ -511,29 +511,23 @@ umap_dataset:
   filepath: data/04_feature/umap_dataset.parquet
 
 # pipeline padre: salida de la funcion que fusiona
-# model imput table + PCA para clustering
+# model input table + PCA para clustering
 
-model_imput_table_with_pca:
+model_input_table_with_pca:
   type: pandas.ParquetDataset
-  filepath: data/04_feature/model_imput_table_with_pca.parquet
-
-# pipeline padre: salida de 
-
-dataset_for_clustering:
-  type: pandas.ParquetDataset
-  filepath: data/04_feature/dataset_for_clustering.parquet
+  filepath: data/04_feature/model_input_table_with_pca.parquet
 
 # pipeline submodulo que genera el dataset con los mejores clusters, que se fusionara con el dataset de PCA para generar el dataset final de entrada para los modelos supervisados.
 
-dataset_with_best_clusters:
+model_input_PCA_and_best_clusters:
   type: pandas.ParquetDataset
-  filepath: data/04_feature/dataset_with_best_clusters.parquet
+  filepath: data/04_feature/model_input_PCA_and_best_clusters.parquet
 
 # Reduccion con PCA + el mejor clustering junto con model imput table.
 
-reduccion_clustering_dataset_final:
-  type: pandas.ParquetDataset
-  filepath: data/04_feature/reduccion_clustering_dataset_final.parquet  
+#reduccion_clustering_dataset_final:
+#  type: pandas.ParquetDataset
+#  filepath: data/04_feature/reduccion_clustering_dataset_final.parquet  
 
 
 # regression_dvc_paths:

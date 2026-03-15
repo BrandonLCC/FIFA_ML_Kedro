@@ -4,6 +4,8 @@ import pandas as pd
 from sklearn.cluster import KMeans, DBSCAN, AgglomerativeClustering
 from sklearn.metrics import silhouette_score
 
+
+
 def kmeans_clustering(dataset: pd.DataFrame, params: dict) -> pd.DataFrame:
     """
     Aplica KMeans clustering al dataset.

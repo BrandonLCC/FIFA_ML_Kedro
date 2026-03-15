@@ -20,19 +20,19 @@ def create_pipeline(**kwargs) -> Pipeline:
 
         node(
             func=kmeans_clustering,
-            inputs=["dataset_for_clustering", "params:clustering.kmeans"],
+            inputs=["model_input_table_with_pca", "params:clustering.kmeans"],
             outputs="kmeans_clusters",
             name="kmeans_clustering_node"
         ),
         node(
             func=dbscan_clustering,
-            inputs=["dataset_for_clustering", "params:clustering.dbscan"],
+            inputs=["model_input_table_with_pca", "params:clustering.dbscan"],
             outputs="dbscan_clusters",
             name="dbscan_clustering_node"
         ),
         node(
             func=hierarchical_clustering,
-            inputs=["dataset_for_clustering", "params:clustering.hierarchical"],
+            inputs=["model_input_table_with_pca", "params:clustering.hierarchical"],
             outputs="hierarchical_clusters",
             name="hierarchical_clustering_node"
         ),
@@ -44,7 +44,7 @@ def create_pipeline(**kwargs) -> Pipeline:
                 "dbscan_clusters",
                 "hierarchical_clusters"
             ],
-            outputs="dataset_with_best_clusters",
+            outputs="model_input_PCA_and_best_clusters",
             name="select_best_cluster_node"
         )
 

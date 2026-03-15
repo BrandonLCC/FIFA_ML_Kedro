@@ -99,7 +99,7 @@ RAW → INTERMEDIATE → PRIMARY → FEATURE
 
 from kedro.pipeline import Pipeline, node, pipeline
 
-from .nodes import dataset_for_clustering, merge_dimensionality_with_dataset, merge_clusters_with_dataset
+from .nodes import merge_dimensionality_with_dataset
 from .dimensionality_reduction.pipeline import create_pipeline as pca_pipeline
 from .clustering.pipeline import create_pipeline as clustering_pipeline
 
@@ -109,35 +109,39 @@ def create_pipeline(**kwargs) -> Pipeline:
     prepare_nodes = [
         node(
             func=merge_dimensionality_with_dataset,
-            inputs=["model_imput_table", "pca_output"],
-            outputs="model_imput_table_with_pca",
+            inputs=["model_input_table", "pca_output"],
+            outputs="model_input_table_with_pca",
             name="merge_dimensionality_node"
         ),
+        #node(
+        #    # cuidado con esta funsion, verificar para no confidirte 
+        #    func=func_dataset_for_clustering, # funcion no hace mucho y se puede modificar para que no sea solo PCA
+        #    inputs="model_input_table_with_pca",
+        #    outputs="dataset_for_clustering",
+        #    name="prepare_clustering_dataset_node"
+        #),
 
-        node(
-            # cuidado con esta funsion, verificar para no confidirte 
-            func=dataset_for_clustering, # funcion no hace mucho y se puede modificar para que no sea solo PCA
-            inputs="model_imput_table_with_pca",
-            outputs="dataset_for_clustering",
-            name="prepare_clustering_dataset_node"
-        ),
-        node(
-            func=merge_clusters_with_dataset,
-            inputs=[
-                "model_imput_table_with_pca", # pca y modelo imput
-                "dataset_with_best_clusters" # clusteres 
-            ],
-            outputs="reduccion_clustering_dataset_final", # componentes + clusteres + model imput
-            name="merge_clusters_dataset_node"
-        ),
+        # No se usara esta funcion ya que el submodulo de clustering 
+        # Ya realiza la integracion de los clusteres con el dataset limpio, por lo que no es necesario hacer una funcion adicional para esto.
+
+        #node(
+        #    func=merge_clusters_with_dataset,
+        #    inputs=[
+        #        "model_input_table_with_pca", # pca y modelo imput
+        #        "dataset_with_best_clusters" # clusteres 
+        #    ],
+        #    outputs="reduccion_clustering_dataset_final", # componentes + clusteres + model imput
+        #
+        #    name="merge_clusters_dataset_node"
+        #),
     ]
 
     clustering = clustering_pipeline()
 
     return pipeline([
         pca,
-        *prepare_nodes,
-        clustering
-    ])
+        prepare_nodes[0],   # merge_dimensionality_node
+        clustering,
+])
  
  # (Faltan modificar cosas para desactivar el pipeline de deteccion de anomalias.)

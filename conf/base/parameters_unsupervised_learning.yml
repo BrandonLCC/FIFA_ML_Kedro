@@ -1,18 +1,18 @@
 dimensionality_reduction:
-  pca_n_components: 14 # OK 
-  umap_method: "umap"  # OK 
-  umap_n_components: 2 # NOK, pero no se usara 
-  umap_random_state: 42   # menos
+  pca_n_components: 14 
+  umap_method: "umap"   
+  umap_n_components: 2 
+  umap_random_state: 42  
 
-clustering: # nook
+clustering: 
   kmeans:
-    n_clusters: 4
+    n_clusters: 5
     random_state: 42
   dbscan:
-    eps: 0.5
-    min_samples: 5
+    eps: 2
+    min_samples: 1
   hierarchical:
-    n_clusters: 4
+    n_clusters: 5
+    affinity: "euclidean"
     linkage: "ward"
-          # número de clusters
           

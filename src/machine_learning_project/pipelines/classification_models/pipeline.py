@@ -17,7 +17,8 @@ def create_pipeline(**kwargs) -> Pipeline:
 
         Node(
             func=division_datos_test_train, # Como entrada de dataaset, ver si usamo model_input_table o clustered_data o clean_dataset o otros.
-            inputs=["model_input_table", "params:model_options_classification"], # <-- En parameter Models_option es de regresion
+            # MODIFICADO 
+            inputs=["model_input_PCA_and_best_clusters", "params:model_options_classification"], # <-- En parameter Models_option es de regresion
                                                                 
                                                                 # <-- Deberia ser de model_options_classification de parameters de clasificacion
                                                                 # Ojo, no usar todavia las entradas no supervizados, entender el porque             

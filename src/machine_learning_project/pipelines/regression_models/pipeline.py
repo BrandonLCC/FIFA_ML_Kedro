@@ -13,8 +13,9 @@ def create_pipeline(**kwargs) -> Pipeline:
         [
              # División de datos
         Node(
-            func=division_datos_test_train,                               # Como entrada de dataaset, ver si usamo model_input_table o clustered_data o clean_dataset o otros.
-            inputs=["model_input_table", "params:model_options_regression"], #<-- Cambiando antes model_option (ver si )
+            func=division_datos_test_train,
+            # Modificado: la primera entrada no olvides que era model_input_table (algo basico)                                                              # Como entrada de dataaset, ver si usamo model_input_table o clustered_data o clean_dataset o otros.
+            inputs=["model_input_PCA_and_best_clusters", "params:model_options_regression"], #<-- Cambiando antes model_option (ver si )
                                                                           #< --- Ahora: model_options_regression
                                                                           # Buscando solucionar Error: Metricas malas en modelos de clasificacion
 

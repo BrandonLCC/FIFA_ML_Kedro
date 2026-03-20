@@ -27,30 +27,30 @@ def create_pipeline(**kwargs) -> Pipeline:
         ),              
 
         # Entrenamiento GridSearch
-        Node(
-            func=entrenar_modelo_linear_cv,
-            inputs=["X_train_regression", "y_train_regression", "params:_linear_param_grid"],
-            outputs="grid_linear_model",
-            name="grid_linear_model_node"
-        ),
-        Node(
-            func=entrenar_linear_multiple_cv,
-            inputs=["X_train_regression", "y_train_regression", "params:_linear_param_grid"],
-            outputs="grid_linear_multiple_model",
-            name="grid_linear_multiple_model_node"
-        ),
-        Node(
-            func=entrenar_svr_cv,
-            inputs=["X_train_regression", "y_train_regression", "params:_svr_param_grid"],
-            outputs="grid_svr_model",
-            name="entrenar_svr_cv_node"
-        ),
-        Node(
-            func=entrenar_dt_grid,
-            inputs=["X_train_regression", "y_train_regression", "params:_dt_param_grid"],
-            outputs="grid_decision_tree_model",
-            name="grid_decision_tree_model_node"
-        ),
+        #Node(
+        #    func=entrenar_modelo_linear_cv,
+        #    inputs=["X_train_regression", "y_train_regression", "params:_linear_param_grid"],
+        #    outputs="grid_linear_model",
+        #    name="grid_linear_model_node"
+        #),
+        #Node(
+        #    func=entrenar_linear_multiple_cv,
+        #    inputs=["X_train_regression", "y_train_regression", "params:_linear_param_grid"],
+        #    outputs="grid_linear_multiple_model",
+        #    name="grid_linear_multiple_model_node"
+        #),
+        #Node(
+        #    func=entrenar_svr_cv,
+        #    inputs=["X_train_regression", "y_train_regression", "params:_svr_param_grid"],
+        #    outputs="grid_svr_model",
+        #    name="entrenar_svr_cv_node"
+        #),
+        #Node(
+        #    func=entrenar_dt_grid,
+        #    inputs=["X_train_regression", "y_train_regression", "params:_dt_param_grid"],
+        #    outputs="grid_decision_tree_model",
+        #    name="grid_decision_tree_model_node"
+        #),
 
         Node(
             func=entrenar_random_forest_cv,

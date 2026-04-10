@@ -43,21 +43,6 @@ El objetivo principal del proyecto es desarrollar e integrar en un sistema funci
 Mejorar los modelos de supervizados utiliando aprendizaje no supervizado para obtener resultados mas preciso para el negocio..
 
 
-
-
-**Aprendizaje semisupervisado**
-
-Mejorar los modelos de supervizados utiliando aprendizaje no supervizado
-
-
-
-
-**Aprendizaje semisupervisado**
-
-Mejorar los modelos de supervizados utiliando aprendizaje no supervizado
-
-
-
 ---
 <!-- TEXTO README hecho por el colaborador
      
@@ -281,7 +266,7 @@ Mira en [Architecture](docs/architecture.md) para mas información.
 
 ## Documentación
 
-Algunos documentos no menciónados seran modificados o borrados.
+Algunos documentos no menciónados seran modificados o borrados. Los documentos no incluyen buenas practicas como principiante en el uso estas herramientas.
 
 | Documentos                     | Descripción          
 | -------------------------- | ------------- 
@@ -314,17 +299,9 @@ Se recomienda dividir este pipeline en varios pipelines más pequeños y especia
 | **classification_report** | Generación de visualizaciones y análisis de desempeño de los modelos de clasificación. |
 
 
-### Arquitectura pipelines  ** (actualizar la arquitec)
-
-aprendizaje semisupervisado
-se aplicara la semisuperivzado porque ...
-
-https://medium.com/academy-team/semi-supervised-learning-the-bridge-between-supervised-and-unsupervised-learning-a4c9942b814b
-
+### Arquitectura pipelines  ** 
 
 El pipeline `unsupervised_learning` aplica tres transformaciones sobre el dataset base para generar un conjunto de datos enriquecido, el cual posteriormente es utilizado por modelos de aprendizaje supervisado para tareas de predicción.
-
-
 
 
 ```mermaid
@@ -334,21 +311,28 @@ subgraph PD["Procesamiento de datos"]
     A0[data_processing]
 end
 
+
+
+
 subgraph UNS["Aprendizaje no supervisado"]
     A[unsupervised_learning]
-    A1[anomaly_detection]
+    A1[dimensionality_reduction]
     A2[clustering]
-    A3[dimensionality_reduction]
-    A4[dataset_clean]
 
-    A --> A1
-    A --> A2
-    A --> A3
 
-    A1 --> A4
-    A2 --> A4
-    A3 --> A4
+    A --> A1 --> A2
+
+    
+
 end
+
+
+
+A2 --> A4
+
+
+A4[Dataset: model_input_PCA_and_best_clusters]
+
 
 A0 --> A
 
@@ -385,11 +369,23 @@ D1 --> E1
 D2 --> E2
 ```
 
+Para mas información: [¿Qué es el aprendizaje semisupervizado?](https://medium.com/academy-team/semi-supervised-learning-the-bridge-between-supervised-and-unsupervised-learning-a4c9942b814b)
+
 ### Kedro Viz
 
 > Haz clic en la imagen para explorar el flujo automatizado del proyecto.
 
-![Kedro Pipeline Viz](https://raw.githubusercontent.com/BrandonLCC/FIFA_ML_Kedro/main/img/kedro-pipeline-viz.svg)
+Version solo con modelos supervizados 
+
+![Kedro Pipeline Viz](https://raw.githubusercontent.com/BrandonLCC/FIFA_ML_Kedro/main/img/kedro-pipeline-before-supervised.svg)
+
+Version completa: Flujo completo pipelines (Todos los modelos supervizados y no supervizados)
+
+![Kedro Pipeline Viz](https://raw.githubusercontent.com/BrandonLCC/FIFA_ML_Kedro/main/img/kedro-pipeline-full-version-viz.svg)
+
+Version seleccion de los mejores modelos de clas y reg con nosupervized
+
+![Kedro Pipeline Viz](https://raw.githubusercontent.com/BrandonLCC/FIFA_ML_Kedro/main/img/Kedro-pipeline-unsupervised-Supervised.svg)
 
 ## Airflow 
 

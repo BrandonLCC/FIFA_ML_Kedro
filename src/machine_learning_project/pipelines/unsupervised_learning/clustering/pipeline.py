@@ -1,4 +1,4 @@
-from kedro.pipeline import Pipeline, node, pipeline
+from kedro.pipeline import Pipeline, Node, pipeline
 from .nodes import (
     kmeans_clustering,
     dbscan_clustering,
@@ -18,26 +18,26 @@ def create_pipeline(**kwargs) -> Pipeline:
         # del dataset limpio, por lo que el input de los nodos de clustering sera el dataset limpio 
         # con las nuevas características de reduccion de dimensionalidad.
 
-        node(
+        Node(
             func=kmeans_clustering,
             inputs=["model_input_table_with_pca", "params:clustering.kmeans"],
             outputs="kmeans_clusters",
             name="kmeans_clustering_node"
         ),
-        node(
+        Node(
             func=dbscan_clustering,
             inputs=["model_input_table_with_pca", "params:clustering.dbscan"],
             outputs="dbscan_clusters",
             name="dbscan_clustering_node"
         ),
-        node(
+        Node(
             func=hierarchical_clustering,
             inputs=["model_input_table_with_pca", "params:clustering.hierarchical"],
             outputs="hierarchical_clusters",
             name="hierarchical_clustering_node"
         ),
         #Funcion: selecciona el mejor clustering 
-        node(
+        Node(
             func=select_best_cluster,
             inputs=[
                 "kmeans_clusters",

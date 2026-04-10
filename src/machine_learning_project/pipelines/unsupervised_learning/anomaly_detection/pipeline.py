@@ -1,4 +1,4 @@
-from kedro.pipeline import Pipeline, node, pipeline
+from kedro.pipeline import Pipeline, Node, pipeline
 from .nodes import detectar_anomalias
 
 def create_pipeline(**kwargs):

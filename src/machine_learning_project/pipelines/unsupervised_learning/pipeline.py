@@ -97,7 +97,7 @@ RAW → INTERMEDIATE → PRIMARY → FEATURE
     → TRAIN_SUPERVISED → MODEL_OUTPUT
 """
 
-from kedro.pipeline import Pipeline, node, pipeline
+from kedro.pipeline import Pipeline, Node, pipeline
 
 from .nodes import merge_dimensionality_with_dataset
 from .dimensionality_reduction.pipeline import create_pipeline as pca_pipeline
@@ -107,13 +107,13 @@ def create_pipeline(**kwargs) -> Pipeline:
     pca = pca_pipeline()
 
     prepare_nodes = [
-        node(
+        Node(
             func=merge_dimensionality_with_dataset,
             inputs=["model_input_table", "pca_output"],
             outputs="model_input_table_with_pca",
             name="merge_dimensionality_node"
         ),
-        #node(
+        #Node(
         #    # cuidado con esta funsion, verificar para no confidirte 
         #    func=func_dataset_for_clustering, # funcion no hace mucho y se puede modificar para que no sea solo PCA
         #    inputs="model_input_table_with_pca",
@@ -124,7 +124,7 @@ def create_pipeline(**kwargs) -> Pipeline:
         # No se usara esta funcion ya que el submodulo de clustering 
         # Ya realiza la integracion de los clusteres con el dataset limpio, por lo que no es necesario hacer una funcion adicional para esto.
 
-        #node(
+        #Node(
         #    func=merge_clusters_with_dataset,
         #    inputs=[
         #        "model_input_table_with_pca", # pca y modelo imput

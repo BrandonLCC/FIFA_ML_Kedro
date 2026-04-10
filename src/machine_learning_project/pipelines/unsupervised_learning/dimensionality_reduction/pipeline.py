@@ -1,9 +1,9 @@
-from kedro.pipeline import Pipeline, node, pipeline
+from kedro.pipeline import Pipeline, Node, pipeline
 from .nodes import aplicar_pca, aplicar_umap
 
 def create_pipeline(**kwargs) -> Pipeline:
     return pipeline([
-        node( 
+        Node( 
             func=aplicar_pca,
             inputs=dict(
                 datos="model_input_table", 
@@ -12,7 +12,7 @@ def create_pipeline(**kwargs) -> Pipeline:
             outputs="pca_output",
             name="pca_node"
         ),
-        node(
+        Node(
             func=aplicar_umap,
             inputs=dict(
                 datos="model_input_table",

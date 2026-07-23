@@ -1,4 +1,4 @@
-# *Proyecto de análisis de Jugadores FIFA 20-23*
+# ***Proyecto de análisis de Jugadores FIFA 20-23***
 
 [![Python](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/)
 [![Kedro](https://img.shields.io/badge/kedro-1.0.0-orange.svg)](https://kedro.org/)
@@ -6,23 +6,23 @@
 
 ![image.png](https://assets.goal.com/images/v3/bltf84864c2d1921a81/Kylian%20Mbappe%20Real%20Madrid%20HIC.jpg?auto=webp&format=pjpg&width=3840&quality=60)
 
-**Colaboradores:** Benjamin Andres Oviedo y Brandon. 
+**Colaboradores:** Benjamin Andres Oviedo y Brandon C. 
 
 **Docente:** Giocrisrai Godoy Bonillo.
 
 ## Introducción 
 
-### Descripción del caso *
+### Descripción del caso y Necesidad del negocio
 
 *[EA Sports FIFA](https://www.ea.com/es-es/games)*, es una saga de videojuegos de fútbol publicada anualmente por *Electronic Arts* bajo el sello de **EA Sports**, en colaboración con la **FIFA**.
 
-### Necesidad del negocio
+¿Qué problema o necesidad tiene la empresa?
 
-La empresa busca **replicar la experiencia del fútbol real**, tanto en la gestión de equipos como en la competencia dentro del campo, ofreciendo realismo gracias a sus licencias oficiales de equipos, jugadores y ligas de todo el mundo. Con la reciente transición a EA Sports FC, el objetivo principal sigue siendo simular el deporte del fútbol y permitir a los jugadores disputar partidos o gestionar un club en diversos modos de juego.
+EA Sports necesita analizar el rendimiento y las características de los jugadores para respaldar la actualización de sus estadísticas, mantener el equilibrio competitivo del juego y ofrecer una experiencia más realista a los usuarios.
 
 ##  Datos obtenidos
 
-El dataset (conjunto de datos) obtenidos para el proyecto es proveniente de [kaggle](https://www.kaggle.com/) en la que se obtuvieron los datasets de FIFA20 hasta FIFA23. En este proyecto se descartaron el uso de los datos de años anteriores al FIFA20.
+El conjunto de datos obtenidos para el proyecto es proveniente de [kaggle](https://www.kaggle.com/) en la que se obtuvieron los datasets de FIFA20 hasta FIFA23. En este proyecto se descartaron el uso de los datos de años anteriores al FIFA20.
 
 ### Acerca de los datos
 
@@ -32,16 +32,21 @@ Contiene más de 17.000 registros con atributos demográficos, características 
 
 ## Objetivos
 
+### Objetivo del negocio
+
+La empresa busca **replicar la experiencia del fútbol real**, tanto en la gestión de equipos como en la competencia dentro del campo, ofreciendo realismo gracias a sus licencias oficiales de equipos, jugadores y ligas de todo el mundo. Con la reciente transición a EA Sports FC, el objetivo principal sigue siendo simular el deporte del fútbol y permitir a los jugadores disputar partidos o gestionar un club en diversos modos de juego.
+
 ### Objetivo del proyecto
 
 El objetivo principal del proyecto es desarrollar e integrar en un sistema funcionalidades basadas en modelos de predicción, aplicando técnicas de machine learning, con el fin de generar análisis y predicciones automáticas sobre el desempeño de los jugadores de FIFA en función de sus características, **contribuyendo a la simulación del fútbol real y al modelado del rendimiento de los jugadores en distintos escenarios de juego**, alineándose con la necesidad de la empresa de ofrecer una experiencia realista y basada en datos.
 
+<!--
 ### Objetivos de Machine Learning *
 
 **Aprendizaje semisupervisado** *
 
 Mejorar los modelos de supervizados utiliando aprendizaje no supervizado para obtener resultados mas preciso para el negocio..
-
+-->
 
 ---
 <!-- TEXTO README hecho por el colaborador
